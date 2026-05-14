@@ -67,10 +67,10 @@ class PlayState extends FlxState
 		{
 			case 0, 3, 6, 9:
 				if (robotState == 0)
-					robotState = 1;
+					robotState = (rngList[2] < 10) ? 1 : 2;
 			case 1, 4, 7, 10:
 				if (robotState == 1)
-					robotState = 2;
+					robotState = (rngList[2] < 10) ? 2 : 1;
 			case 2, 5, 8:
 				if (robotState == 2)
 					robotState = 3; // ur dead lmao
