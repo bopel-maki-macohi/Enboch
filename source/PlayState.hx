@@ -55,10 +55,13 @@ class PlayState extends FlxState
 
 	function resetRSCT()
 	{
-		robotStateChangeTimer = new FlxTimer().start(5, t -> robotStateChangeCheck(), 0);
+		if (robotStateChangeTimer != null) return;
+
+		robotStateChangeTimer = new FlxTimer();
+		robotStateChangeTimer.start(5, robotStateChangeCheck, 0);
 	}
 
-	function robotStateChangeCheck()
+	function robotStateChangeCheck(t:FlxTimer)
 	{
 		switch (rngList[0])
 		{
@@ -83,6 +86,10 @@ class PlayState extends FlxState
 
 	function jumpscare()
 	{
+		robotStateChangeTimer.cancel();
+		robotStateChangeTimer.destroy();
+		robotStateChangeTimer = null;
+
 		trace('u dead');
 		FlxG.resetState();
 	}
