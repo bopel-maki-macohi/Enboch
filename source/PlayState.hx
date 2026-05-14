@@ -67,6 +67,8 @@ class PlayState extends FlxState
 		robotStateChangeCheck(null);
 
 		resetRSCT();
+
+		robotKillTimer = new FlxTimer();
 	}
 
 	function resetRSCT()
