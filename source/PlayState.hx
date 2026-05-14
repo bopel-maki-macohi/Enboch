@@ -33,9 +33,9 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		bg = new FlxSprite(0, 0, 'assets/images/bg.png');
-		robot = new FlxSprite(0, 0, 'assets/images/robot.png');
-		desk = new FlxSprite(0, 0, 'assets/images/desk.png');
+		bg = new FlxSprite(0, 0, Main.assetLibrary.getImagePath('bg'));
+		robot = new FlxSprite(0, 0, Main.assetLibrary.getImagePath('robot'));
+		desk = new FlxSprite(0, 0, Main.assetLibrary.getImagePath('desk'));
 
 		bg.screenCenter();
 		robot.screenCenter();

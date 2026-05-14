@@ -5,9 +5,12 @@ import openfl.display.Sprite;
 
 class Main extends Sprite
 {
+	public static var assetLibrary:AssetLibrary = new AssetLibrary('content');
+
 	public function new()
 	{
 		super();
+
 		addChild(new FlxGame(0, 0, PlayState));
 	}
 }
