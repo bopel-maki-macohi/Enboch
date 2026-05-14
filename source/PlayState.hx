@@ -17,6 +17,10 @@ class PlayState extends FlxState
 		robot = new FlxSprite(0, 0, 'assets/images/robot.png');
 		desk = new FlxSprite(0, 0, 'assets/images/desk.png');
 
+		bg.screenCenter();
+		robot.screenCenter();
+		desk.screenCenter();
+
 		add(bg);
 		add(robot);
 		add(desk);
