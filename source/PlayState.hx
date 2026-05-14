@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.text.FlxText;
@@ -15,8 +16,14 @@ class PlayState extends FlxState
 	var robotState:Int = 0;
 	var robotStateText:FlxText;
 
+	var rngList:Array<Int> = [0, 0, 0];
+
+	function makeRNGList()
+	{
+		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
+	}
+
 	var robotStateChangeTimer:FlxTimer;
-	var robotStateChangeTimerText:FlxText;
 
 	override public function create()
 	{
@@ -35,9 +42,33 @@ class PlayState extends FlxState
 		add(desk);
 
 		add(robotStateText = new FlxText(0, 0, 0, '', 16));
-		add(robotStateChangeTimerText = new FlxText(0, 16, 0, '', 16));
 
-		robotStateChangeTimer = new FlxTimer().start(10, null, 3);
+		makeRNGList();
+
+		resetRSCT();
+	}
+
+	function resetRSCT()
+	{
+		robotStateChangeTimer = new FlxTimer().start(5, t -> robotStateChangeCheck(), 0);
+	}
+
+	function robotStateChangeCheck()
+	{
+		switch (rngList[0])
+		{
+			case 0, 3, 6, 9:
+				if (robotState == 0)
+					robotState = 1;
+			case 1, 4, 7, 10:
+				if (robotState == 1)
+					robotState = 2;
+			case 2, 5, 8:
+				if (robotState == 2)
+					robotState = 3; // ur dead lmao
+		}
+
+		makeRNGList();
 	}
 
 	override public function update(elapsed:Float)
@@ -45,7 +76,5 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		robotStateText.text = '$robotState';
-		robotStateChangeTimerText.text = '${robotStateChangeTimer.timeLeft}';
-
 	}
 }
