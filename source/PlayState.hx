@@ -25,6 +25,7 @@ class PlayState extends FlxState
 	function makeRNGList()
 	{
 		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
+		RNGCodeEncrypt.logEncryptedRNG(rngList);
 	}
 
 	var rngListText:FlxText;
@@ -100,7 +101,7 @@ class PlayState extends FlxState
 			}
 
 		makeRNGList();
-		
+
 		if (robotAssetCache[robotState] != null)
 		{
 			robot.loadGraphic(robotAssetCache[robotState]);
