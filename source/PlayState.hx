@@ -91,7 +91,8 @@ class PlayState extends FlxState
 		robotStateChangeTimer = null;
 
 		trace('u dead');
-		FlxG.resetState();
+		FlxG.switchState(() -> new DeadState());
+		// FlxG.resetState();
 	}
 
 	override public function update(elapsed:Float)
