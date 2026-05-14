@@ -25,6 +25,8 @@ class PlayState extends FlxState
 
 	var robotStateChangeTimer:FlxTimer;
 
+	var robotKillTimer:FlxTimer;
+
 	override public function create()
 	{
 		super.create();
@@ -69,6 +71,17 @@ class PlayState extends FlxState
 		}
 
 		makeRNGList();
+
+		if (robotState == 3)
+		{
+			robotKillTimer.start(rngList[1], t -> jumpscare());
+		}
+	}
+
+	function jumpscare()
+	{
+		trace('u dead');
+		FlxG.resetState();
 	}
 
 	override public function update(elapsed:Float)
