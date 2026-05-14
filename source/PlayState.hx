@@ -65,8 +65,10 @@ class PlayState extends FlxState
 		add(robot);
 		add(desk);
 
+		#if debug
 		add(robotStateText = new FlxText(0, 0, 0, '', 16));
 		add(rngListText = new FlxText(0, 16, 0, '', 16));
+		#end
 
 		robotStateChangeCheck(null);
 
@@ -127,8 +129,9 @@ class PlayState extends FlxState
 	{
 		super.update(elapsed);
 
+		#if debug
 		robotStateText.text = '$robotState';
-
 		rngListText.text = '${encryptedRng.join('')}';
+		#end
 	}
 }
