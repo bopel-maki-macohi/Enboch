@@ -14,6 +14,9 @@ class PlayState extends FlxState
 	var robotState:Int = 0;
 	var robotStateText:FlxText;
 
+	var robotStateChangeTimer:Int = 0;
+	var robotStateChangeTimerText:FlxText;
+
 	override public function create()
 	{
 		super.create();
@@ -30,8 +33,8 @@ class PlayState extends FlxState
 		add(robot);
 		add(desk);
 
-		robotStateText = new FlxText();
-		add(robotStateText);
+		add(robotStateText = new FlxText(0, 0, 0, '', 16));
+		add(robotStateChangeTimerText = new FlxText(0, 16, 0, '', 16));
 	}
 
 	override public function update(elapsed:Float)
@@ -39,7 +42,11 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		robotStateText.text = '$robotState';
+		robotStateChangeTimerText.text = '$robotStateChangeTimer';
 
-		robotState = FlxG.random.int(0, 5);
+		robotStateChangeTimer -= 1;
+
+		if (robotStateChangeTimer < 0)
+			robotStateChangeTimer = 30 * 100;
 	}
 }
