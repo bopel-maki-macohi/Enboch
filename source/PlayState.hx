@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
@@ -14,7 +15,7 @@ class PlayState extends FlxState
 	var robotState:Int = 0;
 	var robotStateText:FlxText;
 
-	var robotStateChangeTimer:Int = 0;
+	var robotStateChangeTimer:FlxTimer;
 	var robotStateChangeTimerText:FlxText;
 
 	override public function create()
@@ -35,6 +36,8 @@ class PlayState extends FlxState
 
 		add(robotStateText = new FlxText(0, 0, 0, '', 16));
 		add(robotStateChangeTimerText = new FlxText(0, 16, 0, '', 16));
+
+		robotStateChangeTimer = new FlxTimer().start(10, null, 3);
 	}
 
 	override public function update(elapsed:Float)
@@ -42,11 +45,7 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		robotStateText.text = '$robotState';
-		robotStateChangeTimerText.text = '$robotStateChangeTimer';
+		robotStateChangeTimerText.text = '${robotStateChangeTimer.timeLeft}';
 
-		robotStateChangeTimer -= 1;
-
-		if (robotStateChangeTimer < 0)
-			robotStateChangeTimer = 30 * 100;
 	}
 }
