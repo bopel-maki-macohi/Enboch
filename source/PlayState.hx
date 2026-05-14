@@ -93,17 +93,14 @@ class PlayState extends FlxState
 						robotState = (rngList[2] < 10) ? 2 : 1;
 				case 2, 5, 8:
 					if (robotState == 2)
+					{
 						robotState = 3; // ur dead lmao
+						robotKillTimer.start(rngList[1], jumpscare);
+					}
 			}
 
 		makeRNGList();
-
-		if (t != null)
-			if (robotState == 3)
-			{
-				robotKillTimer.start(rngList[1], jumpscare);
-			}
-
+		
 		if (robotAssetCache[robotState] != null)
 		{
 			robot.loadGraphic(robotAssetCache[robotState]);
