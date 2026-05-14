@@ -38,6 +38,7 @@ class PlayState extends FlxState
 		super.create();
 
 		robotAssetCache = [
+			FlxG.bitmap.add('robot-0'.getPath('robotImage')),
 			FlxG.bitmap.add('robot-1'.getPath('robotImage')),
 			FlxG.bitmap.add('robot-2'.getPath('robotImage')),
 			FlxG.bitmap.add('robot-3'.getPath('robotImage')),
@@ -101,7 +102,7 @@ class PlayState extends FlxState
 				robotKillTimer.start(rngList[1], jumpscare);
 			}
 
-		robot.loadGraphic(robotAssetCache[robotState - 1]);
+		robot.loadGraphic(robotAssetCache[robotState]);
 		robot.screenCenter();
 	}
 
