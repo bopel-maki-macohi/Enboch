@@ -1,1 +1,1 @@
-git push public main
+git push origin main
