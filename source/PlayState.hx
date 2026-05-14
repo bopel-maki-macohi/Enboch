@@ -21,11 +21,13 @@ class PlayState extends FlxState
 	var robotStateText:FlxText;
 
 	var rngList:Array<Int> = [0, 0, 0];
+	var encryptedRng:Array<String> = RNGCodeEncrypt.encrypt([0, 0, 0]);
 
 	function makeRNGList()
 	{
 		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
-		RNGCodeEncrypt.logEncryptedRNG(rngList);
+		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
+		trace('new rng: ${(#if debug rngList #else encryptedRng #end).join('')}');
 	}
 
 	var rngListText:FlxText;
@@ -126,6 +128,6 @@ class PlayState extends FlxState
 
 		robotStateText.text = '$robotState';
 
-		rngListText.text = '${rngList}';
+		rngListText.text = '${encryptedRng.join('')}';
 	}
 }
