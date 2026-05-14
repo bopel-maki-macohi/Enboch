@@ -1,1 +1,1 @@
-git push public stable
+git push public privateStable
