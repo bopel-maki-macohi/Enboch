@@ -23,6 +23,8 @@ class PlayState extends FlxState
 		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
 	}
 
+	var rngListText:FlxText;
+
 	var robotStateChangeTimer:FlxTimer;
 
 	var robotKillTimer:FlxTimer;
@@ -44,6 +46,7 @@ class PlayState extends FlxState
 		add(desk);
 
 		add(robotStateText = new FlxText(0, 0, 0, '', 16));
+		add(rngListText = new FlxText(0, 16, 0, '', 16));
 
 		makeRNGList();
 
@@ -89,5 +92,7 @@ class PlayState extends FlxState
 		super.update(elapsed);
 
 		robotStateText.text = '$robotState';
+
+		rngListText.text = '${rngList}';
 	}
 }
