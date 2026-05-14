@@ -98,14 +98,14 @@ class PlayState extends FlxState
 		if (t != null)
 			if (robotState == 3)
 			{
-				robotKillTimer.start(rngList[1], t -> jumpscare());
+				robotKillTimer.start(rngList[1], jumpscare);
 			}
 
 		robot.loadGraphic(robotAssetCache[robotState - 1]);
 		robot.screenCenter();
 	}
 
-	function jumpscare()
+	function jumpscare(t:FlxTimer)
 	{
 		robotStateChangeTimer.cancel();
 		robotStateChangeTimer.destroy();
