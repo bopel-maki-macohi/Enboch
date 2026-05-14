@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxState;
 
@@ -13,4 +14,11 @@ class DeadState extends FlxState
 		add(text);
 		text.screenCenter();
 	}
+
+    override function update(elapsed:Float) {
+        super.update(elapsed);
+
+        if (FlxG.keys.justReleased.ENTER)
+            FlxG.switchState(() -> new PlayState());
+    }
 }
