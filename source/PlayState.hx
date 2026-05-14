@@ -104,8 +104,11 @@ class PlayState extends FlxState
 				robotKillTimer.start(rngList[1], jumpscare);
 			}
 
-		robot.loadGraphic(robotAssetCache[robotState]);
-		robot.screenCenter();
+		if (robotAssetCache[robotState] != null)
+		{
+			robot.loadGraphic(robotAssetCache[robotState]);
+			robot.screenCenter();
+		}
 	}
 
 	function jumpscare(t:FlxTimer)
