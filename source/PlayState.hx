@@ -13,6 +13,7 @@ class PlayState extends FlxState
 	var bg:FlxSprite;
 
 	var robot:FlxSprite;
+	var robo:String = 'blank';
 	var robotAssetCache:Array<FlxGraphic> = [];
 
 	var desk:FlxSprite;
@@ -41,10 +42,10 @@ class PlayState extends FlxState
 		super.create();
 
 		robotAssetCache = [
-			FlxG.bitmap.add('robot-0'.getPath('robotImage')),
-			FlxG.bitmap.add('robot-1'.getPath('robotImage')),
-			FlxG.bitmap.add('robot-2'.getPath('robotImage')),
-			FlxG.bitmap.add('robot-3'.getPath('robotImage')),
+			FlxG.bitmap.add('$robo/$robo-0'.getPath('robotImage')),
+			FlxG.bitmap.add('$robo/$robo-1'.getPath('robotImage')),
+			FlxG.bitmap.add('$robo/$robo-2'.getPath('robotImage')),
+			FlxG.bitmap.add('$robo/$robo-3'.getPath('robotImage')),
 		];
 
 		for (asset in robotAssetCache)
