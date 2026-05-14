@@ -3,7 +3,7 @@ class RNGCodeEncrypt
 	static var numberEncoding:Map<Int, String> = [
 		0 => 'z', // Zero
 		1 => 'o', // One
-		2 => 't', // Two
+		2 => 'w', // tWo
 		3 => 'h', // tHree
 		4 => 'f', // Four
 		5 => 'i', // fIve
