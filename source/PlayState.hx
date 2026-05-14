@@ -33,9 +33,9 @@ class PlayState extends FlxState
 	{
 		super.create();
 
-		bg = new FlxSprite(0, 0, 'bg'.getPath('image'));
-		robot = new FlxSprite(0, 0, 'robot'.getPath('image'));
-		desk = new FlxSprite(0, 0, 'desk'.getPath('image'));
+		bg = new FlxSprite(0, 0, 'bg'.getPath(image));
+		robot = new FlxSprite(0, 0, 'robot'.getPath(image));
+		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
 
 		bg.screenCenter();
 		robot.screenCenter();
@@ -55,7 +55,8 @@ class PlayState extends FlxState
 
 	function resetRSCT()
 	{
-		if (robotStateChangeTimer != null) return;
+		if (robotStateChangeTimer != null)
+			return;
 
 		robotStateChangeTimer = new FlxTimer();
 		robotStateChangeTimer.start(5, robotStateChangeCheck, 0);
