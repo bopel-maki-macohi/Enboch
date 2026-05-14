@@ -19,6 +19,6 @@ class AssetLibrary
 		if (typeExt != '')
 			typeExt = '.$typeExt';
 
-		return '$folder/$typeFolder$path$typeFolder';
+		return '$folder/$typeFolder$path$typeExt';
 	}
 }
