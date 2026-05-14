@@ -28,7 +28,6 @@ class PlayState extends FlxState
 	{
 		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
-		trace('new rng: ${(#if debug rngList #else encryptedRng #end).join('')}');
 	}
 
 	var rngListText:FlxText;
