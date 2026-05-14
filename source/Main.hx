@@ -5,11 +5,11 @@ import openfl.display.Sprite;
 
 class Main extends Sprite
 {
-	public static var assetLibrary:AssetLibrary = new AssetLibrary('content');
-
 	public function new()
 	{
 		super();
+
+		AssetLibrary.addPathType('image', '', 'png');
 
 		addChild(new FlxGame(0, 0, PlayState));
 	}
