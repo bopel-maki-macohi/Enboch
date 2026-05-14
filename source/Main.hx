@@ -9,6 +9,8 @@ class Main extends Sprite
 	{
 		super();
 
+		AssetLibrary.addPathType('robotImage', 'robot', 'png');
+
 		addChild(new FlxGame(0, 0, PlayState));
 	}
 }

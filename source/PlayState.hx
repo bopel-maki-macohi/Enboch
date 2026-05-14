@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.FlxGraphic;
 import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
@@ -10,7 +11,10 @@ import flixel.FlxState;
 class PlayState extends FlxState
 {
 	var bg:FlxSprite;
+
 	var robot:FlxSprite;
+	var robotAssetCache:Array<FlxGraphic> = [];
+
 	var desk:FlxSprite;
 
 	var robotState:Int = 0;
@@ -33,12 +37,23 @@ class PlayState extends FlxState
 	{
 		super.create();
 
+		robotAssetCache = [
+			FlxG.bitmap.add('robot-1'.getPath('robotImage')),
+			FlxG.bitmap.add('robot-2'.getPath('robotImage')),
+			FlxG.bitmap.add('robot-3'.getPath('robotImage')),
+		];
+
+		for (asset in robotAssetCache)
+		{
+			if (asset == null)
+				robotAssetCache.remove(asset);
+		}
+
 		bg = new FlxSprite(0, 0, 'bg'.getPath(image));
-		robot = new FlxSprite(0, 0, 'robot'.getPath(image));
+		robot = new FlxSprite(0, 0);
 		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
 
 		bg.screenCenter();
-		robot.screenCenter();
 		desk.screenCenter();
 
 		add(bg);
@@ -48,7 +63,7 @@ class PlayState extends FlxState
 		add(robotStateText = new FlxText(0, 0, 0, '', 16));
 		add(rngListText = new FlxText(0, 16, 0, '', 16));
 
-		makeRNGList();
+		robotStateChangeCheck(null);
 
 		resetRSCT();
 	}
@@ -64,25 +79,30 @@ class PlayState extends FlxState
 
 	function robotStateChangeCheck(t:FlxTimer)
 	{
-		switch (rngList[0])
-		{
-			case 0, 3, 6, 9:
-				if (robotState == 0)
-					robotState = (rngList[2] < 10) ? 1 : 2;
-			case 1, 4, 7, 10:
-				if (robotState == 1)
-					robotState = (rngList[2] < 10) ? 2 : 1;
-			case 2, 5, 8:
-				if (robotState == 2)
-					robotState = 3; // ur dead lmao
-		}
+		if (t != null)
+			switch (rngList[0])
+			{
+				case 0, 3, 6, 9:
+					if (robotState == 0)
+						robotState = (rngList[2] < 10) ? 1 : 2;
+				case 1, 4, 7, 10:
+					if (robotState == 1)
+						robotState = (rngList[2] < 10) ? 2 : 1;
+				case 2, 5, 8:
+					if (robotState == 2)
+						robotState = 3; // ur dead lmao
+			}
 
 		makeRNGList();
 
-		if (robotState == 3)
-		{
-			robotKillTimer.start(rngList[1], t -> jumpscare());
-		}
+		if (t != null)
+			if (robotState == 3)
+			{
+				robotKillTimer.start(rngList[1], t -> jumpscare());
+			}
+
+		robot.loadGraphic(robotAssetCache[robotState - 1]);
+		robot.screenCenter();
 	}
 
 	function jumpscare()
