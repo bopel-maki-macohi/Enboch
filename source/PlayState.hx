@@ -1,5 +1,7 @@
 package;
 
+import flixel.FlxG;
+import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
@@ -8,6 +10,9 @@ class PlayState extends FlxState
 	var bg:FlxSprite;
 	var robot:FlxSprite;
 	var desk:FlxSprite;
+
+	var robotState:Int = 0;
+	var robotStateText:FlxText;
 
 	override public function create()
 	{
@@ -24,10 +29,17 @@ class PlayState extends FlxState
 		add(bg);
 		add(robot);
 		add(desk);
+
+		robotStateText = new FlxText();
+		add(robotStateText);
 	}
 
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		robotStateText.text = '$robotState';
+
+		robotState = FlxG.random.int(0, 5);
 	}
 }
