@@ -11,6 +11,8 @@ class Main extends Sprite
 
 		AssetLibrary.addPathType('robotImage', 'robot', 'png');
 
+		Paycheck.load();
+
 		addChild(new FlxGame(0, 0, PlayState));
 	}
 }
