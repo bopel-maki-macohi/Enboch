@@ -60,7 +60,7 @@ class PlayState extends EnboState
 
 		light = new FlxSprite(0, 0, 'bg'.getPath(image));
 		robot = new FlxSprite(0, 0);
-		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
+		desk = new FlxSprite(0, 0, 'light'.getPath(image));
 
 		light.screenCenter();
 		desk.screenCenter();
