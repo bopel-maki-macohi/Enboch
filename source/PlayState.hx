@@ -30,7 +30,7 @@ class PlayState extends EnboState
 
 	function makeRNGList()
 	{
-		rngList = RNGUtil.generateRNGList(5);
+		rngList = RNGUtil.generateRNGList(4);
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
 	}
 
@@ -160,7 +160,7 @@ class PlayState extends EnboState
 			itemAbuseCounter++;
 			return;
 		}
-		else if (itemAbuseCounter > 1 && rngList[4] == 10)
+		else if (itemAbuseCounter > 1 && rngList[3] == 10)
 			itemAbuseCounter--;
 	}
 }
