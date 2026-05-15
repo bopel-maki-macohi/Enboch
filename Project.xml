@@ -41,7 +41,7 @@
 	
 	<haxelib name="hxvlc" if="desktop" unless="hl"/>
 	
-	<section if="debug">
+	<section if="hxvlc debug">
 		<haxedef name="HXVLC_VERBOSE" value="4" />
 		<haxedef name="HXVLC_SHOW_LOG_TYPE" />
 		<haxedef name="HXVLC_LOGGING" />
