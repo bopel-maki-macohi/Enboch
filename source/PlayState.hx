@@ -30,6 +30,11 @@ class PlayState extends EnboState
 	function makeRNGList()
 	{
 		rngList = RNGUtil.generateRNGList(5);
+		updateRNGEncryption();
+	}
+
+	function updateRNGEncryption()
+	{
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
 	}
 
@@ -185,8 +190,14 @@ class PlayState extends EnboState
 	{
 		var itemRNG = RNGUtil.generateRNGList(2);
 
+		// trace(rngList);
+
 		rngList[3] = itemRNG[0];
 		rngList[4] = itemRNG[1];
+
+		// trace(rngList);
+
+		updateRNGEncryption();
 	}
 
 	function useItem()
