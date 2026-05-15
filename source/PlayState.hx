@@ -202,9 +202,12 @@ class PlayState extends EnboState
 
 	function useItem()
 	{
+		if (charState > 2)
+			return;
+
 		if (charState < 1)
 		{
-			if (rngList[3] < 6)
+			if (rngList[3] < 2)
 				itemAbuseCounter++;
 			updateItemRNG();
 
