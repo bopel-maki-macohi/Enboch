@@ -30,7 +30,7 @@ class PlayState extends EnboState
 
 	function makeRNGList()
 	{
-		rngList = RNGUtil.generateRNGList(4);
+		rngList = RNGUtil.generateRNGList(5);
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
 	}
 
@@ -102,6 +102,10 @@ class PlayState extends EnboState
 						charState = 3; // ur dead lmao
 						killTmr.start(rngList[1], jumpscare);
 					}
+
+				case -1:
+					if (charState > 0)
+						charState--;
 			}
 		}
 
@@ -114,9 +118,7 @@ class PlayState extends EnboState
 				charSpr.loadGraphic(charAssetsList[charState]);
 				charSpr.screenCenter();
 
-				charSpr.alpha = 0;
-				FlxTween.cancelTweensOf(charSpr);
-				FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+				characterFlash();
 			}
 
 			if (itemAssetsList[charState] != null)
@@ -125,6 +127,15 @@ class PlayState extends EnboState
 				itemSpr.screenCenter();
 			}
 		}
+
+		t.reset();
+	}
+
+	function characterFlash()
+	{
+		charSpr.alpha = 0;
+		FlxTween.cancelTweensOf(charSpr);
+		FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
 	}
 
 	function jumpscare(t:FlxTimer)
@@ -147,7 +158,7 @@ class PlayState extends EnboState
 		rngListText.text = '${encryptedRng.join('')}';
 		#end
 
-		if (FlxG.mouse.justPressed)
+		if (FlxG.mouse.justPressed && charSpr.alpha == 1)
 			useItem();
 	}
 
@@ -160,7 +171,16 @@ class PlayState extends EnboState
 			itemAbuseCounter++;
 			return;
 		}
-		else if (itemAbuseCounter > 1 && rngList[3] == 10)
-			itemAbuseCounter--;
+
+		if (rngList[4] < 2)
+		{
+			characterFlash();
+
+			if (itemAbuseCounter > 1 && rngList[3] == 10)
+				itemAbuseCounter--;
+
+			rngList[0] = -1;
+			stateChangeCheck(stateChangeTmr);
+		}
 	}
 }
