@@ -35,7 +35,7 @@
 	<source path="source" />
 	
 	<assets path="content" exclude="*.ogg" if="web"/>
-	<assets path="content" exclude="*.web" unless="web"/>
+	<assets path="content" exclude="*.mp3" unless="web"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
