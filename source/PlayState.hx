@@ -1,5 +1,8 @@
 package;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.effects.FlxFlicker;
 import utilShitsie.EnboState;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxTimer;
@@ -9,7 +12,7 @@ import flixel.FlxSprite;
 
 class PlayState extends EnboState
 {
-	var character:FlxSprite;
+	var charSpr:FlxSprite;
 	var char:String = 'drowned';
 
 	var charAssetsList:Array<FlxGraphic> = [];
@@ -52,10 +55,10 @@ class PlayState extends EnboState
 				charAssetsList.remove(asset);
 		}
 
-		character = new FlxSprite(0, 0);
+		charSpr = new FlxSprite(0, 0);
 
 		addMultiple([
-			character,
+			charSpr,
 
 			#if debug
 			charStateTXT = new FlxText(0, 0, 0, '', 16), //
@@ -81,7 +84,10 @@ class PlayState extends EnboState
 
 	function stateChangeCheck(t:FlxTimer)
 	{
+		var prevState:Int = charState;
+
 		if (t != null)
+		{
 			switch (rngList[0])
 			{
 				case 0, 3, 6, 9:
@@ -97,13 +103,21 @@ class PlayState extends EnboState
 						killTmr.start(rngList[1], jumpscare);
 					}
 			}
+		}
 
 		makeRNGList();
 
 		if (charAssetsList[charState] != null)
 		{
-			character.loadGraphic(charAssetsList[charState]);
-			character.screenCenter();
+			charSpr.loadGraphic(charAssetsList[charState]);
+			charSpr.screenCenter();
+
+			if (charState != prevState)
+			{
+				charSpr.alpha = 0;
+				FlxTween.cancelTweensOf(charSpr);
+				FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+			}
 		}
 	}
 
