@@ -122,7 +122,7 @@ class PlayState extends EnboState
 					if (charState == 2)
 					{
 						charState = 3; // ur dead lmao
-						killTmr.start(rngList[1], jumpscare);
+						killTmr.start(3 + rngList[1], jumpscare);
 					}
 
 				case -1:
