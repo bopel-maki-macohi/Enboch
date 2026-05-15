@@ -46,9 +46,6 @@ class Paycheck
 	{
 		var paycheck = Math.round(100 * percentage);
 
-		#if debug
-		trace('Payed ${'$' + paycheck}');
-		#end
 		totalPay += paycheck;
 	}
 }
