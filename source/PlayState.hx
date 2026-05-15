@@ -54,18 +54,6 @@ class PlayState extends EnboState
 			itemAssetsList.push(FlxG.bitmap.add('$char/item-$i'.getPath(image)));
 		}
 
-		for (asset in charAssetsList)
-		{
-			if (asset == null)
-				charAssetsList.remove(asset);
-		}
-
-		for (asset in itemAssetsList)
-		{
-			if (asset == null)
-				itemAssetsList.remove(asset);
-		}
-
 		charSpr = new FlxSprite(0, 0);
 		itemSpr = new FlxSprite(0, 0);
 
