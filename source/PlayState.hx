@@ -58,9 +58,9 @@ class PlayState extends EnboState
 				robotAssetCache.remove(asset);
 		}
 
-		light = new FlxSprite(0, 0, 'bg'.getPath(image));
+		light = new FlxSprite(0, 0, 'desk'.getPath(image));
 		robot = new FlxSprite(0, 0);
-		desk = new FlxSprite(0, 0, 'light'.getPath(image));
+		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
 
 		light.screenCenter();
 		desk.screenCenter();
@@ -141,8 +141,6 @@ class PlayState extends EnboState
 		#end
 
 		light.alpha = FlxMath.lerp(light.alpha, 0, FlxG.random.float(0, 0.04 * light.alpha));
-
-		if (rngList[3] < 3)
-			light.alpha += .5;
+		light.alpha += rngList[3] / 10;
 	}
 }
