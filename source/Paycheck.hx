@@ -27,9 +27,9 @@ class Paycheck
 		FlxG.stage.application.onExit.add(i ->
 		{
 			save();
-		});
+		}, false, 1000);
 
-        trace(game);
+		trace(game);
 	}
 
 	public static function save()
@@ -39,10 +39,16 @@ class Paycheck
 		};
 
 		FlxG.save.data.game = game;
+		trace(game);
 	}
 
 	public static function getPayed(percentage:Float = 1)
 	{
-		totalPay += Math.round(100 * percentage);
+		var paycheck = Math.round(100 * percentage);
+
+		#if debug
+		trace('Payed ${'$' + paycheck}');
+		#end
+		totalPay += paycheck;
 	}
 }

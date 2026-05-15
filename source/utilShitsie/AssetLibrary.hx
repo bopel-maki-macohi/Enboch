@@ -1,3 +1,5 @@
+package utilShitsie;
+
 import flixel.util.typeLimit.OneOfTwo;
 
 class AssetLibrary

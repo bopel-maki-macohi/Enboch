@@ -1,3 +1,5 @@
+package utilShitsie;
+
 class RNGCodeEncrypt
 {
 	static var numberEncoding:Map<Int, String> = [

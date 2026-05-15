@@ -35,7 +35,7 @@ class PlayState extends EnboState
 
 	function updateRNGEncryption()
 	{
-		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
+		encryptedRng = utilShitsie.RNGCodeEncrypt.encrypt(rngList);
 	}
 
 	var stateChangeTmr:FlxTimer;
@@ -151,7 +151,14 @@ class PlayState extends EnboState
 		}
 
 		if (t != null)
+		{
 			t.reset();
+
+			if (charState < 3 && (t.elapsedLoops % 2 == 0))
+				Paycheck.getPayed(((4 - charState) / 4));
+		}
+
+		// trace(((4 - charState) / 4));
 	}
 
 	function characterFlash()
@@ -177,7 +184,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n$itemAbuseCounter';
+		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n$itemAbuseCounter\n${Paycheck.totalPay}';
 		#end
 
 		if (FlxG.mouse.justPressed && charSpr.alpha == 1)
