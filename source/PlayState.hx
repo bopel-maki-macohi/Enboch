@@ -201,19 +201,18 @@ class PlayState extends EnboState
 			return;
 		}
 
-		if (rngList[4] < 2)
-		{
-			characterFlash();
-
-			if (itemAbuseCounter > 1 && rngList[3] == 10)
-				itemAbuseCounter--;
-
-			rngList[0] = -1;
-			stateChangeCheck(stateChangeTmr);
-		}
-		else
+		if (rngList[4] < 8)
 		{
 			updateItemRNG();
+			return;
 		}
+
+		characterFlash();
+
+		if (itemAbuseCounter > 1 && rngList[3] == 10)
+			itemAbuseCounter--;
+
+		rngList[0] = -1;
+		stateChangeCheck(stateChangeTmr);
 	}
 }
