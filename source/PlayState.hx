@@ -220,9 +220,5 @@ class PlayState extends EnboState
 
 		rngList[0] = -1;
 		stateChangeCheck(stateChangeTmr);
-
-		FlxTween.cancelTweensOf(itemSpr);
-		itemSpr.y = 0;
-		FlxTween.tween(itemSpr, {y: -32}, .1, {type: PINGPONG});
 	}
 }
