@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.RNGUtil;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.effects.FlxFlicker;
@@ -29,12 +30,7 @@ class PlayState extends EnboState
 
 	function makeRNGList()
 	{
-		rngList = [
-			FlxG.random.int(0, 10),
-			FlxG.random.int(0, 10),
-			FlxG.random.int(0, 10),
-			FlxG.random.int(0, 10),
-		];
+		rngList = RNGUtil.generateRNGList(5);
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
 	}
 
@@ -150,5 +146,21 @@ class PlayState extends EnboState
 		charStateTXT.text = '$charState';
 		rngListText.text = '${encryptedRng.join('')}';
 		#end
+
+		if (FlxG.mouse.justPressed)
+			useItem();
+	}
+
+	var itemAbuseCounter:Int = 0;
+
+	function useItem()
+	{
+		if (charState < 1)
+		{
+			itemAbuseCounter++;
+			return;
+		}
+		else if (itemAbuseCounter > 1 && rngList[4] == 10)
+			itemAbuseCounter--;
 	}
 }
