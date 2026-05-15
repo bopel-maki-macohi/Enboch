@@ -13,8 +13,6 @@ class Main extends Sprite
 	{
 		super();
 
-		AssetLibrary.addPathType('robotImage', 'robot', 'png');
-
 		Paycheck.load();
 
 		trace('Git Branch: $gitBranch');

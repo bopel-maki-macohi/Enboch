@@ -1,6 +1,5 @@
 package;
 
-import flixel.math.FlxMath;
 import utilShitsie.EnboState;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxTimer;
@@ -10,14 +9,16 @@ import flixel.FlxSprite;
 
 class PlayState extends EnboState
 {
-	var robot:FlxSprite;
-	var robo:String = 'blank';
-	var robotAssetCache:Array<FlxGraphic> = [];
+	var character:FlxSprite;
+	var char:String = 'drowned';
 
-	var robotState:Int = 0;
-	var robotStateText:FlxText;
+	var charAssetsList:Array<FlxGraphic> = [];
+
+	var charState:Int = 0;
+	var charStateTXT:FlxText;
 
 	var rngList:Array<Int> = [];
+	var rngListText:FlxText;
 	var encryptedRng:Array<String> = [];
 
 	function makeRNGList()
@@ -29,93 +30,88 @@ class PlayState extends EnboState
 			FlxG.random.int(0, 10),
 		];
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
-
-		light.alpha = rngList[3] / 10;
 	}
 
-	var rngListText:FlxText;
-
-	var robotStateChangeTimer:FlxTimer;
-
-	var robotKillTimer:FlxTimer;
+	var stateChangeTmr:FlxTimer;
+	var killTmr:FlxTimer;
 
 	override public function create()
 	{
 		super.create();
 
-		robotAssetCache = [
-			FlxG.bitmap.add('$robo/$robo-0'.getPath('robotImage')),
-			FlxG.bitmap.add('$robo/$robo-1'.getPath('robotImage')),
-			FlxG.bitmap.add('$robo/$robo-2'.getPath('robotImage')),
-			FlxG.bitmap.add('$robo/$robo-3'.getPath('robotImage')),
+		charAssetsList = [
+			FlxG.bitmap.add('$char/$char-0'.getPath(image)),
+			FlxG.bitmap.add('$char/$char-1'.getPath(image)),
+			FlxG.bitmap.add('$char/$char-2'.getPath(image)),
+			FlxG.bitmap.add('$char/$char-3'.getPath(image)),
 		];
 
-		for (asset in robotAssetCache)
+		for (asset in charAssetsList)
 		{
 			if (asset == null)
-				robotAssetCache.remove(asset);
+				charAssetsList.remove(asset);
 		}
 
-		robot = new FlxSprite(0, 0);
+		character = new FlxSprite(0, 0);
 
 		addMultiple([
-			robot,
+			character,
 
 			#if debug
-			robotStateText = new FlxText(0, 0, 0, '', 16), //
+			charStateTXT = new FlxText(0, 0, 0, '', 16), //
 			rngListText = new FlxText(0, 16, 0, '', 16),
 			#end
 		]);
 
-		robotStateChangeCheck(null);
+		stateChangeCheck(null);
 
 		resetRSCT();
 
-		robotKillTimer = new FlxTimer();
+		killTmr = new FlxTimer();
 	}
 
 	function resetRSCT()
 	{
-		if (robotStateChangeTimer != null)
+		if (stateChangeTmr != null)
 			return;
 
-		robotStateChangeTimer = new FlxTimer();
-		robotStateChangeTimer.start(5, robotStateChangeCheck, 0);
+		stateChangeTmr = new FlxTimer();
+		stateChangeTmr.start(5, stateChangeCheck, 0);
 	}
 
-	function robotStateChangeCheck(t:FlxTimer)
+	function stateChangeCheck(t:FlxTimer)
 	{
 		if (t != null)
 			switch (rngList[0])
 			{
 				case 0, 3, 6, 9:
-					if (robotState == 0)
-						robotState = (rngList[2] < 10) ? 1 : 2;
+					if (charState == 0)
+						charState = (rngList[2] < 10) ? 1 : 2;
 				case 1, 4, 7, 10:
-					if (robotState == 1)
-						robotState = (rngList[2] < 10) ? 2 : 1;
+					if (charState == 1)
+						charState = (rngList[2] < 10) ? 2 : 1;
 				case 2, 5, 8:
-					if (robotState == 2)
+					if (charState == 2)
 					{
-						robotState = 3; // ur dead lmao
-						robotKillTimer.start(rngList[1], jumpscare);
+						charState = 3; // ur dead lmao
+						killTmr.start(rngList[1], jumpscare);
 					}
 			}
 
 		makeRNGList();
 
-		if (robotAssetCache[robotState] != null)
+		if (charAssetsList[charState] != null)
 		{
-			robot.loadGraphic(robotAssetCache[robotState]);
-			robot.screenCenter();
+			character.loadGraphic(charAssetsList[charState]);
+			character.screenCenter();
 		}
 	}
 
 	function jumpscare(t:FlxTimer)
 	{
-		robotStateChangeTimer.cancel();
-		robotStateChangeTimer.destroy();
-		robotStateChangeTimer = null;
+		stateChangeTmr.cancel();
+		stateChangeTmr.destroy();
+		stateChangeTmr = null;
 
 		trace('u dead');
 		FlxG.switchState(() -> new DeadState());
@@ -127,7 +123,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		robotStateText.text = '$robotState';
+		charStateTXT.text = '$charState';
 		rngListText.text = '${encryptedRng.join('')}';
 		#end
 	}
