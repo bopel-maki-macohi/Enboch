@@ -1,5 +1,6 @@
 package;
 
+import flixel.math.FlxMath;
 import utilShitsie.EnboState;
 import flixel.graphics.FlxGraphic;
 import flixel.util.FlxTimer;
@@ -9,7 +10,7 @@ import flixel.FlxSprite;
 
 class PlayState extends EnboState
 {
-	var bg:FlxSprite;
+	var light:FlxSprite;
 
 	var robot:FlxSprite;
 	var robo:String = 'blank';
@@ -20,12 +21,17 @@ class PlayState extends EnboState
 	var robotState:Int = 0;
 	var robotStateText:FlxText;
 
-	var rngList:Array<Int> = [0, 0, 0];
-	var encryptedRng:Array<String> = RNGCodeEncrypt.encrypt([0, 0, 0]);
+	var rngList:Array<Int> = [];
+	var encryptedRng:Array<String> = [];
 
 	function makeRNGList()
 	{
-		rngList = [FlxG.random.int(0, 10), FlxG.random.int(0, 10), FlxG.random.int(0, 10)];
+		rngList = [
+			FlxG.random.int(0, 10),
+			FlxG.random.int(0, 10),
+			FlxG.random.int(0, 10),
+			FlxG.random.int(0, 10),
+		];
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
 	}
 
@@ -52,17 +58,17 @@ class PlayState extends EnboState
 				robotAssetCache.remove(asset);
 		}
 
-		bg = new FlxSprite(0, 0, 'bg'.getPath(image));
+		light = new FlxSprite(0, 0, 'bg'.getPath(image));
 		robot = new FlxSprite(0, 0);
 		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
 
-		bg.screenCenter();
+		light.screenCenter();
 		desk.screenCenter();
 
 		addMultiple([
-			bg,
 			robot,
 			desk,
+			light,
 
 			#if debug
 			robotStateText = new FlxText(0, 0, 0, '', 16), //
@@ -133,5 +139,10 @@ class PlayState extends EnboState
 		robotStateText.text = '$robotState';
 		rngListText.text = '${encryptedRng.join('')}';
 		#end
+
+		light.alpha = FlxMath.lerp(light.alpha, 0, FlxG.random.float(0, 0.04 * light.alpha));
+
+		if (rngList[3] < 3)
+			light.alpha += .5;
 	}
 }
