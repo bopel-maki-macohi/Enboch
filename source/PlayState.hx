@@ -20,6 +20,9 @@ class PlayState extends EnboState
 	var charState:Int = -1;
 	var charStateTXT:FlxText;
 
+	var itemSpr:FlxSprite;
+	var itemAssetsList:Array<FlxGraphic> = [];
+
 	var rngList:Array<Int> = [];
 	var rngListText:FlxText;
 	var encryptedRng:Array<String> = [];
@@ -43,9 +46,13 @@ class PlayState extends EnboState
 		super.create();
 
 		charAssetsList = [];
+		itemAssetsList = [];
 
 		for (i in 0...4)
+		{
 			charAssetsList.push(FlxG.bitmap.add('$char/phase$i'.getPath(image)));
+			itemAssetsList.push(FlxG.bitmap.add('$char/item-$i'.getPath(image)));
+		}
 
 		for (asset in charAssetsList)
 		{
@@ -53,10 +60,18 @@ class PlayState extends EnboState
 				charAssetsList.remove(asset);
 		}
 
+		for (asset in itemAssetsList)
+		{
+			if (asset == null)
+				itemAssetsList.remove(asset);
+		}
+
 		charSpr = new FlxSprite(0, 0);
+		itemSpr = new FlxSprite(0, 0);
 
 		addMultiple([
 			charSpr,
+			itemSpr,
 
 			#if debug
 			charStateTXT = new FlxText(0, 0, 0, '', 16), //
@@ -115,6 +130,12 @@ class PlayState extends EnboState
 				charSpr.alpha = 0;
 				FlxTween.cancelTweensOf(charSpr);
 				FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+			}
+
+			if (itemAssetsList[charState] != null)
+			{
+				itemSpr.loadGraphic(itemAssetsList[charState]);
+				itemSpr.screenCenter();
 			}
 		}
 	}
