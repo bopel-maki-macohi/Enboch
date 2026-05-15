@@ -193,7 +193,7 @@ class PlayState extends EnboState
 	{
 		if (charState < 1)
 		{
-			if (rngList[3] < 6 + Math.round(itemAbuseCounter / 4))
+			if (rngList[3] < 6)
 				itemAbuseCounter++;
 
 			updateItemRNG();
