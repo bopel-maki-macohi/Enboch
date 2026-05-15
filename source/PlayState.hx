@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.EnboState;
 import flixel.graphics.FlxGraphic;
 import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
@@ -8,7 +9,7 @@ import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxState;
 
-class PlayState extends FlxState
+class PlayState extends EnboState
 {
 	var bg:FlxSprite;
 
@@ -60,14 +61,16 @@ class PlayState extends FlxState
 		bg.screenCenter();
 		desk.screenCenter();
 
-		add(bg);
-		add(robot);
-		add(desk);
+		addMultiple([
+			bg,
+			robot,
+			desk,
 
-		#if debug
-		add(robotStateText = new FlxText(0, 0, 0, '', 16));
-		add(rngListText = new FlxText(0, 16, 0, '', 16));
-		#end
+			#if debug
+			robotStateText = new FlxText(0, 0, 0, '', 16), //
+			rngListText = new FlxText(0, 16, 0, '', 16),
+			#end
+		]);
 
 		robotStateChangeCheck(null);
 
