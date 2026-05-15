@@ -191,46 +191,31 @@ class PlayState extends EnboState
 			useItem();
 	}
 
-	var itemAbuseCounter:Int = 0;
-
 	function updateItemRNG()
 	{
 		var itemRNG = RNGUtil.generateRNGList(2);
 
-		// trace(rngList);
-
 		rngList[3] = itemRNG[0];
-		rngList[4] = itemRNG[1];
-
-		// trace(rngList);
 
 		updateRNGEncryption();
 	}
 
 	function useItem()
 	{
-		if (charState > 2)
+		if (charState > 2 || charState < 1)
 			return;
 
-		if (charState < 1)
-		{
-			if (rngList[3] < 2)
-				itemAbuseCounter++;
-			updateItemRNG();
-
-			return;
-		}
-
-		if (rngList[4] < 8)
+		if (rngList[3] < switch (charState)
+			{
+				case 2: 5;
+				default: 8;
+			})
 		{
 			updateItemRNG();
 			return;
 		}
 
 		characterFlash();
-
-		if (itemAbuseCounter > 1 && rngList[3] == 10)
-			itemAbuseCounter--;
 
 		rngList[0] = -1;
 		stateChangeCheck(stateChangeTmr);
