@@ -166,7 +166,7 @@ class PlayState extends EnboState
 			t.reset();
 
 			if (charState < 3 && (t.elapsedLoops % 2 == 0))
-				Paycheck.getPayed(((4 - charState) / 4));
+				Paycheck.getPayed(((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2));
 		}
 
 		// trace(((4 - charState) / 4));
