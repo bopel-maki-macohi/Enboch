@@ -14,7 +14,7 @@ import flixel.FlxSprite;
 class PlayState extends EnboState
 {
 	var charSpr:FlxSprite;
-	var char:String = 'drowned';
+	public static var char:String = 'drowned';
 
 	var charAssetsList:Array<FlxGraphic> = [];
 

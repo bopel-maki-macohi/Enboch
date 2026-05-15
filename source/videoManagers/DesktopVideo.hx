@@ -1,3 +1,5 @@
+package videoManagers;
+
 import flixel.FlxG;
 import hxvlc.flixel.FlxVideoSprite;
 import flixel.FlxSprite;
