@@ -111,16 +111,24 @@ class PlayState extends EnboState
 		if (charState < 0)
 			charState = 0;
 
+		if (itemSpam >= itemSpamMax)
+		{
+			rngList[0] = 2;
+			charState = 2;
+
+			updateRNGEncryption();
+		}
+
 		if (t != null)
 		{
 			switch (rngList[0])
 			{
 				case 0, 3, 6, 9:
 					if (charState == 0)
-						charState = (itemSpam > 1000) ? 3 : ((rngList[2] < 10) ? 1 : 2);
+						charState = (itemSpam >= itemSpamMax) ? 3 : ((rngList[2] < 10) ? 1 : 2);
 				case 1, 4, 7, 10:
 					if (charState == 1)
-						charState = (itemSpam > 1000) ? 3 : ((rngList[2] < 10) ? 2 : 1);
+						charState = (itemSpam >= itemSpamMax) ? 3 : ((rngList[2] < 10) ? 2 : 1);
 				case 2, 5, 8:
 					if (charState == 2)
 					{
@@ -190,11 +198,13 @@ class PlayState extends EnboState
 		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
 		#end
 
-		if (FlxG.mouse.justPressed && charSpr.alpha == 1)
-			useItem();
+		if (FlxG.mouse.justPressed)
+		{
+			itemSpam++;
 
-		if (itemSpam > 0)
-			itemSpam--;
+			if (charSpr.alpha == 1)
+				useItem();
+		}
 	}
 
 	function updateItemRNG()
@@ -207,16 +217,15 @@ class PlayState extends EnboState
 	}
 
 	var itemSpam:Int = 0;
+	final itemSpamMax:Int = 200;
 
 	function useItem()
 	{
 		if (charState > 2 || charState < 1)
-		{
-			itemSpam++;
-			stateChangeCheck(null);
-
 			return;
-		}
+
+		if (itemSpam > 0)
+			itemSpam = 0;
 
 		if (rngList[3] < switch (charState)
 			{
