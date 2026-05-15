@@ -195,7 +195,6 @@ class PlayState extends EnboState
 		{
 			if (rngList[3] < 6)
 				itemAbuseCounter++;
-
 			updateItemRNG();
 
 			return;
