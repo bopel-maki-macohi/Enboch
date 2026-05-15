@@ -8,6 +8,7 @@ typedef PaycheckData =
 class Paycheck
 {
 	public static var totalPay:Int = 0;
+	public static var earned:Int = 0;
 
 	public static var game:PaycheckData = {
 		totalPay: 0
@@ -46,6 +47,7 @@ class Paycheck
 	{
 		var paycheck = Math.round(100 * percentage);
 
+		earned += paycheck;
 		totalPay += paycheck;
 	}
 }

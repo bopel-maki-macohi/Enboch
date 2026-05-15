@@ -46,6 +46,8 @@ class PlayState extends EnboState
 	{
 		super.create();
 
+		Paycheck.earned = 0;
+
 		charAssetsList = [];
 		itemAssetsList = [];
 
