@@ -17,7 +17,7 @@ class PlayState extends EnboState
 
 	var charAssetsList:Array<FlxGraphic> = [];
 
-	var charState:Int = 0;
+	var charState:Int = -1;
 	var charStateTXT:FlxText;
 
 	var rngList:Array<Int> = [];
@@ -42,12 +42,10 @@ class PlayState extends EnboState
 	{
 		super.create();
 
-		charAssetsList = [
-			FlxG.bitmap.add('$char/$char-0'.getPath(image)),
-			FlxG.bitmap.add('$char/$char-1'.getPath(image)),
-			FlxG.bitmap.add('$char/$char-2'.getPath(image)),
-			FlxG.bitmap.add('$char/$char-3'.getPath(image)),
-		];
+		charAssetsList = [];
+
+		for (i in 0...4)
+			charAssetsList.push(FlxG.bitmap.add('$char/phase$i'.getPath(image)));
 
 		for (asset in charAssetsList)
 		{
@@ -107,13 +105,13 @@ class PlayState extends EnboState
 
 		makeRNGList();
 
-		if (charAssetsList[charState] != null)
+		if (charState != prevState)
 		{
-			charSpr.loadGraphic(charAssetsList[charState]);
-			charSpr.screenCenter();
-
-			if (charState != prevState)
+			if (charAssetsList[charState] != null)
 			{
+				charSpr.loadGraphic(charAssetsList[charState]);
+				charSpr.screenCenter();
+
 				charSpr.alpha = 0;
 				FlxTween.cancelTweensOf(charSpr);
 				FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
