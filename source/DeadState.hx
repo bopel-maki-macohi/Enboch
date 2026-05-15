@@ -27,7 +27,10 @@ class DeadState extends EnboState
 		sound.loadEmbedded('death-${PlayState.char}'.getPath(audio));
 		sound.play();
 
-		FlxTween.tween(text, {alpha: 1}, 1, {
+		FlxTween.tween(text, {alpha: 1}, (sound.length / 1000) / 2, {
+			startDelay: (sound.length / 1000) / 2
+		});
+		FlxTween.tween(sprite, {alpha: 0}, (sound.length / 1000) / 2, {
 			startDelay: (sound.length / 1000) / 2
 		});
 	}
