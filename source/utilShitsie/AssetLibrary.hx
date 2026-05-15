@@ -6,7 +6,15 @@ class AssetLibrary
 {
 	public static var folder:String = 'content';
 
-	public static var pathTypes:Map<OneOfTwo<String, AssetLibraryPathType>, Array<String>> = [image => [null, 'png'],];
+	public static var pathTypes:Map<OneOfTwo<String, AssetLibraryPathType>, Array<String>> = [
+		image => [null, 'png'],
+		//
+		#if web
+		audio => ['audio/web/', 'mp3'],
+		#else
+		audio => ['audio/desktop/', 'ogg'],
+		#end
+	];
 
 	public static function addPathType(type:String, folder:String, extension:String)
 		pathTypes.set(type, [folder ?? null, extension ?? null]);
@@ -30,4 +38,5 @@ class AssetLibrary
 enum abstract AssetLibraryPathType(String) from String to String
 {
 	var image = 'image';
+	var audio = 'audio';
 }

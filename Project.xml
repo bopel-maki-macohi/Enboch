@@ -33,7 +33,9 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	<assets path="content" />
+	
+	<assets path="content" exclude="content/audio/desktop/" if="web"/>
+	<assets path="content" exclude="content/audio/web/" unless="web"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
