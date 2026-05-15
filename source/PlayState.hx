@@ -87,6 +87,9 @@ class PlayState extends EnboState
 	{
 		var prevState:Int = charState;
 
+		if (charState < 0)
+			charState = 0;
+
 		if (t != null)
 		{
 			switch (rngList[0])
