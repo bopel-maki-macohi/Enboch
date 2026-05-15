@@ -19,13 +19,12 @@ class PlayState extends EnboState
 	var charAssetsList:Array<FlxGraphic> = [];
 
 	var charState:Int = -1;
-	var charStateTXT:FlxText;
+	var debugTXT:FlxText;
 
 	var itemSpr:FlxSprite;
 	var itemAssetsList:Array<FlxGraphic> = [];
 
 	var rngList:Array<Int> = [];
-	var rngListText:FlxText;
 	var encryptedRng:Array<String> = [];
 
 	function makeRNGList()
@@ -50,6 +49,14 @@ class PlayState extends EnboState
 			itemAssetsList.push(FlxG.bitmap.add('$char/item-phase$i'.getPath(image)));
 		}
 
+		for (graphic in charAssetsList)
+			if (graphic != null)
+				graphic.persist = true;
+
+		for (graphic in itemAssetsList)
+			if (graphic != null)
+				graphic.persist = true;
+
 		charSpr = new FlxSprite(0, 0);
 		itemSpr = new FlxSprite(0, 0);
 
@@ -58,8 +65,7 @@ class PlayState extends EnboState
 			itemSpr,
 
 			#if debug
-			charStateTXT = new FlxText(0, 0, 0, '', 16), //
-			rngListText = new FlxText(0, 16, 0, '', 16),
+			debugTXT = new FlxText(0, 0, 0, '', 16),
 			#end
 		]);
 
@@ -68,6 +74,17 @@ class PlayState extends EnboState
 		resetRSCT();
 
 		killTmr = new FlxTimer();
+	}
+
+	override function destroy()
+	{
+		for (graphic in charAssetsList)
+			graphic?.destroy();
+
+		for (graphic in itemAssetsList)
+			graphic?.destroy();
+
+		super.destroy();
 	}
 
 	function resetRSCT()
@@ -155,8 +172,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		charStateTXT.text = '$charState';
-		rngListText.text = '${encryptedRng.join('')}';
+		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n$itemAbuseCounter';
 		#end
 
 		if (FlxG.mouse.justPressed && charSpr.alpha == 1)
@@ -165,11 +181,23 @@ class PlayState extends EnboState
 
 	var itemAbuseCounter:Int = 0;
 
+	function updateItemRNG()
+	{
+		var itemRNG = RNGUtil.generateRNGList(2);
+
+		rngList[3] = itemRNG[0];
+		rngList[4] = itemRNG[1];
+	}
+
 	function useItem()
 	{
 		if (charState < 1)
 		{
-			itemAbuseCounter++;
+			if (rngList[3] < 6 + Math.round(itemAbuseCounter / 4))
+				itemAbuseCounter++;
+
+			updateItemRNG();
+
 			return;
 		}
 
@@ -182,6 +210,10 @@ class PlayState extends EnboState
 
 			rngList[0] = -1;
 			stateChangeCheck(stateChangeTmr);
+		}
+		else
+		{
+			updateItemRNG();
 		}
 	}
 }
