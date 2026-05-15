@@ -184,7 +184,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n$itemAbuseCounter\n${Paycheck.totalPay}';
+		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n${Paycheck.totalPay}';
 		#end
 
 		if (FlxG.mouse.justPressed && charSpr.alpha == 1)
