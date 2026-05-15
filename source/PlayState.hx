@@ -114,6 +114,7 @@ class PlayState extends EnboState
 		if (itemSpam >= itemSpamMax)
 		{
 			rngList[0] = 2;
+			rngList[1] = 0;
 			charState = 2;
 
 			updateRNGEncryption();
