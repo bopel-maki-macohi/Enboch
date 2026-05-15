@@ -20,7 +20,7 @@ class DeadState extends EnboState
 		sprite = new FlxSprite(0, 0, 'characters/${PlayState.char}/death'.getPath(image));
 		add(sprite);
 
-		text.text += 'Total pay: ${Paycheck.totalPay} (+ ${Paycheck.earned})';
+		text.text += '\n\nTotal pay: ${Paycheck.totalPay} (+ ${Paycheck.earned})';
 
 		add(text);
 		text.screenCenter();
