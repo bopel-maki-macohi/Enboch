@@ -50,8 +50,8 @@ class PlayState extends EnboState
 
 		for (i in 0...4)
 		{
-			charAssetsList.push(FlxG.bitmap.add('$char/phase$i'.getPath(image)));
-			itemAssetsList.push(FlxG.bitmap.add('$char/item-$i'.getPath(image)));
+			charAssetsList.push(FlxG.bitmap.add('$char/char-phase$i'.getPath(image)));
+			itemAssetsList.push(FlxG.bitmap.add('$char/item-phase$i'.getPath(image)));
 		}
 
 		charSpr = new FlxSprite(0, 0);
