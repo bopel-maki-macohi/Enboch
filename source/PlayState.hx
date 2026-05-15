@@ -42,10 +42,7 @@ class PlayState extends EnboState
 	{
 		super.create();
 
-		charAssetsList = [];
-
-		for (i in 0...4)
-			charAssetsList.push(FlxG.bitmap.add('$char/phase$i'.getPath(image)));
+		charAssetsList = [for (i in 0...4) FlxG.bitmap.add('$char/phase$i'.getPath(image))];
 
 		for (asset in charAssetsList)
 		{
