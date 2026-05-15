@@ -2,12 +2,10 @@ package;
 
 import utilShitsie.EnboState;
 import flixel.graphics.FlxGraphic;
-import flixel.math.FlxRandom;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
-import flixel.FlxState;
 
 class PlayState extends EnboState
 {

@@ -1,10 +1,10 @@
 package;
 
+import utilShitsie.EnboState;
 import flixel.FlxG;
 import flixel.text.FlxText;
-import flixel.FlxState;
 
-class DeadState extends FlxState
+class DeadState extends EnboState
 {
 	override function create()
 	{
