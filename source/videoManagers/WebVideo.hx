@@ -124,6 +124,7 @@ class WebVideo extends FlxSprite
 
 	public override function destroy():Void
 	{
+		FlxG.sound.onVolumeChange.remove(onVolumeChanged);
 		if (netStream != null)
 		{
 			netStream.dispose();
