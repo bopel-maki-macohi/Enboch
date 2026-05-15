@@ -34,8 +34,8 @@
 
 	<source path="source" />
 	
-	<assets path="content" exclude="content/audio/desktop/" if="web"/>
-	<assets path="content" exclude="content/audio/web/" unless="web"/>
+	<assets path="content" exclude="*.ogg" if="web"/>
+	<assets path="content" exclude="*.web" unless="web"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
