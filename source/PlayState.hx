@@ -128,7 +128,8 @@ class PlayState extends EnboState
 			}
 		}
 
-		t.reset();
+		if (t != null)
+			t.reset();
 	}
 
 	function characterFlash()
