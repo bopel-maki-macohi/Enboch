@@ -10,13 +10,9 @@ import flixel.FlxSprite;
 
 class PlayState extends EnboState
 {
-	var light:FlxSprite;
-
 	var robot:FlxSprite;
 	var robo:String = 'blank';
 	var robotAssetCache:Array<FlxGraphic> = [];
-
-	var desk:FlxSprite;
 
 	var robotState:Int = 0;
 	var robotStateText:FlxText;
@@ -33,6 +29,8 @@ class PlayState extends EnboState
 			FlxG.random.int(0, 10),
 		];
 		encryptedRng = RNGCodeEncrypt.encrypt(rngList);
+
+		light.alpha = rngList[3] / 10;
 	}
 
 	var rngListText:FlxText;
@@ -58,17 +56,10 @@ class PlayState extends EnboState
 				robotAssetCache.remove(asset);
 		}
 
-		light = new FlxSprite(0, 0, 'desk'.getPath(image));
 		robot = new FlxSprite(0, 0);
-		desk = new FlxSprite(0, 0, 'desk'.getPath(image));
-
-		light.screenCenter();
-		desk.screenCenter();
 
 		addMultiple([
 			robot,
-			desk,
-			light,
 
 			#if debug
 			robotStateText = new FlxText(0, 0, 0, '', 16), //
@@ -139,8 +130,5 @@ class PlayState extends EnboState
 		robotStateText.text = '$robotState';
 		rngListText.text = '${encryptedRng.join('')}';
 		#end
-
-		light.alpha = FlxMath.lerp(light.alpha, 0, FlxG.random.float(0, 0.04 * light.alpha));
-		light.alpha += rngList[3] / 10;
 	}
 }
