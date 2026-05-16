@@ -94,8 +94,11 @@ class MainMenuState extends EnboState
 				FlxG.switchState(() -> new GamejoltLoginState());
 
 			case 'gamejolt logout':
-				GamejoltAPI.logout();
-				FlxG.resetState();
+				FlxG.sound.play('gamejolt_logout'.makePath(audio));
+				GamejoltAPI.logout(() ->
+				{
+					FlxG.resetState();
+				});
 		}
 	}
 }

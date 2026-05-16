@@ -39,9 +39,12 @@ class GamejoltAPI
 		});
 	}
 
-	public static function logout()
+	public static function logout(callbackThingy:Void->Void)
 	{
-		closeSession();
+		closeSession(callbackThingy);
+
+		@:privateAccess
+		API._initialized = false;
 	}
 
 	public static function startSession()
@@ -62,9 +65,15 @@ class GamejoltAPI
 		API.pingSession(true, () -> callback('pinged', 'session'));
 	}
 
-	public static function closeSession()
+	public static function closeSession(?callbackThingy:Void->Void)
 	{
-		API.closeSession(() -> callback('closed', 'session'));
+		API.closeSession(() ->
+		{
+			callback('closed', 'session');
+
+			if (callbackThingy != null)
+				callbackThingy();
+		});
 	}
 
 	public static var authenticated(get, never):Bool;

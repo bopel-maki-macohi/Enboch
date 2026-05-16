@@ -25,8 +25,8 @@ class GamejoltLoginState extends EnboState
 
 		FlxG.camera.bgColor = FlxColor.GRAY;
 
-		usernameInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), '', 32);
-		usertokenInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), '', 32);
+		usernameInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), GamejoltAPI.username, 32);
+		usertokenInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), GamejoltAPI.usertoken, 32);
 
 		usernameInput.screenCenter(X);
 		usernameInput.x -= usernameInput.width / 1.5;
@@ -82,6 +82,8 @@ class GamejoltLoginState extends EnboState
 		{
 			topText.text = 'GAMEJOLT LOGIN MENU\nLOGGED IN!\n\nLeavin in a lil bit...';
 
+			FlxG.sound.play('gamejolt_loggedIn'.makePath(audio));
+
 			FlxTimer.wait(2, () ->
 			{
 				FlxG.switchState(() -> new MainMenuState());
@@ -91,6 +93,7 @@ class GamejoltLoginState extends EnboState
 		}
 
 		topText.text = 'GAMEJOLT LOGIN MENU\nCould not log in...';
+		FlxG.sound.play('gamejolt_loginFAIL'.makePath(audio));
 	}
 
 	override function destroy()
