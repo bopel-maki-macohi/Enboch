@@ -98,6 +98,18 @@ class PlayState extends EnboState
 		}, 0);
 
 		charSpr.shader = new SineRippleShader();
+
+		// Ripple effect tunables
+		var _frequency:Float = 12.0;
+		var _speed:Float = 4.0;
+		var _amplitude:Float = 0.03;
+		var _damping:Float = 2.0;
+
+		// These fields should only be set when the slider changes but the slider has no callback
+		cast(charSpr.shader, SineRippleShader).setAmplitude(_amplitude);
+		cast(charSpr.shader, SineRippleShader).setFrequency(_frequency);
+		cast(charSpr.shader, SineRippleShader).setSpeed(_speed);
+		cast(charSpr.shader, SineRippleShader).setDamping(_damping);
 	}
 
 	override function preScreenshot()
