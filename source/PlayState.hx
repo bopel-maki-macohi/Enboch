@@ -30,21 +30,16 @@ class PlayState extends EnboState
 	var rngList:Array<Int> = [];
 
 	function makeRNGList()
-	{
 		rngList = RNGUtil.generateRNGList(4);
-	}
 
-	var stateChangeTmr:FlxTimer;
-	var killTmr:FlxTimer;
+	var stateChangeTmr:FlxTimer = new FlxTimer();
+	var killTmr:FlxTimer = new FlxTimer();
 
 	override public function create()
 	{
 		super.create();
 
 		Paycheck.earned = 0;
-
-		charAssetsList = [];
-		itemAssetsList = [];
 
 		for (i in 0...4)
 		{
@@ -55,12 +50,9 @@ class PlayState extends EnboState
 		GraphicUtil.persistGraphics(charAssetsList);
 		GraphicUtil.persistGraphics(itemAssetsList);
 
-		charSpr = new FlxSprite(0, 0);
-		itemSpr = new FlxSprite(0, 0);
-
 		addMultiple([
-			charSpr,
-			itemSpr,
+			charSpr = new FlxSprite(0, 0),
+			itemSpr = new FlxSprite(0, 0),
 
 			#if debug
 			debugTXT = new FlxText(0, 0, 0, '', 16),
@@ -69,9 +61,7 @@ class PlayState extends EnboState
 
 		stateChangeCheck(null);
 
-		resetRSCT();
-
-		killTmr = new FlxTimer();
+		stateChangeTmr.start(5, stateChangeCheck, 0);
 	}
 
 	override function preScreenshot()
@@ -100,15 +90,6 @@ class PlayState extends EnboState
 		GraphicUtil.destroyGraphics(itemAssetsList);
 
 		super.destroy();
-	}
-
-	function resetRSCT()
-	{
-		if (stateChangeTmr != null)
-			return;
-
-		stateChangeTmr = new FlxTimer();
-		stateChangeTmr.start(5, stateChangeCheck, 0);
 	}
 
 	function stateChangeCheck(t:FlxTimer)
