@@ -39,8 +39,10 @@ class GamejoltAPI
 		if (!authenticated)
 			return;
 
-		API.addTrophy(ID, (success:Bool) ->
+		API.addTrophy(ID, (d:Map<String, String>) ->
 		{
+			var success:Bool = d.get('success') == 'true';
+
 			callback('Unlocked: $success', 'trophy');
 
 			if (callbackFucker != null)
