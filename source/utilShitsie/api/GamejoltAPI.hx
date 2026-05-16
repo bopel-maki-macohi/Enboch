@@ -27,7 +27,7 @@ class GamejoltAPI
 
 	public static function init(?onAuthCallback:Bool->Void)
 	{
-		API.verbose = #if debug true #else false #end;
+		API.verbose = true;
 		API.init(1070390, privateKey);
 
 		FlxG.stage.application.onExit.add(l -> closeSession());
