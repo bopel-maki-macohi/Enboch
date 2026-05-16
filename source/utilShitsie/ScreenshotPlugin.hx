@@ -55,7 +55,10 @@ class ScreenshotPlugin extends FlxBasic
 				trace('Took screenshot: $date');
 				#end
 
-				postScreenshot.dispatch();
+				FlxTimer.wait(1 / FlxG.drawFramerate, function()
+				{
+					postScreenshot.dispatch();
+				});
 			});
 		}
 	}
