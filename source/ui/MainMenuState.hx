@@ -85,7 +85,7 @@ class MainMenuState extends EnboState
 			case 'levels':
 				FlxG.switchState(() -> new PlayState());
 			case 'trophies':
-				FlxG.switchState(() -> new PlayState());
+				FlxG.switchState(() -> new TrophiesMenuState());
 		}
 	}
 }
