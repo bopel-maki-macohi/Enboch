@@ -10,7 +10,7 @@ using StringTools;
 
 class GamejoltAPI
 {
-	public static var PRIVATE_KEY:String = SecretDataFile.build('dev/api/gamejolt-privateKey');
+	public static var PRIVATE_KEY:String = SecretDataFile.build('dev/macroShit/gamejolt-privateKey');
 
 	public static var SESSION_PINGTIME_SECONDS:Int = 30;
 
