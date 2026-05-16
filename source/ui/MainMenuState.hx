@@ -15,7 +15,7 @@ class MainMenuState extends EnboState
 	var entries:Array<String> = [
 		'Levels',
 		'Trophies',
-		'Options',
+		// 'Options',
 	];
 
 	var camFollow:FlxObject;
@@ -69,7 +69,7 @@ class MainMenuState extends EnboState
 
 		if (curSelect < 0)
 			curSelect = entries.length - 1;
-		
+
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 	}
