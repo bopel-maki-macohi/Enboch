@@ -26,6 +26,9 @@ class InitState extends FlxGame
 			FlxG.log._standardTraceFunction = (v, ?i) -> {};
 		}
 
+		@:privateAccess
+		FlxG.sound.loadSavedPrefs();
+
 		GamejoltAPI.init(authed ->
 		{
 			trace('Authed Status: $authed');
@@ -38,7 +41,7 @@ class InitState extends FlxGame
 	override function create(_:Event)
 	{
 		super.create(_);
-		
+
 		FlxTransitionableState.defaultTransIn = EnboState.DEFAULT_TRANSITION;
 		FlxTransitionableState.defaultTransOut = EnboState.DEFAULT_TRANSITION;
 	}
