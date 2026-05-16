@@ -27,9 +27,6 @@ class GamejoltAPI
 
 	public static function init(?onAuthCallback:Bool->Void)
 	{
-		@:privateAccess
-		API.URL_API = API.URL_API.replace('v1', 'v1_2');
-
 		API.verbose = #if debug true #else false #end;
 		API.init(1070390, privateKey);
 

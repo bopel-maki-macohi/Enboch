@@ -174,7 +174,7 @@ class FlxGameJolt
 	/**
 	 * Various common strings required by the API's https values.
 	 */
-	static inline var URL_API:String = "https://gamejolt.com/api/game/v1/";
+	static inline var URL_API:String = "https://gamejolt.com/api/game/v1_2/";
 
 	static inline var RETURN_TYPE:String = "?format=keypair";
 	static inline var URL_GAME_ID:String = "&game_id=";
