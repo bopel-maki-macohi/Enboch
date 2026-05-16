@@ -30,13 +30,22 @@ class TrophyToastHolder extends Sprite
 
 	public function displayToast(trophy:Int)
 	{
-		var trophyToast = new TrophyToast(trophy);
+		var trophyToast = new TrophyToast(trophy, numChildren);
 
 		trophyToast.y = FlxG.height - trophyToast.height;
 
-		@:privateAccess
-		for (child in __children)
-			child.y -= trophyToast.height;
+		@:privateAccess {
+			for (child in __children)
+			{
+				if (child == null)
+				{
+					__children.remove(child);
+					continue;
+				}
+
+				child.y -= trophyToast.height;
+			}
+		}
 
 		addChild(trophyToast);
 	}

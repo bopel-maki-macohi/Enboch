@@ -15,7 +15,7 @@ class TrophyToast extends Sprite
 {
 	public static final BGBITMAP_PADDING:Int = 16;
 
-	override public function new(trophy:Int)
+	override public function new(trophy:Int, ID:Int)
 	{
 		super();
 
@@ -53,7 +53,10 @@ class TrophyToast extends Sprite
 				toastBGBitmap = null;
 				toastBitmap = null;
 
-				this.parent.removeChild(this);
+				@:privateAccess {
+					parent.removeChild(parent.__children[ID]);
+					parent.__children[ID] = null;
+				}
 			},
 		});
 	}
