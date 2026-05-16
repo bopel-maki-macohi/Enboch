@@ -65,7 +65,11 @@ class GamejoltAPI
 
 	static function get_authenticated():Bool
 	{
-		@:privateAccess
-		return API.authenticated;
+		@:privateAccess {
+			if (!API._initialized)
+				return false;
+
+			return API.authenticated;
+		}
 	}
 }
