@@ -92,9 +92,14 @@ class PlayState extends EnboState
 		{
 			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1)} for ${t.elapsedLoops} Minute(s)';
 
+			if (!Paycheck.game.waitTimes.exists(char))
+				Paycheck.game.waitTimes.set(char, 0);
+			
+			var currentScore:Float = Paycheck.game.waitTimes.get(char);
+
 			var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char);
 
-			if (scoreboard != null)
+			if (scoreboard != null && t.elapsedLoops > currentScore)
 				scoreboard.addScore(str, t.elapsedLoops);
 		}, 0);
 	}

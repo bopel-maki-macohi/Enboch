@@ -1,3 +1,4 @@
+import haxe.ds.Map;
 import utilShitsie.Define;
 import utilShitsie.DebugString;
 import flixel.util.FlxStringUtil;
@@ -12,8 +13,10 @@ typedef PaycheckData =
 	totalPay:Int,
 	keybinds:Map<String, Array<String>>,
 
-	trophies:Array<Int>,
 	firstTime:Bool,
+
+	trophies:Array<Int>,
+	waitTimes:Map<String, Float>,
 
 	gj_username:String,
 	gj_usertoken:String,
@@ -27,8 +30,9 @@ class Paycheck
 	public static var game:PaycheckData = {
 		totalPay: 0,
 		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
-		trophies: [],
 		firstTime: true,
+		trophies: [],
+		waitTimes: [],
 		gj_username: null,
 		gj_usertoken: null,
 	};
@@ -76,7 +80,8 @@ class Paycheck
 			totalPay: totalPay,
 			keybinds: keybinds,
 
-			trophies: [], // tba
+			trophies: game.trophies,
+			waitTimes: game.waitTimes,
 			firstTime: false,
 
 			gj_username: GamejoltAPI.username,
