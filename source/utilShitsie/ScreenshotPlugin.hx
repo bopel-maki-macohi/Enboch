@@ -16,10 +16,11 @@ class ScreenshotPlugin extends FlxBasic
 {
 	public static function init()
 	{
-		#if !debug
-		trace('Screenshotting is debug only right now');
-		return;
-		#end
+		if (Define.debug == null)
+		{
+			trace('Screenshotting is debug only right now');
+			return;
+		}
 
 		FlxG.plugins.addPlugin(new ScreenshotPlugin());
 	}
