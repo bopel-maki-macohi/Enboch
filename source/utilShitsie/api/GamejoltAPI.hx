@@ -65,6 +65,9 @@ class GamejoltAPI
 	public static function addScore(scoreStr:String, score:Float, ?tableID:Int, allowGuest:Bool = false, ?guestName:String, ?extraData:String,
 			?extraCallback:Dynamic)
 	{
+		if (!authenticated && !allowGuest)
+			return;
+
 		API.addScore(scoreStr, score, tableID, allowGuest, guestName, extraData, d ->
 		{
 			callback(d, 'scoreboard');

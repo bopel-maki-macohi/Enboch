@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
 import utilShitsie.api.trophies.Trophies;
@@ -91,7 +92,10 @@ class PlayState extends EnboState
 		{
 			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1)} for ${t.elapsedLoops} Minute(s)';
 
-			Scoreboards.WAIT_TIME(char)?.addScore(str, t.elapsedLoops / 60);
+			var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char);
+
+			if (scoreboard != null)
+				scoreboard.addScore(str, t.elapsedLoops / 60);
 		}, 0);
 	}
 
