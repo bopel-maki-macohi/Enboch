@@ -5,11 +5,30 @@ import flixel.input.keyboard.FlxKey;
 
 class Control
 {
+	public var id:String;
+
 	public var keys:Array<FlxKey>;
 
-	public function new(keys:Array<FlxKey>)
+	public function new(id:String, keys:Array<FlxKey>)
 	{
+		this.id = id;
 		this.keys = keys;
+	}
+
+	public function loadFromSave():Control
+	{
+		if (!Paycheck.game.keybinds.exists(this.id))
+		{
+			Paycheck.game.keybinds.set(this.id, [for (key in keys) key.toString().toUpperCase()]);
+			return this;
+		}
+
+		keys = [];
+
+		for (key in Paycheck.game.keybinds.get(this.id))
+			keys.push(FlxKey.fromString(key));
+
+		return this;
 	}
 
 	public var pressed(get, never):Bool;

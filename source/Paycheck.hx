@@ -1,8 +1,10 @@
+import utilShitsie.controls.Controls;
 import flixel.FlxG;
 
 typedef PaycheckData =
 {
 	totalPay:Int,
+	keybinds:Map<String, Array<String>>,
 }
 
 class Paycheck
@@ -11,7 +13,8 @@ class Paycheck
 	public static var earned:Int = 0;
 
 	public static var game:PaycheckData = {
-		totalPay: 0
+		totalPay: 0,
+		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],]
 	};
 
 	public static function load()
@@ -35,8 +38,14 @@ class Paycheck
 
 	public static function save()
 	{
+		var keybinds:Map<String, Array<String>> = [];
+
+		for (key in Controls.keys)
+			keybinds.set(key.id, [for (key in key.keys) key.toString().toUpperCase()]);
+
 		game = {
 			totalPay: totalPay,
+			keybinds: keybinds
 		};
 
 		FlxG.save.data.game = game;
