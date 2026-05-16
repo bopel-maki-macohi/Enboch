@@ -13,33 +13,30 @@ class DefineFucker
 
 		var defFields:Map<String, String> = [];
 
-		for (define => defineValue in Context.getDefines())
+		var defines:Array<String> = [];
+
+		#if sys
+		defines = [
+			for (s in sys.io.File.getContent('dev/macroShit/defines.txt').split('\n')) if (s.trim().length > 0) s.trim()
+		];
+		#end
+
+		for (define in defines)
 		{
 			if (!wantedDefine(define))
 				continue;
 
 			for (field in fields)
-			{
 				if (field.name == define)
 					continue;
-				if (field.name == '${define}_value')
-					continue;
-			}
 
-			defFields.set(define, defineValue);
+			defFields.set(define, Context.definedValue(define));
 		}
 
 		for (define => value in defFields)
 		{
 			fields.push({
 				name: define,
-				kind: FVar(macro :Bool, macro $v{value != null}),
-				access: [APublic, AStatic, AFinal],
-				pos: Context.currentPos(),
-			});
-
-			fields.push({
-				name: define + '_value',
 				kind: FVar(macro :String, macro $v{value}),
 				access: [APublic, AStatic, AFinal],
 				pos: Context.currentPos(),
