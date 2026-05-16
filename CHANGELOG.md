@@ -2,6 +2,7 @@
 
 ## Added
 
+- TROPHIES
 - MAIN MENU!
 
 ## Changed
