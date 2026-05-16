@@ -1,5 +1,6 @@
 package utilShitsie;
 
+import flixel.util.FlxSignal;
 import sys.io.File;
 import openfl.display.PNGEncoderOptions;
 import openfl.display.BitmapData;
@@ -24,12 +25,17 @@ class ScreenshotPlugin extends FlxBasic
 		super();
 	}
 
+	public static var preScreenshot:FlxSignal = new FlxSignal();
+	public static var postScreenshot:FlxSignal = new FlxSignal();
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
 		if (FlxG.keys.justPressed.F3)
 		{
+			preScreenshot.dispatch();
+
 			var data = BitmapData.fromImage(FlxG.stage.window.readPixels());
 			var screenshot:ByteArray = data.encode(data.rect, new PNGEncoderOptions());
 
@@ -38,6 +44,8 @@ class ScreenshotPlugin extends FlxBasic
 			File.saveBytes('screenshot-$date', screenshot);
 
 			trace('Took screenshot: $date');
+
+			postScreenshot.dispatch();
 		}
 	}
 }

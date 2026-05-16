@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.ScreenshotPlugin;
 import utilShitsie.RNGUtil;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -82,6 +83,26 @@ class PlayState extends EnboState
 		resetRSCT();
 
 		killTmr = new FlxTimer();
+	}
+
+	override function preScreenshot()
+	{
+		super.preScreenshot();
+
+		#if debug
+		if (debugTXT != null)
+			debugTXT.visible = false;
+		#end
+	}
+
+	override function postScreenshot()
+	{
+		super.postScreenshot();
+
+		#if debug
+		if (debugTXT != null)
+			debugTXT.visible = true;
+		#end
 	}
 
 	override function destroy()
