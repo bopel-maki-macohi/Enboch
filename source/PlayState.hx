@@ -1,6 +1,6 @@
 package;
 
-import shaderHell.TestingShader;
+import shaderHell.ThresholdShader;
 import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
@@ -96,8 +96,6 @@ class PlayState extends EnboState
 					t.cancel();
 			}
 		}, 0);
-
-		charSpr.shader = new TestingShader();
 	}
 
 	override function preScreenshot()
@@ -193,15 +191,21 @@ class PlayState extends EnboState
 		// trace(((4 - charState) / 4));
 	}
 
+	var charSprShader:ThresholdShader = null;
+
 	function characterFlash()
 	{
-		charSpr.alpha = 0;
+		if (charSprShader == null)
+			itemSpr.shader = charSpr.shader = charSprShader = new ThresholdShader();
+
+		charSprShader.brightnessThreshold = 1;
+
 		try
 		{
-			FlxTween.cancelTweensOf(charSpr);
+			FlxTween.cancelTweensOf(charSprShader);
 		}
 		catch (e) {}
-		FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+		FlxTween.tween(charSprShader, {brightnessThreshold: 0}, 1, {ease: FlxEase.quintOut});
 	}
 
 	function jumpscare(t:FlxTimer)

@@ -2,7 +2,7 @@ package shaderHell;
 
 import flixel.system.FlxAssets;
 
-class TestingShader extends FlxShader
+class ThresholdShader extends FlxShader
 {
 	@:glFragmentSource('
 		#pragma header
@@ -21,10 +21,18 @@ class TestingShader extends FlxShader
 			}
 		}
 	')
-	override public function new()
+	override public function new(threshold:Float = 1)
 	{
 		super();
 
-		this.u_brightnessThreshold.value = [0.25];
+		this.brightnessThreshold = threshold;
 	}
+
+	public var brightnessThreshold(get, set):Float;
+
+	function get_brightnessThreshold():Float
+		return this.u_brightnessThreshold.value[0];
+
+	function set_brightnessThreshold(brightnessThreshold:Float):Float
+		return this.u_brightnessThreshold.value[0] = brightnessThreshold;
 }
