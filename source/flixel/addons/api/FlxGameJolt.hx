@@ -408,7 +408,6 @@ class FlxGameJolt
 				tempURL += "&trophy_id=" + Std.string(DataType);
 		}
 
-		trace(tempURL);
 		sendLoaderRequest(tempURL, Callback);
 	}
 
@@ -693,7 +692,9 @@ class FlxGameJolt
 	 */
 	static function sendLoaderRequest(URLString:String, ?Callback:Dynamic):Void
 	{
-		var request:URLRequest = new URLRequest(URLString + "&signature=" + encryptURL(URLString));
+		var fullurl = URLString + "&signature=" + encryptURL(URLString);
+
+		var request:URLRequest = new URLRequest(fullurl);
 		request.method = URLRequestMethod.POST;
 
 		_callBack = Callback;
@@ -703,7 +704,7 @@ class FlxGameJolt
 
 		#if debug
 		if (verbose)
-			FlxG.log.add("FlxGameJolt: Contacting " + request.url);
+			FlxG.log.add("FlxGameJolt: Contacting " + fullurl);
 		#end
 
 		_loader.addEventListener(Event.COMPLETE, parseData);
