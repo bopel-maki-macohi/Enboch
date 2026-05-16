@@ -1,5 +1,7 @@
 package ui;
 
+import utilShitsie.Define;
+import lime.app.Application;
 import utilShitsie.api.GamejoltAPI;
 import utilShitsie.controls.Controls;
 import flixel.util.FlxColor;
@@ -25,6 +27,8 @@ class MainMenuState extends EnboState
 
 	var curSelect:Int = 0;
 
+	var version:FlxText = new FlxText(0, 0, 0, 'ENBOCH v${Application.current.meta.get('version')} (${Main.gitBranch}:${Main.gitCommit}) PROTOTYPE', 16);
+
 	override function create()
 	{
 		super.create();
@@ -41,6 +45,12 @@ class MainMenuState extends EnboState
 
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
+
+		version.y = FlxG.height - version.height;
+		version.scrollFactor.set();
+		
+		if (Define.debug)
+			add(version);
 	}
 
 	override function update(elapsed:Float)
