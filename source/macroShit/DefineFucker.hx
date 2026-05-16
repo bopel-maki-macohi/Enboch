@@ -37,12 +37,11 @@ class DefineFucker
 		{
 			fields.push({
 				name: define,
-				kind: FVar(macro :String, macro $v{value}),
+				doc: '$define=$value',
+				kind: FVar(macro :Bool, macro $v{value != null}),
 				access: [APublic, AStatic, AFinal],
 				pos: Context.currentPos(),
 			});
-
-			trace('$define=$value');
 		}
 
 		return fields;
