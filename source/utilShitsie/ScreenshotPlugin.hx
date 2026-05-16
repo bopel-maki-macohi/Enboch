@@ -50,6 +50,7 @@ class ScreenshotPlugin extends FlxBasic
 				#if sys
 				File.saveBytes('content/screenshot-$date.png', screenshot);
 				showFancyPreview(data);
+				FlxG.sound.play('screenshot'.makePath(audio));
 
 				trace('Took screenshot: $date');
 				#end
