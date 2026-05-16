@@ -1,6 +1,6 @@
 package;
 
-import shaderHell.PulsingColorShader;
+import shaderHell.SineRippleShader;
 import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
@@ -97,7 +97,7 @@ class PlayState extends EnboState
 			}
 		}, 0);
 
-		charSpr.shader = new PulsingColorShader();
+		charSpr.shader = new SineRippleShader();
 	}
 
 	override function preScreenshot()
