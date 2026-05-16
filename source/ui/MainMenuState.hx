@@ -1,5 +1,6 @@
 package ui;
 
+import utilShitsie.controls.Controls;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -52,9 +53,9 @@ class MainMenuState extends EnboState
 			}
 		}
 
-		if (FlxG.keys.anyJustPressed([W, UP]))
+		if (Controls.ui_up.justPressed)
 			changeSelect(-1);
-		if (FlxG.keys.anyJustPressed([S, DOWN]))
+		if (Controls.ui_down.justPressed)
 			changeSelect(1);
 	}
 
