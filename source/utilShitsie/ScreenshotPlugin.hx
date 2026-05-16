@@ -1,5 +1,6 @@
 package utilShitsie;
 
+import flixel.util.FlxTimer;
 import flixel.util.FlxSignal;
 import sys.io.File;
 import openfl.display.PNGEncoderOptions;
@@ -41,11 +42,14 @@ class ScreenshotPlugin extends FlxBasic
 
 			var date = Date.now().getTime() / 1000;
 
-			File.saveBytes('content/screenshot-$date.png', screenshot);
+			FlxTimer.wait(.1, function()
+			{
+				File.saveBytes('content/screenshot-$date.png', screenshot);
 
-			trace('Took screenshot: $date');
+				trace('Took screenshot: $date');
 
-			postScreenshot.dispatch();
+				postScreenshot.dispatch();
+			});
 		}
 	}
 }
