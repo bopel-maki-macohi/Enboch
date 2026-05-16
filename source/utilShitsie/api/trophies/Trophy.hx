@@ -1,4 +1,4 @@
-package utilShitsie.trophies;
+package utilShitsie.api.trophies;
 
 import utilShitsie.api.GamejoltAPI;
 

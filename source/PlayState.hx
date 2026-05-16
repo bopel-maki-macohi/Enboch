@@ -1,7 +1,7 @@
 package;
 
 import utilShitsie.Define;
-import utilShitsie.trophies.Trophies;
+import utilShitsie.api.trophies.Trophies;
 import ui.MainMenuState;
 import utilShitsie.controls.Controls;
 import utilShitsie.ScreenshotPlugin;

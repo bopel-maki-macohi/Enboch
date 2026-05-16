@@ -1,6 +1,6 @@
 package utilShitsie.api;
 
-import utilShitsie.trophies.Trophies;
+import utilShitsie.api.trophies.Trophies;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import macroShit.SecretDataFile;

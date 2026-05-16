@@ -2,8 +2,8 @@ package ui.debug;
 
 import flixel.util.FlxColor;
 import flixel.FlxG;
-import utilShitsie.trophies.Trophies;
-// import utilShitsie.trophies.TrophyToastHolder;
+import utilShitsie.api.trophies.Trophies;
+// import utilShitsie.api.trophies.TrophyToastHolder;
 import utilShitsie.controls.Controls;
 import utilShitsie.EnboState;
 
