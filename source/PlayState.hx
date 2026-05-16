@@ -157,12 +157,13 @@ class PlayState extends EnboState
 
 		if (charState != prevState)
 		{
+			if (charSprShader != null)
+				charSprShader.brightnessThreshold = 1;
+
 			if (CHAR_ASSET_LIST.get(char)[charState] != null)
 			{
 				charSpr.loadGraphic(CHAR_ASSET_LIST.get(char)[charState]);
 				charSpr.screenCenter();
-
-				characterFlash();
 			}
 
 			if (ITEM_ASSET_LIST.get(char)[charState] != null)
@@ -170,6 +171,8 @@ class PlayState extends EnboState
 				itemSpr.loadGraphic(ITEM_ASSET_LIST.get(char)[charState]);
 				itemSpr.screenCenter();
 			}
+
+			characterFlash();
 		}
 
 		if (t != null)
@@ -196,13 +199,13 @@ class PlayState extends EnboState
 
 	function characterFlash()
 	{
-		if (charSprShader == null)
-			itemSpr.shader = charSpr.shader = charSprShader = new ThresholdShader();
-
 		if (charSprShaderTween != null)
 			charSprShaderTween.cancel();
 
-		charSprShaderTween = FlxTween.num(1, 0, 1, {ease: FlxEase.quintOut}, v -> charSprShader.brightnessThreshold = v);
+		if (charSprShader == null)
+			itemSpr.shader = charSpr.shader = charSprShader = new ThresholdShader(1);
+
+		charSprShaderTween = FlxTween.num(1, 0, 2.5, {ease: FlxEase.quintOut}, v -> charSprShader.brightnessThreshold = v);
 	}
 
 	function jumpscare(t:FlxTimer)
