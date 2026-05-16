@@ -17,12 +17,21 @@ class DefineFucker
 
 		#if sys
 		defines = [
-			for (s in sys.io.File.getContent('dev/macroShit/defines.txt').split('\n')) if (s.trim().length > 0) s.trim()
+			for (s in sys.io.File.getContent('dev/macroShit/defines.txt').split('\n'))
+				if (s.trim().length > 0) s.trim()
 		];
 		#end
 
+		var strDefines:Array<String> = [];
+
 		for (define in defines)
 		{
+			if (define.endsWith('='))
+			{
+				define = define.substr(0, define.length - 1);
+				strDefines.push(define);
+			}
+
 			if (!wantedDefine(define))
 				continue;
 
@@ -37,8 +46,8 @@ class DefineFucker
 		{
 			fields.push({
 				name: define,
-				doc: '$define=$value',
-				kind: FVar(macro :Bool, macro $v{value != null}),
+				doc: 'Define: $define\n\n' + (strDefines.contains(define) ? 'Value: $value' : 'Defined: ${value != null}'),
+				kind: FVar(strDefines.contains(define) ? macro :String : macro :Bool, macro $v{strDefines.contains(define) ? value : value != null}),
 				access: [APublic, AStatic, AFinal],
 				pos: Context.currentPos(),
 			});
