@@ -23,6 +23,9 @@ class ScreenshotPlugin extends FlxBasic
 {
 	public static function init()
 	{
+		if (Define.web)
+			return;
+
 		FlxG.plugins.addPlugin(new ScreenshotPlugin());
 	}
 
