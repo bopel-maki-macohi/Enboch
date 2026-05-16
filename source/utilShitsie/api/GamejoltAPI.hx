@@ -20,4 +20,12 @@ class GamejoltAPI
 	{
 		API.closeSession();
 	}
+
+	public static var authenticated(get, never):Bool;
+
+	static function get_authenticated():Bool
+	{
+		@:privateAccess
+		return API.authenticated;
+	}
 }

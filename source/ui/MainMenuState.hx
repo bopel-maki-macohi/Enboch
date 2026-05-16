@@ -1,5 +1,6 @@
 package ui;
 
+import utilShitsie.api.GamejoltAPI;
 import utilShitsie.controls.Controls;
 import flixel.util.FlxColor;
 import flixel.FlxG;
@@ -16,6 +17,7 @@ class MainMenuState extends EnboState
 		'Play',
 		'Trophies',
 		// 'Options',
+		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
 	];
 
 	var camFollow:FlxObject;
@@ -86,6 +88,8 @@ class MainMenuState extends EnboState
 				FlxG.switchState(() -> new PlayState());
 			case 'trophies':
 				FlxG.switchState(() -> new TrophiesMenuState());
+			case 'gamejolt login':
+			case 'gamejolt logout':
 		}
 	}
 }
