@@ -6,6 +6,8 @@
 
 ## Added
 
+- Added Version Text to main menu
+
 - Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)
 
 - UI Transitions inbetween states
