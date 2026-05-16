@@ -2,6 +2,8 @@
 
 ## Added
 
+- Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)
+
 - UI Transitions inbetween states
 - An extra UI sound plays in the Gamejolt Login State
 - Added UI Sounds to the Main Menu

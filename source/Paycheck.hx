@@ -19,6 +19,13 @@ typedef PaycheckData =
 
 	gj_username:String,
 	gj_usertoken:String,
+
+	settings:PaycheckSettingsData,
+}
+
+typedef PaycheckSettingsData =
+{
+	?flashing:Null<Bool>,
 }
 
 class Paycheck
@@ -33,6 +40,9 @@ class Paycheck
 		trophies: [],
 		gj_username: null,
 		gj_usertoken: null,
+		settings: {
+			flashing: true,
+		}
 	};
 
 	public static function stringGameData()
@@ -56,6 +66,11 @@ class Paycheck
 			FlxG.save.data.game = game;
 		else
 			game = FlxG.save.data.game;
+		
+		trace(stringGameData());
+
+		game.settings ??= {};
+		game.settings.flashing ??= true;
 
 		totalPay = game.totalPay;
 
@@ -63,8 +78,6 @@ class Paycheck
 		{
 			save();
 		}, false, 1000);
-
-		trace(stringGameData());
 	}
 
 	public static function save()
@@ -83,6 +96,8 @@ class Paycheck
 
 			gj_username: GamejoltAPI.username,
 			gj_usertoken: GamejoltAPI.usertoken,
+
+			settings: game.settings,
 		};
 
 		FlxG.save.data.game = game;
