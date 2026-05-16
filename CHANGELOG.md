@@ -1,5 +1,9 @@
 # Unreleased
 
+## Added
+
+- Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)
+
 # 0.1.1 - 5/16/2026
 
 ## Added
