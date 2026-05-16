@@ -8,4 +8,6 @@ class Trophy
 	{
 		this.ID = ID;
 	}
+
+	public function unlock() {}
 }
