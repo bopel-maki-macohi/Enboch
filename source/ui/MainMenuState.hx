@@ -85,12 +85,15 @@ class MainMenuState extends EnboState
 
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
+
+		FlxG.sound.play('ui_scroll'.makePath(audio));
 	}
 
 	function selectThingy()
 	{
 		var selection = entries[curSelect];
 
+		FlxG.sound.play('ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':

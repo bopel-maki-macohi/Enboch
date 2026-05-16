@@ -1,5 +1,9 @@
 # Unreleased
 
+## Added
+
+- Added UI Sounds to the Main Menu
+
 # 0.1.1 - 5/16/2026
 
 ## Added
