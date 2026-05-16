@@ -18,7 +18,7 @@ class InitState extends FlxGame
 		ScreenshotPlugin.init();
 
 		@:privateAccess
-		FlxG.log._standardTraceFunction = null;
+		FlxG.log._standardTraceFunction = (v, ?i) -> {};
 
 		GamejoltAPI.init(authed ->
 		{
