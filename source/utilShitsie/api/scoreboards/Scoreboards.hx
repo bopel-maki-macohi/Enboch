@@ -4,5 +4,5 @@ import utilShitsie.api.scoreboards.Scoreboard;
 
 class Scoreboards
 {
-	public static var WAIT_TIME:Scoreboard = new Scoreboard(1083904);
+	public static var WAIT_TIME_DROWNED:Scoreboard = new Scoreboard(1083904);
 }
