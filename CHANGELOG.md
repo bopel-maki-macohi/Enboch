@@ -2,7 +2,7 @@
 
 ## Added
 
-- Cool Shader to character and item that replaces the boring alpha fade
+- Cool Shader to character that replaces the boring alpha fade
 - Added Version Text to main menu
 
 - Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)
