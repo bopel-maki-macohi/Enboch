@@ -30,9 +30,8 @@ class Main extends Sprite
 		return DeadState;
 		#end
 
-		#if GD_LOGIN
-		return GamejoltLoginState;
-		#end
+		if (Paycheck.game.firstTime || #if GD_LOGIN true #else false #end)
+			return GamejoltLoginState;
 
 		return MainMenuState;
 	}
