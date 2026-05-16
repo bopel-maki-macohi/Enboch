@@ -16,6 +16,11 @@ class GamejoltAPI
 		FlxG.stage.application.onExit.add(l -> close());
 	}
 
+	public static function logout()
+	{
+		close();
+	}
+
 	public static function close()
 	{
 		API.closeSession();
