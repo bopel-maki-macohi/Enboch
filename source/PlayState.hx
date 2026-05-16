@@ -210,6 +210,8 @@ class PlayState extends EnboState
 		stateChangeTmr.destroy();
 		stateChangeTmr = null;
 
+		transOut = null;
+
 		trace('u dead');
 		FlxG.switchState(() -> new DeadState());
 		// FlxG.resetState();
