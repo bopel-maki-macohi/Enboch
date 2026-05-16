@@ -19,6 +19,8 @@ class GamejoltLoginState extends EnboState
 
 	var authBtn:FlxUIButton;
 
+	var canDoAnything:Bool = true;
+
 	override function create()
 	{
 		super.create();
@@ -73,6 +75,10 @@ class GamejoltLoginState extends EnboState
 
 	function authBtnClick()
 	{
+		if (!canDoAnything)
+			return;
+
+		canDoAnything = false;
 		GamejoltAPI.login(usernameInput.text, usertokenInput.text, onAuthThingy);
 	}
 
@@ -108,6 +114,14 @@ class GamejoltLoginState extends EnboState
 		super.update(elapsed);
 
 		topText.screenCenter(X);
+
+		if (usernameInput != null)
+			if (usernameInput.hasFocus && !canDoAnything)
+				usernameInput.hasFocus = canDoAnything;
+
+		if (usertokenInput != null)
+			if (usertokenInput.hasFocus && !canDoAnything)
+				usertokenInput.hasFocus = canDoAnything;
 
 		if (Controls.leave.justPressed && !usernameInput.hasFocus && !usertokenInput.hasFocus)
 			FlxG.switchState(() -> new MainMenuState());

@@ -35,7 +35,9 @@ class GamejoltAPI
 		{
 			startSession();
 			callback(authed, 'logged in');
-			onAuthCallback(authed);
+
+			if (onAuthCallback != null)
+				onAuthCallback(authed);
 		});
 	}
 
