@@ -1,5 +1,8 @@
 package ui;
 
+import flixel.util.FlxTimer;
+import utilShitsie.api.GamejoltAPI;
+import flixel.addons.ui.FlxUIButton;
 import utilShitsie.controls.Controls;
 import flixel.util.FlxColor;
 import flixel.text.FlxText;
@@ -13,6 +16,8 @@ class GamejoltLoginState extends EnboState
 
 	var usernameInput:FlxUIInputText;
 	var usertokenInput:FlxUIInputText;
+
+	var authBtn:FlxUIButton;
 
 	override function create()
 	{
@@ -38,8 +43,9 @@ class GamejoltLoginState extends EnboState
 		topText.size = 32;
 
 		topText.text = 'GAMEJOLT LOGIN MENU';
-		topText.screenCenter(X);
 		topText.y = topText.height;
+
+		topText.alignment = CENTER;
 
 		var usernameTXT = new FlxText(usernameInput.getGraphicMidpoint().x, usernameInput.y - 24, 0, 'Username', 16);
 		var usertokenTXT = new FlxText(usertokenInput.getGraphicMidpoint().x, usertokenInput.y - 24, 0, 'Usertoken', 16);
@@ -47,17 +53,44 @@ class GamejoltLoginState extends EnboState
 		usernameTXT.x -= usernameTXT.width / 2;
 		usertokenTXT.x -= usertokenTXT.width / 2;
 
-		addMultiple([
-			topText,
+		authBtn = new FlxUIButton(0, 0, 'Auth', authBtnClick);
 
-			usernameInput,
-			usertokenInput,
+		authBtn.resize(authBtn.width * 2, authBtn.height * 2);
+		authBtn.setLabelFormat(null, authBtn.label.size * 2, FlxColor.BLACK, CENTER);
 
-			usernameTXT,
-			usertokenTXT,
-		]);
+		for (point in authBtn.labelOffsets)
+		{
+			point.y -= 6;
+		}
+
+		authBtn.screenCenter();
+		authBtn.y += authBtn.height * 2;
+
+		addMultiple([topText, usernameInput, usertokenInput, usernameTXT, usertokenTXT, authBtn]);
 
 		FlxG.mouse.visible = true;
+	}
+
+	function authBtnClick()
+	{
+		GamejoltAPI.login(usernameInput.text, usertokenInput.text, onAuthThingy);
+	}
+
+	function onAuthThingy(authed:Bool)
+	{
+		if (authed)
+		{
+			topText.text = 'GAMEJOLT LOGIN MENU\nLOGGED IN!\n\nLeavin in a lil bit...';
+
+			FlxTimer.wait(2, () ->
+			{
+				FlxG.switchState(() -> new MainMenuState());
+			});
+
+			return;
+		}
+
+		topText.text = 'GAMEJOLT LOGIN MENU\nCould not log in...';
 	}
 
 	override function destroy()
@@ -70,6 +103,8 @@ class GamejoltLoginState extends EnboState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		topText.screenCenter(X);
 
 		if (Controls.leave.justPressed && !usernameInput.hasFocus && !usertokenInput.hasFocus)
 			FlxG.switchState(() -> new MainMenuState());

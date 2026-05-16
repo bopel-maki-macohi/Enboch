@@ -29,12 +29,13 @@ class GamejoltAPI
 		FlxG.stage.application.onExit.add(l -> closeSession());
 	}
 
-	public static function login(username:String, usertoken:String)
+	public static function login(username:String, usertoken:String, ?onAuthCallback:Bool->Void)
 	{
 		API.authUser(username, usertoken, (authed:Bool) ->
 		{
 			startSession();
 			callback(authed, 'logged in');
+			onAuthCallback(authed);
 		});
 	}
 
