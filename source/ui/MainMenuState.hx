@@ -16,7 +16,7 @@ class MainMenuState extends EnboState
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
 	var entries:Array<String> = [
-		'Play',
+		'Levels',
 		// 'Trophies',
 		// 'Options',
 		'',
