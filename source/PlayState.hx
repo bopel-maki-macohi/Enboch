@@ -53,13 +53,8 @@ class PlayState extends EnboState
 			itemAssetsList.push(FlxG.bitmap.add('characters/$char/item-phase$i'.getPath(image)));
 		}
 
-		for (graphic in charAssetsList)
-			if (graphic != null)
-				graphic.persist = true;
-
-		for (graphic in itemAssetsList)
-			if (graphic != null)
-				graphic.persist = true;
+		GraphicUtil.persistGraphics(charAssetsList);
+		GraphicUtil.persistGraphics(itemAssetsList);
 
 		charSpr = new FlxSprite(0, 0);
 		itemSpr = new FlxSprite(0, 0);

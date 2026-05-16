@@ -12,4 +12,11 @@ class GraphicUtil
 			graphicsList.remove(graphic);
 		}
 	}
+
+	public static function persistGraphics(graphicsList:Array<FlxGraphic>)
+	{
+		for (graphic in graphicsList)
+			if (graphic != null)
+				graphic.persist = true;
+	}
 }
