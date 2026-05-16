@@ -1,5 +1,9 @@
 # Unreleased
 
+## Fixed
+
+- Sound Save Stuff persists between sessions now
+
 ## Added
 
 - Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)

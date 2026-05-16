@@ -66,7 +66,7 @@ class Paycheck
 			FlxG.save.data.game = game;
 		else
 			game = FlxG.save.data.game;
-		
+
 		trace(stringGameData());
 
 		game.settings ??= {};
@@ -78,6 +78,9 @@ class Paycheck
 		{
 			save();
 		}, false, 1000);
+
+		@:privateAccess
+		FlxG.sound.loadSavedPrefs();
 	}
 
 	public static function save()
