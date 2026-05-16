@@ -42,7 +42,6 @@ class PlayState extends EnboState
 	var killTmr:FlxTimer = new FlxTimer();
 
 	var medalTmr:FlxTimer = new FlxTimer();
-	var scoreboardTmr:FlxTimer = new FlxTimer();
 
 	override public function create()
 	{
@@ -86,22 +85,6 @@ class PlayState extends EnboState
 					Trophies.DAYCYCLE_TWENTY_SEVEN.unlock();
 					t.cancel();
 			}
-		}, 0);
-
-		var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char.toLowerCase());
-
-		scoreboardTmr.start((Define.SCOREBOARD_TESTING) ? 1 : 60, t ->
-		{
-			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1).toLowerCase()} for ${t.elapsedLoops} '
-				+ ((Define.SCOREBOARD_TESTING) ? 'Second(s)' : 'Minute(s)');
-
-			if (scoreboard == null)
-				return;
-
-			if (Define.SCOREBOARD_TESTING)
-				scoreboard.addScore(str, t.elapsedLoops, 'SCOREBOARD_TESTING_${Date.now().getTime() / 1000}');
-			else
-				scoreboard.addScore(str, t.elapsedLoops, Date.now().getTime() / 1000);
 		}, 0);
 	}
 
