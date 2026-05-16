@@ -51,5 +51,21 @@ class MainMenuState extends EnboState
 				camFollow.y = text.y;
 			}
 		}
+
+		if (FlxG.keys.anyJustPressed([W, UP]))
+			changeSelect(-1);
+		if (FlxG.keys.anyJustPressed([S, DOWN]))
+			changeSelect(1);
+	}
+
+	function changeSelect(selection:Int)
+	{
+		curSelect += selection;
+
+		if (curSelect < 0)
+			curSelect = entries.length - 1;
+		
+		if (curSelect > entries.length - 1)
+			curSelect = 0;
 	}
 }
