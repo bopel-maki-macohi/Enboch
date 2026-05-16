@@ -15,12 +15,4 @@ class Trophy
 	{
 		GamejoltAPI.unlockTrophy(this.ID);
 	}
-
-	public var unlocked(get, never):Bool;
-
-	function get_unlocked():Bool
-	{
-		return false;
-		// return GamejoltAPI.hasUnlockedTrophy(this.ID);
-	}
 }

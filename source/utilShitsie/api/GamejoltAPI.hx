@@ -23,8 +23,6 @@ class GamejoltAPI
 
 		FlxG.stage.application.onExit.add(l -> closeSession());
 
-		API.fetchTrophy(0, haxe.Log.trace);
-
 		if (Paycheck.game.gd_username != null && Paycheck.game.gd_usertoken != null)
 			login(Paycheck.game.gd_username, Paycheck.game.gd_usertoken, onAuthCallback);
 		else if (username != null && usertoken != null)
