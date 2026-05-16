@@ -2,6 +2,7 @@ package;
 
 import utilShitsie.ScreenshotPlugin;
 import utilShitsie.RNGUtil;
+import utilShitsie.GraphicUtil;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.effects.FlxFlicker;
@@ -107,11 +108,8 @@ class PlayState extends EnboState
 
 	override function destroy()
 	{
-		for (graphic in charAssetsList)
-			graphic?.destroy();
-
-		for (graphic in itemAssetsList)
-			graphic?.destroy();
+		GraphicUtil.destroyGraphics(charAssetsList);
+		GraphicUtil.destroyGraphics(itemAssetsList);
 
 		super.destroy();
 	}
