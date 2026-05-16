@@ -38,6 +38,8 @@ class PlayState extends EnboState
 	var stateChangeTmr:FlxTimer = new FlxTimer();
 	var killTmr:FlxTimer = new FlxTimer();
 
+	var medalTmr:FlxTimer = new FlxTimer();
+
 	override public function create()
 	{
 		super.create();
@@ -65,6 +67,11 @@ class PlayState extends EnboState
 		stateChangeCheck(null);
 
 		stateChangeTmr.start(5, stateChangeCheck, 0);
+
+		medalTmr.start(60 * 20, t ->
+		{
+			trace(t.elapsedLoops + ' day cycles');
+		}, 0);
 	}
 
 	override function preScreenshot()
@@ -136,6 +143,10 @@ class PlayState extends EnboState
 
 		if (charState != prevState)
 		{
+			#if BOTPLAY
+			useItem();
+			#end
+
 			if (charAssetsList[charState] != null)
 			{
 				charSpr.loadGraphic(charAssetsList[charState]);
