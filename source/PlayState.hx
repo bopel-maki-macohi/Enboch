@@ -143,10 +143,6 @@ class PlayState extends EnboState
 
 		if (charState != prevState)
 		{
-			#if BOTPLAY
-			useItem();
-			#end
-
 			if (charAssetsList[charState] != null)
 			{
 				charSpr.loadGraphic(charAssetsList[charState]);
@@ -203,9 +199,17 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		debugTXT.text = '$charState\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
+		debugTXT.text = '$charState';
+		debugTXT.text += '\n${charSpr.alpha}';
+		debugTXT.text += '\n${Paycheck.totalPay}';
+		debugTXT.text += '\n$itemSpam';
+
+		#if BOTPLAY
+		debugTXT.text += '\nBOTPLAY';
+		#end
 		#end
 
+		#if !BOTPLAY
 		if (FlxG.mouse.justPressed)
 		{
 			itemSpam++;
@@ -213,6 +217,12 @@ class PlayState extends EnboState
 			if (charSpr.alpha == 1)
 				useItem();
 		}
+		#end
+
+		#if BOTPLAY
+		if (charSpr.alpha == 1 && charState > 0)
+			useItem();
+		#end
 
 		if (Controls.leave.justPressed && charState < 3)
 			FlxG.switchState(() -> new MainMenuState());
