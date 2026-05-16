@@ -13,7 +13,13 @@ class GamejoltAPI
 
 	public static function callback(?params:Dynamic, ?id:String)
 	{
-		trace('GAMEJOLT API THINGY : $params ($id)');
+		var msg = 'GAMEJOLT API THINGY : $params ($id)';
+
+		#if sys
+		Sys.println(msg);
+		#else
+		trace(msg);
+		#end
 	}
 
 	public static function init(?onAuthCallback:Bool->Void)
