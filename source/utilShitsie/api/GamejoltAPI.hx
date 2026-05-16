@@ -15,11 +15,11 @@ class GamejoltAPI
 	{
 		var msg = 'GAMEJOLT API THINGY : $params ($id)';
 
-		#if sys
-		Sys.println(msg);
-		#else
+		// #if sys
+		// Sys.println(msg);
+		// #else
 		trace(msg);
-		#end
+		// #end
 	}
 
 	public static function init(?onAuthCallback:Bool->Void)
