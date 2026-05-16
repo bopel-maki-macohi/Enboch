@@ -15,7 +15,7 @@ class DebugString
 				continue;
 
             if (i > 0)
-                str += ' ';
+                str += '\n';
 
 			str += '$field=${Reflect.field(object, field)}';
 		}

@@ -34,7 +34,7 @@ class Paycheck
 
 	public static function stringGameData()
 	{
-		return DebugString.generateBasedOnData(game, [
+		return '\n' + DebugString.generateBasedOnData(game, [
 			#if debug
 			'gd_username', //
 			'gd_usertoken',
