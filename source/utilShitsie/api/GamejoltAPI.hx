@@ -10,5 +10,7 @@ class GamejoltAPI
 	public static function init()
 	{
 		API.init(1070390, privateKey);
+
+		API.verbose = #if debug true #else false #end;
 	}
 }
