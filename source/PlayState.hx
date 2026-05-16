@@ -1,5 +1,6 @@
 package;
 
+import shaderHell.ColorPulseShader.PulsingColorShader;
 import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
@@ -95,6 +96,8 @@ class PlayState extends EnboState
 					t.cancel();
 			}
 		}, 0);
+
+		charSpr.shader = new PulsingColorShader();
 	}
 
 	override function preScreenshot()
