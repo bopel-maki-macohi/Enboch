@@ -61,6 +61,8 @@ class MainMenuState extends EnboState
 			changeSelect(-1);
 		if (Controls.ui_down.justPressed)
 			changeSelect(1);
+		if (Controls.accept.justPressed)
+			selectThingy();
 	}
 
 	function changeSelect(selection:Int)
@@ -72,5 +74,18 @@ class MainMenuState extends EnboState
 
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
+	}
+
+	function selectThingy()
+	{
+		var selection = entries[curSelect];
+
+		switch (selection.toLowerCase())
+		{
+			case 'levels':
+				FlxG.switchState(() -> new PlayState());
+			case 'trophies':
+				FlxG.switchState(() -> new PlayState());
+		}
 	}
 }
