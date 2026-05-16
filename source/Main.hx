@@ -1,6 +1,5 @@
 package;
 
-import utilShitsie.trophies.TrophyToastHolder;
 import ui.GamejoltLoginState;
 import ui.MainMenuState;
 import ui.debug.TrophyTesting;
@@ -14,8 +13,6 @@ class Main extends Sprite
 	public static var gitBranch:String = GitShit.getGitBranch();
 	public static var gitCommit:String = GitShit.getGitCommit();
 
-	public static var trophyToast:TrophyToastHolder;
-
 	public function new()
 	{
 		super();
@@ -26,8 +23,6 @@ class Main extends Sprite
 		trace('Git Commit: $gitCommit');
 
 		addChild(new InitState(getInitalState()));
-
-		addChild(trophyToast = new TrophyToastHolder());
 	}
 
 	function getInitalState():InitialState

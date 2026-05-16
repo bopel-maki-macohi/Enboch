@@ -3,7 +3,7 @@ package ui.debug;
 import flixel.util.FlxColor;
 import flixel.FlxG;
 import utilShitsie.trophies.Trophies;
-import utilShitsie.trophies.TrophyToastHolder;
+// import utilShitsie.trophies.TrophyToastHolder;
 import utilShitsie.controls.Controls;
 import utilShitsie.EnboState;
 
@@ -22,7 +22,7 @@ class TrophyTesting extends EnboState
 
 		if (Controls.accept.justPressed)
 		{
-			TrophyToastHolder.displayToastFor(Trophies.DROWNED_PLAY.ID);
+			// TrophyToastHolder.displayToastFor(Trophies.DROWNED_PLAY.ID);
 		}
 	}
 }
