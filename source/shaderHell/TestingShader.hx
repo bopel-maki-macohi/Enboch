@@ -5,9 +5,9 @@ import flixel.system.FlxAssets;
 class TestingShader extends FlxShader
 {
 	@:glFragmentSource('
-        #pragma header
+		#pragma header
 
-		void main() {}
+        void main() {}
 	')
 	override public function new()
 	{
