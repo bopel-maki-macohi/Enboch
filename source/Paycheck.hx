@@ -78,9 +78,6 @@ class Paycheck
 		{
 			save();
 		}, false, 1000);
-
-		@:privateAccess
-		FlxG.sound.loadSavedPrefs();
 	}
 
 	public static function save()
