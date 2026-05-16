@@ -1,6 +1,5 @@
 package;
 
-import utilShitsie.Define;
 import ui.GamejoltLoginState;
 import ui.MainMenuState;
 import ui.debug.TrophyTesting;
@@ -28,13 +27,15 @@ class Main extends Sprite
 
 	function getInitalState():InitialState
 	{
-		if (Define.DIE != null)
-			return DeadState;
+		#if DIE
+		return DeadState;
+		#end
 
-		if (Define.TROPHY_TESTING != null)
-			return TrophyTesting;
+		#if TROPHY_TESTING
+		return TrophyTesting;
+		#end
 
-		if (Paycheck.game.firstTime || Define.GD_LOGIN != null)
+		if (Paycheck.game.firstTime || #if GD_LOGIN true #else false #end)
 			return GamejoltLoginState;
 
 		return MainMenuState;

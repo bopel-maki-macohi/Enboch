@@ -4,6 +4,7 @@ class GitShit
 {
 	public static macro function getGitBranch():haxe.macro.Expr.ExprOf<String>
 	{
+		#if !display
 		var process = new sys.io.Process('git rev-parse --abbrev-ref HEAD');
 
 		if (process.exitCode() != 0)
@@ -16,12 +17,16 @@ class GitShit
 		var branchName = process.stdout.readLine();
 		process.close();
         haxe.macro.Context.info('Git Branch: $branchName', haxe.macro.Context.currentPos());
+        #else
+        branchName = '';
+        #end
 
 		return macro $v{branchName};
 	}
 
 	public static macro function getGitCommit():haxe.macro.Expr.ExprOf<String>
 	{
+		#if !display
 		var process = new sys.io.Process('git rev-parse HEAD');
 
 		if (process.exitCode() != 0)
@@ -35,6 +40,9 @@ class GitShit
 		process.close();
 
         haxe.macro.Context.info('Git Commit: $commitHash', haxe.macro.Context.currentPos());
+		#else
+		var commitHash = '';
+		#end
 
 		return macro $v{commitHash};
 	}
