@@ -1,5 +1,6 @@
 import flixel.FlxG;
 import utilShitsie.ScreenshotPlugin;
+import utilShitsie.api.GamejoltAPI;
 import flixel.util.typeLimit.NextState.InitialState;
 import flixel.FlxGame;
 
@@ -12,5 +13,7 @@ class InitState extends FlxGame
 		FlxG.mouse.visible = false;
 
         ScreenshotPlugin.init();
+
+		GamejoltAPI.init();
 	}
 }
