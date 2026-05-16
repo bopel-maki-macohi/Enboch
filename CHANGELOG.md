@@ -1,5 +1,9 @@
 # Unreleased
 
+## Added
+
+- MAIN MENU!
+
 ## Changed
 
 - You can press ESCAPE or BACKSPACE in the gameplay state to leave to the main menu (only if you aren't about to die!)
