@@ -6,6 +6,11 @@
       "version": "6.1.2"
     },
     {
+      "name": "hxcpp",
+      "type": "haxelib",
+      "version": null
+    },
+    {
       "name": "lime",
       "type": "haxelib",
       "version": "8.3.2"
