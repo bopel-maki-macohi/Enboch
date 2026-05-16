@@ -9,7 +9,7 @@ class AssetLibrary
 	public static var pathTypes:Map<OneOfTwo<String, AssetLibraryPathType>, Array<String>> = [
 		//
 		image => [null, 'png'],
-		audio => ['audio', (Define.web != null) ? 'mp3' : 'ogg'],
+		audio => ['audio', #if web 'mp3' #else 'ogg' #end],
 	];
 
 	public static function addPathType(type:String, folder:String, extension:String)
