@@ -76,7 +76,7 @@ class GamejoltAPI
 
 	public static function getTrophyData()
 	{
-		API.fetchTrophy(Trophies.DROWNED_PLAY.ID, function(d)
+		API.fetchTrophy(0, function(d)
 		{
 			trace(d);
 		});
