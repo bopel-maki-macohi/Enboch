@@ -9,6 +9,8 @@ import utilShitsie.EnboState;
 
 class GamejoltLoginState extends EnboState
 {
+	var topText:FlxText;
+
 	var usernameInput:FlxUIInputText;
 	var usertokenInput:FlxUIInputText;
 
@@ -29,10 +31,19 @@ class GamejoltLoginState extends EnboState
 		usernameInput.screenCenter(Y);
 		usertokenInput.screenCenter(Y);
 
-        usernameInput.borderSize = 2;
-        usertokenInput.borderSize = 2;
+		usernameInput.borderSize = 2;
+		usertokenInput.borderSize = 2;
+
+		topText = new FlxText();
+		topText.size = 32;
+
+		topText.text = 'GAMEJOLT LOGIN MENU';
+		topText.screenCenter(X);
+		topText.y = topText.height;
 
 		addMultiple([
+			topText,
+			
 			usernameInput,
 			usertokenInput,
 
