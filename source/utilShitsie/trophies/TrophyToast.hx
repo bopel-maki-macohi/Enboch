@@ -42,7 +42,10 @@ class TrophyToast extends Sprite
 		addChild(toastBGBitmap);
 		addChild(toastBitmap);
 
-		y = FlxG.height - height;
+		toastBGBitmap.y = FlxG.height - height - toastBGBitmap.height;
+		toastBitmap.y = toastBGBitmap.y + BGBITMAP_PADDING / 2;
+
+		toastBitmap.x = toastBGBitmap.x + BGBITMAP_PADDING / 2;
 
 		FlxTween.tween(toastBitmap, {alpha: 0}, 1, {
 			startDelay: 1,
