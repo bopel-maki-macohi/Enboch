@@ -11,6 +11,43 @@ class DefineFucker
 	{
 		var fields = Context.getBuildFields();
 
+		var defFields:Map<String, String> = [];
+
+		for (define => defineValue in Context.getDefines())
+		{
+			if (!wantedDefine(define))
+				continue;
+
+			for (field in fields)
+			{
+				if (field.name == define)
+					continue;
+				if (field.name == '${define}_value')
+					continue;
+			}
+
+			defFields.set(define, defineValue);
+		}
+
+		for (define => value in defFields)
+		{
+			fields.push({
+				name: define,
+				kind: FVar(macro :Bool, macro $v{value != null}),
+				access: [APublic, AStatic, AFinal],
+				pos: Context.currentPos(),
+			});
+
+			fields.push({
+				name: define + '_value',
+				kind: FVar(macro :String, macro $v{value}),
+				access: [APublic, AStatic, AFinal],
+				pos: Context.currentPos(),
+			});
+
+			trace('$define=$value');
+		}
+
 		return fields;
 	}
 
