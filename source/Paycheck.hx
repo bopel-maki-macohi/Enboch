@@ -19,6 +19,13 @@ typedef PaycheckData =
 
 	gj_username:String,
 	gj_usertoken:String,
+
+	settings:PaycheckSettingsData,
+}
+
+typedef PaycheckSettingsData =
+{
+	flashing:Bool,
 }
 
 class Paycheck
@@ -33,6 +40,9 @@ class Paycheck
 		trophies: [],
 		gj_username: null,
 		gj_usertoken: null,
+		settings: {
+			flashing: true,
+		}
 	};
 
 	public static function stringGameData()
@@ -83,6 +93,8 @@ class Paycheck
 
 			gj_username: GamejoltAPI.username,
 			gj_usertoken: GamejoltAPI.usertoken,
+
+			settings: game.settings,
 		};
 
 		FlxG.save.data.game = game;
