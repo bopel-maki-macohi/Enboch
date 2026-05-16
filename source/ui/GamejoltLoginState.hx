@@ -86,20 +86,19 @@ class GamejoltLoginState extends EnboState
 	{
 		if (authed)
 		{
-			topText.text = 'GAMEJOLT LOGIN MENU\nLOGGED IN!\n\nLeavin in a lil bit...';
-
+			topText.text = 'GAMEJOLT LOGIN MENU\nLOGGED IN!';
 			FlxG.sound.play('gamejolt_loggedIn'.makePath(audio));
-
-			FlxTimer.wait(2, () ->
-			{
-				FlxG.switchState(() -> new MainMenuState());
-			});
-
-			return;
+		}
+		else
+		{
+			topText.text = 'GAMEJOLT LOGIN MENU\nCould not log in...';
+			FlxG.sound.play('gamejolt_loginFAIL'.makePath(audio));
 		}
 
-		topText.text = 'GAMEJOLT LOGIN MENU\nCould not log in...';
-		FlxG.sound.play('gamejolt_loginFAIL'.makePath(audio));
+		FlxTimer.wait(2, () ->
+		{
+			FlxG.switchState(() -> new MainMenuState());
+		});
 	}
 
 	override function destroy()

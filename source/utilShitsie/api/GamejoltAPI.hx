@@ -48,10 +48,16 @@ class GamejoltAPI
 
 	public static function logout(callbackThingy:Void->Void)
 	{
-		closeSession(callbackThingy);
+		closeSession(() ->
+		{
+			@:privateAccess {
+				API._userName = null;
+				API._userToken = null;
+			}
 
-		@:privateAccess
-		API._initialized = false;
+			if (callbackThingy != null)
+				callbackThingy();
+		});
 	}
 
 	public static function startSession()
@@ -87,25 +93,27 @@ class GamejoltAPI
 
 	static function get_authenticated():Bool
 	{
-		@:privateAccess {
-			if (!API._initialized)
-				return false;
+		if (API.username.toLowerCase() == 'no user')
+			return false;
 
-			return API.authenticated;
-		}
+		if (API.usertoken.toLowerCase() == 'no token')
+			return false;
+
+		@:privateAccess
+		return API.authenticated;
 	}
 
 	public static var username(get, never):String;
 
 	static function get_username():String
 	{
-		return (!authenticated || API.usertoken.toLowerCase() == 'no user') ? null : API.username;
+		return (!authenticated) ? null : API.username;
 	}
 
 	public static var usertoken(get, never):String;
 
 	static function get_usertoken():String
 	{
-		return (!authenticated || API.usertoken.toLowerCase() == 'no token') ? null : API.usertoken;
+		return (!authenticated) ? null : API.usertoken;
 	}
 }
