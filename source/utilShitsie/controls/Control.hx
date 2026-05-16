@@ -5,7 +5,7 @@ import flixel.input.keyboard.FlxKey;
 
 class Control
 {
-	public var id:String;
+	public var id:String = '';
 
 	public var keys:Array<FlxKey>;
 
