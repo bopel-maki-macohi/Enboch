@@ -37,7 +37,7 @@ class Paycheck
 	{
 		var nonoes:Array<String> = [];
 
-		if (Define.debug)
+		if (!Define.debug)
 		{
 			nonoes.push('gj_username');
 			nonoes.push('gj_usertoken');
