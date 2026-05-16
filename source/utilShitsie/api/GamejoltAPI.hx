@@ -6,6 +6,8 @@ import flixel.FlxG;
 import macroShit.SecretDataFile;
 import flixel.addons.api.FlxGameJolt as API;
 
+using StringTools;
+
 class GamejoltAPI
 {
 	static var privateKey:String = SecretDataFile.build('dev/api/gamejolt-privateKey');
@@ -25,6 +27,9 @@ class GamejoltAPI
 
 	public static function init(?onAuthCallback:Bool->Void)
 	{
+		@:privateAccess
+		API.URL_API = API.URL_API.replace('v1', 'v1_2');
+
 		API.verbose = #if debug true #else false #end;
 		API.init(1070390, privateKey);
 
