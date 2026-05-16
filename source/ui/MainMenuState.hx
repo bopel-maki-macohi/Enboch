@@ -13,7 +13,7 @@ class MainMenuState extends EnboState
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
 	var entries:Array<String> = [
-		'Levels',
+		'Play',
 		'Trophies',
 		// 'Options',
 	];
@@ -82,7 +82,7 @@ class MainMenuState extends EnboState
 
 		switch (selection.toLowerCase())
 		{
-			case 'levels':
+			case 'levels', 'play':
 				FlxG.switchState(() -> new PlayState());
 			case 'trophies':
 				FlxG.switchState(() -> new TrophiesMenuState());
