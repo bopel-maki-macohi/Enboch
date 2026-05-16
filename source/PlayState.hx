@@ -88,14 +88,14 @@ class PlayState extends EnboState
 			}
 		}, 0);
 
-		scoreboardTmr.start(1, t ->
+		scoreboardTmr.start(60, t ->
 		{
 			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1)} for ${t.elapsedLoops} Minute(s)';
 
 			var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char);
 
 			if (scoreboard != null)
-				scoreboard.addScore(str, t.elapsedLoops / 60);
+				scoreboard.addScore(str, t.elapsedLoops);
 		}, 0);
 	}
 
