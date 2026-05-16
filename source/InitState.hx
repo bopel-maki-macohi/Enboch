@@ -1,3 +1,4 @@
+import utilShitsie.Define;
 import flixel.system.frontEnds.LogFrontEnd;
 import flixel.FlxG;
 import utilShitsie.ScreenshotPlugin;
@@ -16,6 +17,12 @@ class InitState extends FlxGame
 		FlxG.mouse.visible = false;
 
 		ScreenshotPlugin.init();
+
+		if (!Define.debug)
+		{
+			@:privateAccess
+			FlxG.log._standardTraceFunction = (v, ?i) -> {};
+		}
 
 		GamejoltAPI.init(authed ->
 		{
