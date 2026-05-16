@@ -2,7 +2,8 @@
 
 ## Added
 
-- TROPHIES
+- LOGGING IN AND OUT OF GAMEJOLT (idfk)
+- TROPHIES!!
 - MAIN MENU!
 
 ## Changed
