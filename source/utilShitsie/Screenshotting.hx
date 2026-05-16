@@ -11,7 +11,11 @@ class Screenshotting extends FlxBasic
 {
 	public static function init()
 	{
+		#if debug
 		FlxG.plugins.addPlugin(new Screenshotting());
+		#else
+		trace('Screenshotting is debug only right now');
+		#end
 	}
 
 	override function update(elapsed:Float)
