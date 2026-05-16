@@ -43,13 +43,22 @@ class GamejoltLoginState extends EnboState
 
 		addMultiple([
 			topText,
-			
+
 			usernameInput,
 			usertokenInput,
 
 			new FlxText(usernameInput.x, usernameInput.y - 24, 0, 'Username', 16),
 			new FlxText(usertokenInput.x, usertokenInput.y - 24, 0, 'Usertoken', 16),
 		]);
+
+		FlxG.mouse.visible = true;
+	}
+
+	override function destroy()
+	{
+		FlxG.mouse.visible = false;
+
+		super.destroy();
 	}
 
 	override function update(elapsed:Float)
