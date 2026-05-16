@@ -1,3 +1,4 @@
+import utilShitsie.api.GamejoltAPI;
 import utilShitsie.controls.Controls;
 import flixel.FlxG;
 
@@ -60,8 +61,8 @@ class Paycheck
 			trophies: [], // tba
 			firstTime: false,
 
-			gd_username: null,
-			gd_usertoken: null,
+			gd_username: GamejoltAPI.username,
+			gd_usertoken: GamejoltAPI.usertoken,
 		};
 
 		FlxG.save.data.game = game;
