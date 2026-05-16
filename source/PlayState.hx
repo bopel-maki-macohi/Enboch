@@ -91,8 +91,7 @@ class PlayState extends EnboState
 		{
 			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1)} for ${t.elapsedLoops} Minute(s)';
 
-			trace(str);
-			// Scoreboards.WAIT_TIME(char)?.addScore(str, t.elapsedLoops);
+			Scoreboards.WAIT_TIME(char)?.addScore(str, t.elapsedLoops / 60);
 		}, 0);
 	}
 
