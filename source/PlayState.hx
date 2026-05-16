@@ -68,9 +68,20 @@ class PlayState extends EnboState
 
 		stateChangeTmr.start(5, stateChangeCheck, 0);
 
-		medalTmr.start(1 * 20, t ->
+		medalTmr.start(60 * 20, t ->
 		{
-			trace(t.elapsedLoops + ' day cycles');
+			trace(t.elapsedLoops + ' day cycle(s)');
+
+			switch t.elapsedLoops
+			{
+				case 1:
+					Trophies.ONE_DAYCYCLE.unlock();
+				case 3:
+					Trophies.THREE_DAYCYCLES.unlock();
+				case 9:
+					Trophies.NINE_DAYCYCLES.unlock();
+					t.cancel();
+			}
 		}, 0);
 	}
 
