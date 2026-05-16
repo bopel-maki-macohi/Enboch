@@ -1,7 +1,5 @@
 package flixel.addons.api;
 
-package flixel.addons.api;
-
 import openfl.display.Loader;
 import openfl.display.BitmapData;
 import openfl.events.Event;
