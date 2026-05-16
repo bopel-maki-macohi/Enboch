@@ -37,9 +37,9 @@ class InitState extends FlxGame
 
 	override function create(_:Event)
 	{
+		super.create(_);
+		
 		FlxTransitionableState.defaultTransIn = EnboState.DEFAULT_TRANSITION;
 		FlxTransitionableState.defaultTransOut = EnboState.DEFAULT_TRANSITION;
-
-		super.create(_);
 	}
 }
