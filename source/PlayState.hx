@@ -205,10 +205,10 @@ class PlayState extends EnboState
 		debugTXT.text += '\n${charSpr.alpha}';
 		debugTXT.text += '\n${Paycheck.totalPay}';
 		debugTXT.text += '\n$itemSpam';
-
 		#if BOTPLAY
 		debugTXT.text += '\nBOTPLAY';
 		#end
+		debugTXT.text += '\nDAY CYCLE: ${(medalTmr.elapsedTime / 1000) / (60 * 20)}';
 		#end
 
 		#if !BOTPLAY
