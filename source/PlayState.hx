@@ -196,7 +196,11 @@ class PlayState extends EnboState
 	function characterFlash()
 	{
 		charSpr.alpha = 0;
-		FlxTween.cancelTweensOf(charSpr);
+		try
+		{
+			FlxTween.cancelTweensOf(charSpr);
+		}
+		catch (e) {}
 		FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
 	}
 
