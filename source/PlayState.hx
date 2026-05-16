@@ -75,11 +75,13 @@ class PlayState extends EnboState
 			switch t.elapsedLoops
 			{
 				case 1:
-					Trophies.ONE_DAYCYCLE.unlock();
+					Trophies.DAYCYCLE_ONE.unlock();
 				case 3:
-					Trophies.THREE_DAYCYCLES.unlock();
+					Trophies.DAYCYCLE_THREE.unlock();
 				case 9:
-					Trophies.NINE_DAYCYCLES.unlock();
+					Trophies.DAYCYCLE_NINE.unlock();
+				case 27:
+					Trophies.DAYCYCLE_TWENTY_SEVEN.unlock();
 					t.cancel();
 			}
 		}, 0);
