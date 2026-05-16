@@ -100,7 +100,7 @@ class PlayState extends EnboState
 			var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char);
 
 			if (scoreboard != null && t.elapsedLoops > currentScore)
-				scoreboard.addScore(str, t.elapsedLoops);
+				scoreboard.addScore(str, t.elapsedLoops, Date.now().getTime() / 1000);
 		}, 0);
 	}
 
