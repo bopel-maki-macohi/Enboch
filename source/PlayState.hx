@@ -1,6 +1,6 @@
 package;
 
-import shaderHell.ColorPulseShader.PulsingColorShader;
+import shaderHell.PulsingColorShader;
 import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
