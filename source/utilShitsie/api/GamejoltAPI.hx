@@ -76,7 +76,10 @@ class GamejoltAPI
 
 	public static function getTrophyData()
 	{
-		API.fetchTrophy(Trophies.DROWNED_PLAY.ID, d -> callback(d, 'trophies'));
+		API.fetchTrophy(Trophies.DROWNED_PLAY.ID, function(d)
+		{
+			trace(d);
+		});
 	}
 
 	public static function logout(callbackThingy:Void->Void)
