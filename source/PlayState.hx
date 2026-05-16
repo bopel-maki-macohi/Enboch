@@ -21,17 +21,17 @@ import flixel.FlxSprite;
 
 class PlayState extends EnboState
 {
-	var charSpr:FlxSprite;
-
 	public static var char:String = 'drowned';
 
-	var charAssetsList:Array<FlxGraphic> = [];
+	public static var CHAR_ASSET_LIST:Map<String, Array<FlxGraphic>> = [];
+	public static var ITEM_ASSET_LIST:Map<String, Array<FlxGraphic>> = [];
+
+	var charSpr:FlxSprite;
 
 	var charState:Int = -1;
 	var debugTXT:FlxText;
 
 	var itemSpr:FlxSprite;
-	var itemAssetsList:Array<FlxGraphic> = [];
 
 	var rngList:Array<Int> = [];
 
@@ -49,14 +49,23 @@ class PlayState extends EnboState
 
 		Paycheck.earned = 0;
 
-		for (i in 0...4)
+		if (!CHAR_ASSET_LIST.exists(char))
 		{
-			charAssetsList.push(FlxG.bitmap.add('characters/$char/char-phase$i'.makePath(image)));
-			itemAssetsList.push(FlxG.bitmap.add('characters/$char/item-phase$i'.makePath(image)));
+			CHAR_ASSET_LIST.set(char, [
+				for (i in 0...4)
+					FlxG.bitmap.add('characters/$char/char-phase$i'.makePath(image))
+			]);
+			GraphicUtil.persistGraphics(CHAR_ASSET_LIST.get(char));
 		}
 
-		GraphicUtil.persistGraphics(charAssetsList);
-		GraphicUtil.persistGraphics(itemAssetsList);
+		if (!ITEM_ASSET_LIST.exists(char))
+		{
+			ITEM_ASSET_LIST.set(char, [
+				for (i in 0...4)
+					FlxG.bitmap.add('characters/$char/item-phase$i'.makePath(image))
+			]);
+			GraphicUtil.persistGraphics(ITEM_ASSET_LIST.get(char));
+		}
 
 		addMultiple([
 			charSpr = new FlxSprite(0, 0),
@@ -147,17 +156,17 @@ class PlayState extends EnboState
 
 		if (charState != prevState)
 		{
-			if (charAssetsList[charState] != null)
+			if (CHAR_ASSET_LIST.get(char)[charState] != null)
 			{
-				charSpr.loadGraphic(charAssetsList[charState]);
+				charSpr.loadGraphic(CHAR_ASSET_LIST.get(char)[charState]);
 				charSpr.screenCenter();
 
 				characterFlash();
 			}
 
-			if (itemAssetsList[charState] != null)
+			if (ITEM_ASSET_LIST.get(char)[charState] != null)
 			{
-				itemSpr.loadGraphic(itemAssetsList[charState]);
+				itemSpr.loadGraphic(ITEM_ASSET_LIST.get(char)[charState]);
 				itemSpr.screenCenter();
 			}
 		}
