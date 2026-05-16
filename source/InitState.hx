@@ -1,3 +1,5 @@
+import utilShitsie.EnboState;
+import flixel.addons.transition.FlxTransitionableState;
 import utilShitsie.Define;
 import flixel.system.frontEnds.LogFrontEnd;
 import flixel.FlxG;
@@ -31,5 +33,13 @@ class InitState extends FlxGame
 			addEventListener(Event.ADDED_TO_STAGE, create);
 			create(null);
 		});
+	}
+
+	override function create(_:Event)
+	{
+		super.create(_);
+
+		FlxTransitionableState.defaultTransIn = EnboState.DEFAULT_TRANSITION;
+		FlxTransitionableState.defaultTransOut = EnboState.DEFAULT_TRANSITION;
 	}
 }

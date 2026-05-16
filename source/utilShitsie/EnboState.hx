@@ -1,10 +1,30 @@
 package utilShitsie;
 
+import flixel.addons.transition.FlxTransitionSprite;
+import flixel.math.FlxPoint;
+import flixel.util.FlxColor;
+import flixel.graphics.FlxGraphic;
+import flixel.addons.transition.TransitionData;
 import flixel.addons.ui.FlxUIState;
 import flixel.FlxBasic;
 
 class EnboState extends FlxUIState
 {
+	public static var DEFAULT_TRANSITION(get, never):TransitionData;
+
+	static function get_DEFAULT_TRANSITION():TransitionData
+	{
+		var transGraphic = FlxGraphic.fromClass(cast GraphicTransTileDiamond);
+		transGraphic.persist = true;
+		transGraphic.destroyOnNoUse = false;
+
+		return new TransitionData(TILES, FlxColor.WHITE, .5, FlxPoint.get(0, -1), {
+			asset: transGraphic,
+			width: 32,
+			height: 32
+		},);
+	}
+
 	public function addMultiple(basics:Array<FlxBasic>)
 	{
 		for (basic in basics)

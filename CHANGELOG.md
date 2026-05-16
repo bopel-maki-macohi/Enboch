@@ -2,6 +2,7 @@
 
 ## Added
 
+- UI Transitions inbetween states
 - An extra UI sound plays in the Gamejolt Login State
 - Added UI Sounds to the Main Menu
 
