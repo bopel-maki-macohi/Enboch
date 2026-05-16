@@ -1,5 +1,9 @@
 # Unreleased
 
+## Changed
+
+- [WEB] Game Orientation is now landscape
+
 ## Fixed
 
 - Mouse is now hidden
