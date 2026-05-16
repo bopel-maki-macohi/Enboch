@@ -53,7 +53,7 @@ class GamejoltLoginState extends EnboState
 		usernameTXT.x -= usernameTXT.width / 2;
 		usertokenTXT.x -= usertokenTXT.width / 2;
 
-		authBtn = new FlxUIButton(0, 0, 'Auth', authBtnClick);
+		authBtn = new FlxUIButton(0, 0, 'Log in', authBtnClick);
 
 		authBtn.resize(authBtn.width * 2, authBtn.height * 2);
 		authBtn.setLabelFormat(null, authBtn.label.size * 2, FlxColor.BLACK, CENTER);
