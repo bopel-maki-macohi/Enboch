@@ -55,7 +55,6 @@ class TrophyToast extends Sprite
 
 				@:privateAccess {
 					parent.removeChild(parent.__children[ID]);
-					parent.__children[ID] = null;
 				}
 			},
 		});
