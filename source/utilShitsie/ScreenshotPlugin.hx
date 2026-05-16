@@ -17,6 +17,8 @@ import openfl.utils.ByteArray;
 import flixel.FlxG;
 import flixel.FlxBasic;
 
+using StringTools;
+
 class ScreenshotPlugin extends FlxBasic
 {
 	public static function init()
@@ -45,10 +47,10 @@ class ScreenshotPlugin extends FlxBasic
 				var data = BitmapData.fromImage(FlxG.stage.window.readPixels());
 				var screenshot:ByteArray = data.encode(data.rect, new PNGEncoderOptions());
 
-				var date = Date.now().getTime() / 1000;
+				var date = Date.now().toString().replace('/', '_').replace(':', '-');
 
 				#if sys
-				File.saveBytes('content/screenshot-$date.png', screenshot);
+				File.saveBytes('content/screenshots/$date.png', screenshot);
 				showFancyPreview(data);
 				FlxG.sound.play('screenshot'.makePath(audio));
 
