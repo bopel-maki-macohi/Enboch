@@ -65,7 +65,7 @@ class GamejoltLoginState extends EnboState
 	{
 		super.update(elapsed);
 
-		if (Controls.leave.justPressed)
+		if (Controls.leave.justPressed && !usernameInput.hasFocus && !usertokenInput.hasFocus)
 			FlxG.switchState(() -> new MainMenuState());
 	}
 }
