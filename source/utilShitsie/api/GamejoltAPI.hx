@@ -1,7 +1,7 @@
 package utilShitsie.api;
 
 import macroShit.SecretDataFile;
-import flixel.addons.api.FlxGameJolt;
+import flixel.addons.api.FlxGameJolt as API;
 
 class GamejoltAPI
 {
@@ -9,6 +9,6 @@ class GamejoltAPI
 
 	public static function init()
 	{
-		FlxGameJolt.init(1070390, privateKey);
+		API.init(1070390, privateKey);
 	}
 }
