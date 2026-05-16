@@ -1,3 +1,4 @@
+import utilShitsie.DebugString;
 import flixel.util.FlxStringUtil;
 import utilShitsie.api.GamejoltAPI;
 import utilShitsie.controls.Controls;
@@ -33,17 +34,11 @@ class Paycheck
 
 	public static function stringGameData()
 	{
-		#if debug
-		return Std.string(game);
-		#end
-
-		return FlxStringUtil.getDebugString([
-			for (field in Reflect.fields(game))
-			{
-				if (field.startsWith('gd_')) continue;
-
-				LabelValuePair.weak(field, Reflect.field(game, field));
-			}
+		return DebugString.generateBasedOnData(game, [
+			#if debug
+			'gd_username', //
+			'gd_usertoken',
+			#end
 		]);
 	}
 
