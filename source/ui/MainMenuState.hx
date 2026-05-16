@@ -86,9 +86,13 @@ class MainMenuState extends EnboState
 		{
 			case 'levels', 'play':
 				FlxG.switchState(() -> new PlayState());
+
 			case 'trophies':
 				FlxG.switchState(() -> new TrophiesMenuState());
+
 			case 'gamejolt login':
+				FlxG.switchState(() -> new GamejoltLoginState());
+
 			case 'gamejolt logout':
 				GamejoltAPI.logout();
 				FlxG.resetState();
