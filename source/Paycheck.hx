@@ -25,7 +25,7 @@ typedef PaycheckData =
 
 typedef PaycheckSettingsData =
 {
-	flashing:Bool,
+	?flashing:Null<Bool>,
 }
 
 class Paycheck
@@ -66,6 +66,11 @@ class Paycheck
 			FlxG.save.data.game = game;
 		else
 			game = FlxG.save.data.game;
+		
+		trace(stringGameData());
+
+		game.settings ??= {};
+		game.settings.flashing ??= true;
 
 		totalPay = game.totalPay;
 
@@ -73,8 +78,6 @@ class Paycheck
 		{
 			save();
 		}, false, 1000);
-
-		trace(stringGameData());
 	}
 
 	public static function save()
