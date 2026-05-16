@@ -32,9 +32,6 @@ class TrophyToast extends Sprite
 
 	public function addToast(trophy:Int)
 	{
-		var toastHolder:Sprite = new Sprite();
-		toastHolder.mouseEnabled = false;
-
 		var toastBitmapGraphic:FlxGraphic = FlxGraphic.fromAssetKey('trophies/$trophy'.makePath(image));
 		var toastBitmap:Bitmap = new Bitmap(toastBitmapGraphic.bitmap);
 
@@ -42,20 +39,19 @@ class TrophyToast extends Sprite
 			toastBitmapGraphic.height + BGBITMAP_PADDING, FlxColor.BLACK);
 		var toastBGBitmap:Bitmap = new Bitmap(toastBGBitmapGraphic.bitmap);
 
-		toastHolder.addChild(toastBGBitmap);
-		toastHolder.addChild(toastBitmap);
+		addChild(toastBGBitmap);
+		addChild(toastBitmap);
 
-		shiftChildren(-(toastHolder.height + BGBITMAP_PADDING));
+		y = FlxG.height - height;
 
-		addChild(toastHolder);
-
-		FlxTween.tween(toastHolder, {alpha: 0}, 1, {
+		FlxTween.tween(toastBitmap, {alpha: 0}, 1, {
 			startDelay: 1,
+			onUpdate: t ->
+			{
+				toastBGBitmap.alpha = toastBitmap.alpha;
+			},
 			onComplete: t ->
 			{
-				removeChild(toastHolder);
-				shiftChildren((toastHolder.height + BGBITMAP_PADDING));
-
 				toastBitmapGraphic.destroy();
 				toastBGBitmapGraphic.destroy();
 
@@ -64,14 +60,7 @@ class TrophyToast extends Sprite
 
 				toastBGBitmap = null;
 				toastBitmap = null;
-			}
+			},
 		});
-	}
-
-	public function shiftChildren(amount:Float)
-	{
-		@:privateAccess
-		for (child in __children)
-			child.y += amount;
 	}
 }
