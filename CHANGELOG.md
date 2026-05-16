@@ -2,6 +2,7 @@
 
 ## Added
 
+- An extra UI sound plays in the Gamejolt Login State
 - Added UI Sounds to the Main Menu
 
 # 0.1.1 - 5/16/2026

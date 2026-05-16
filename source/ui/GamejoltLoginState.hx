@@ -79,6 +79,7 @@ class GamejoltLoginState extends EnboState
 			return;
 
 		canDoAnything = false;
+		FlxG.sound.play('ui_select'.makePath(audio));
 		GamejoltAPI.login(usernameInput.text, usertokenInput.text, onAuthThingy);
 	}
 
