@@ -95,7 +95,7 @@ class GamejoltLoginState extends EnboState
 			FlxG.sound.play('gamejolt_loginFAIL'.makePath(audio));
 		}
 
-		FlxTimer.wait(2, () ->
+		FlxTimer.wait(1, () ->
 		{
 			FlxG.switchState(() -> new MainMenuState());
 		});
