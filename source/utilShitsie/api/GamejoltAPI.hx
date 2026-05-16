@@ -62,6 +62,17 @@ class GamejoltAPI
 		});
 	}
 
+	public static function addScore(scoreStr:String, score:Float, ?tableID:Int, allowGuest:Bool = false, ?guestName:String, ?extraData:String,
+			?extraCallback:Dynamic)
+	{
+		API.addScore(scoreStr, score, tableID, allowGuest, guestName, extraData, d ->
+		{
+			callback(d, 'scoreboard');
+			if (extraCallback != null)
+				extraCallback(d);
+		});
+	}
+
 	public static function login(username:String, usertoken:String, ?onAuthCallback:Bool->Void)
 	{
 		API.authUser(username, usertoken, (authed:Bool) ->

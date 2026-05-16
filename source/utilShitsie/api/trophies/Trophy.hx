@@ -1,7 +1,5 @@
 package utilShitsie.api.trophies;
 
-import utilShitsie.api.GamejoltAPI;
-
 class Trophy
 {
 	public var ID(default, null):Int = 0;
@@ -13,10 +11,10 @@ class Trophy
 
 	public function unlock(?callbackFucker:Bool->Void)
 	{
-		if (Paycheck.game.trophies.contains(this.ID))
+		if (Paycheck.game.trophies.contains(ID))
 			return;
 
-		Paycheck.game.trophies.push(this.ID);
-		GamejoltAPI.unlockTrophy(this.ID, callbackFucker);
+		Paycheck.game.trophies.push(ID);
+		GamejoltAPI.unlockTrophy(ID, callbackFucker);
 	}
 }
