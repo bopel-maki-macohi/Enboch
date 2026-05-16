@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
 import utilShitsie.api.trophies.Trophies;
 import ui.MainMenuState;
@@ -40,6 +41,7 @@ class PlayState extends EnboState
 	var killTmr:FlxTimer = new FlxTimer();
 
 	var medalTmr:FlxTimer = new FlxTimer();
+	var scoreboardTmr:FlxTimer = new FlxTimer();
 
 	override public function create()
 	{
@@ -83,6 +85,14 @@ class PlayState extends EnboState
 					Trophies.DAYCYCLE_TWENTY_SEVEN.unlock();
 					t.cancel();
 			}
+		}, 0);
+
+		scoreboardTmr.start(1, t ->
+		{
+			var str = 'Watched ${char.substr(0, 1).toUpperCase()}${char.substr(1)} for ${t.elapsedLoops} Minute(s)';
+
+			trace(str);
+			// Scoreboards.WAIT_TIME(char)?.addScore(str, t.elapsedLoops);
 		}, 0);
 	}
 
