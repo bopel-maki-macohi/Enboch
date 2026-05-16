@@ -41,7 +41,7 @@ class ScreenshotPlugin extends FlxBasic
 
 			var date = Date.now().getTime() / 1000;
 
-			File.saveBytes('screenshot-$date.png', screenshot);
+			File.saveBytes('content/screenshot-$date.png', screenshot);
 
 			trace('Took screenshot: $date');
 
