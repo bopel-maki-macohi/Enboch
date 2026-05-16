@@ -17,15 +17,9 @@ class InitState extends FlxGame
 
 		ScreenshotPlugin.init();
 
-		@:privateAccess
-		FlxG.log._standardTraceFunction = (v, ?i) -> {};
-
 		GamejoltAPI.init(authed ->
 		{
 			trace('Authed Status: $authed');
-
-			@:privateAccess
-			FlxG.log._standardTraceFunction = haxe.Log.trace;
 
 			addEventListener(Event.ADDED_TO_STAGE, create);
 			create(null);

@@ -1,5 +1,6 @@
 package utilShitsie.api;
 
+import utilShitsie.trophies.Trophies;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 import macroShit.SecretDataFile;
@@ -63,7 +64,7 @@ class GamejoltAPI
 	{
 		API.authUser(username, usertoken, (authed:Bool) ->
 		{
-			API.fetchTrophy(0, d -> callback(d, 'trophies'));
+			getTrophyData();
 
 			startSession();
 			callback(authed, 'logged in');
@@ -71,6 +72,11 @@ class GamejoltAPI
 			if (onAuthCallback != null)
 				onAuthCallback(authed);
 		});
+	}
+
+	public static function getTrophyData()
+	{
+		API.fetchTrophy(Trophies.DROWNED_PLAY.ID, d -> callback(d, 'trophies'));
 	}
 
 	public static function logout(callbackThingy:Void->Void)
