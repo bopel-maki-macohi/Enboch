@@ -34,14 +34,17 @@ class GamejoltAPI
 		}
 	}
 
-	public static function unlockTrophy(ID:Int)
+	public static function unlockTrophy(ID:Int, ?callbackFucker:Bool->Void)
 	{
 		if (!authenticated)
 			return;
 
-		API.addTrophy(ID, d ->
+		API.addTrophy(ID, (success:Bool) ->
 		{
-			callback(d, 'trophy');
+			callback('Unlocked: $success', 'trophy');
+
+			if (callbackFucker != null)
+				callbackFucker(success);
 		});
 	}
 

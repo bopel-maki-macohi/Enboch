@@ -11,8 +11,8 @@ class Trophy
 		this.ID = ID;
 	}
 
-	public function unlock()
+	public function unlock(?callbackFucker:Bool->Void)
 	{
-		GamejoltAPI.unlockTrophy(this.ID);
+		GamejoltAPI.unlockTrophy(this.ID, callbackFucker);
 	}
 }
