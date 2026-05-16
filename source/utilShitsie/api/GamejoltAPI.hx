@@ -64,21 +64,11 @@ class GamejoltAPI
 	{
 		API.authUser(username, usertoken, (authed:Bool) ->
 		{
-			getTrophyData();
-
 			startSession();
 			callback(authed, 'logged in');
 
 			if (onAuthCallback != null)
 				onAuthCallback(authed);
-		});
-	}
-
-	public static function getTrophyData()
-	{
-		API.fetchTrophy(0, function(d)
-		{
-			trace(d);
 		});
 	}
 
