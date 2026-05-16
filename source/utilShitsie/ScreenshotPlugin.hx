@@ -52,7 +52,7 @@ class ScreenshotPlugin extends FlxBasic
 				showFancyPreview(data);
 				FlxG.sound.play('screenshot'.makePath(audio));
 
-				trace('Took screenshot: $date');
+				// trace('Took screenshot: $date');
 				#end
 
 				FlxTimer.wait(1 / FlxG.drawFramerate, function()
