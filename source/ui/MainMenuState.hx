@@ -6,7 +6,7 @@ import utilShitsie.EnboState;
 
 class MainMenuState extends EnboState
 {
-	public var textGrp:FlxSpriteGroup;
+	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
 	var entries:Array<String> = ['Levels', 'Options',];
 
@@ -14,7 +14,7 @@ class MainMenuState extends EnboState
 	{
 		super.create();
 
-		add(textGrp = new FlxSpriteGroup());
+		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
 
 		for (entry in entries)
 		{
@@ -22,6 +22,17 @@ class MainMenuState extends EnboState
 			newText.ID = textGrp.length;
 
 			textGrp.add(newText);
+		}
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		for (text in textGrp.members)
+		{
+			text.screenCenter(X);
+			text.y = (2 + text.ID) * 64;
 		}
 	}
 }
