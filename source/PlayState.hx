@@ -28,17 +28,11 @@ class PlayState extends EnboState
 	var itemAssetsList:Array<FlxGraphic> = [];
 
 	var rngList:Array<Int> = [];
-	var encryptedRng:Array<String> = [];
 
 	function makeRNGList()
 	{
 		rngList = RNGUtil.generateRNGList(5);
 		updateRNGEncryption();
-	}
-
-	function updateRNGEncryption()
-	{
-		encryptedRng = utilShitsie.RNGCodeEncrypt.encrypt(rngList);
 	}
 
 	var stateChangeTmr:FlxTimer;
@@ -135,8 +129,6 @@ class PlayState extends EnboState
 			rngList[0] = 2;
 			rngList[1] = 0;
 			charState = 2;
-
-			updateRNGEncryption();
 		}
 
 		if (t != null)
@@ -215,7 +207,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
+		debugTXT.text = '$charState\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
 		#end
 
 		if (FlxG.mouse.justPressed)
@@ -232,8 +224,6 @@ class PlayState extends EnboState
 		var itemRNG = RNGUtil.generateRNGList(2);
 
 		rngList[3] = itemRNG[0];
-
-		updateRNGEncryption();
 	}
 
 	var itemSpam:Int = 0;
