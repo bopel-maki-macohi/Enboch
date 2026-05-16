@@ -192,20 +192,17 @@ class PlayState extends EnboState
 	}
 
 	var charSprShader:ThresholdShader = null;
+	var charSprShaderTween:FlxTween;
 
 	function characterFlash()
 	{
 		if (charSprShader == null)
 			itemSpr.shader = charSpr.shader = charSprShader = new ThresholdShader();
 
-		charSprShader.brightnessThreshold = 1;
+		if (charSprShaderTween != null)
+			charSprShaderTween.cancel();
 
-		try
-		{
-			FlxTween.cancelTweensOf(charSprShader);
-		}
-		catch (e) {}
-		FlxTween.tween(charSprShader, {brightnessThreshold: 0}, 1, {ease: FlxEase.quintOut});
+		charSprShaderTween = FlxTween.num(1, 0, 1, {ease: FlxEase.quintOut}, v -> charSprShader.brightnessThreshold = v);
 	}
 
 	function jumpscare(t:FlxTimer)
