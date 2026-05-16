@@ -1,5 +1,7 @@
 package utilShitsie.trophies;
 
+import utilShitsie.api.GamejoltAPI;
+
 class Trophy
 {
 	public var ID(default, null):Int = 0;
@@ -9,5 +11,8 @@ class Trophy
 		this.ID = ID;
 	}
 
-	public function unlock() {}
+	public function unlock()
+	{
+		GamejoltAPI.unlockTrophy(this.ID);
+	}
 }
