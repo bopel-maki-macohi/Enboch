@@ -53,6 +53,9 @@ class ScreenshotPlugin extends FlxBasic
 				var date = Date.now().toString().replace('/', '_').replace(':', '-');
 
 				#if sys
+				if (!sys.FileSystem.exists('content/screenshots'))
+					sys.FileSystem.createDirectory('content/screenshots');
+
 				File.saveBytes('content/screenshots/$date.png', screenshot);
 				showFancyPreview(data);
 				FlxG.sound.play('screenshot'.makePath(audio));
