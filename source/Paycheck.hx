@@ -1,3 +1,4 @@
+import utilShitsie.Define;
 import utilShitsie.DebugString;
 import flixel.util.FlxStringUtil;
 import utilShitsie.api.GamejoltAPI;
@@ -34,12 +35,15 @@ class Paycheck
 
 	public static function stringGameData()
 	{
-		return '\n' + DebugString.generateBasedOnData(game, [
-			#if !debug
-			'gd_username', //
-			'gd_usertoken',
-			#end
-		]);
+		var nonos:Array<String> = [];
+
+		if (Define.debug != null)
+		{
+			nonos.push('gd_username');
+			nonos.push('gd_usertoken');
+		}
+
+		return '\n' + DebugString.generateBasedOnData(game, nonos);
 	}
 
 	public static function load()
