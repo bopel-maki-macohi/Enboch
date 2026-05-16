@@ -17,6 +17,7 @@ class MainMenuState extends EnboState
 		'Play',
 		'Trophies',
 		// 'Options',
+		'',
 		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
 	];
 
@@ -30,10 +31,10 @@ class MainMenuState extends EnboState
 
 		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
 
-		for (entry in entries)
+		for (i => entry in entries)
 		{
 			var newText = new FlxText(0, 0, 0, entry, 64);
-			newText.ID = textGrp.length;
+			newText.ID = i;
 
 			textGrp.add(newText);
 		}
@@ -70,6 +71,14 @@ class MainMenuState extends EnboState
 	function changeSelect(selection:Int)
 	{
 		curSelect += selection;
+
+		if (entries[curSelect] == null || entries[curSelect] == '')
+		{
+			if (selection < 0)
+				curSelect--;
+			if (selection > 0)
+				curSelect++;
+		}
 
 		if (curSelect < 0)
 			curSelect = entries.length - 1;
