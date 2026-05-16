@@ -1,12 +1,17 @@
-package flixel.addons.api;
+/**
+	Originally forked from Flixel-Addons FLxGameJolt.hx, tysm :3
+	-tenta
+**/
 
-import openfl.display.Loader;
-import openfl.display.BitmapData;
-import openfl.events.Event;
-import openfl.events.IOErrorEvent;
-import openfl.net.URLLoader;
-import openfl.net.URLRequest;
-import openfl.net.URLRequestMethod;
+package tentools.api;
+
+import flash.display.Loader;
+import flash.display.BitmapData;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+import flash.net.URLRequestMethod;
 import haxe.crypto.Md5;
 import haxe.crypto.Sha1;
 import flixel.FlxG;
@@ -17,8 +22,8 @@ import flash.Lib;
 /**
  * Similar to FlxKongregate, this allows access to the GameJolt API. Based loosely on the AS3 version by SumYungGai with many changes.
  *
- * @see 	https://gamejolt.com/community/forums/topics/as3-trophy-api/305/
- * @see 	https://gamejolt.com/api/doc/game/
+ * @see 	http://gamejolt.com/community/forums/topics/as3-trophy-api/305/
+ * @see 	http://gamejolt.com/api/doc/game/
  * @author 	SumYungGai
  * @author 	Steve Richey (STVR)
  *
@@ -30,8 +35,8 @@ import flash.Lib;
  	 * Then, verify this data via the following method:
  		 * var bytearray = new MyKey(); // This will load your private key data as a ByteArray.
  		 * var keystring = bytearray.readUTFBytes(bytearray.length); // This converts the ByteArray to a string.
- 		 * var gameid = 1; // Replace "1" with your game ID, visible if you go to https://gamejolt.com/dashboard/ -> Click on your game under "Manage Games" -> Click on "Achievements" in the menu.
- 		 * FlxGameJolt.init(gameid, keystring); // Use this if your game is embedded as Flash on GameJolt's site, or run via Quick Play.
+ 		 * var gameid = 1; // Replace "1" with your game ID, visible if you go to http://gamejolt.com/dashboard/ -> Click on your game under "Manage Games" -> Click on "Achievements" in the menu.
+ 		 * FlxGameJolt.init(gameid, keystring); // Use this if your game is embedded as Flash on GameJolt's site, or run via Quick Play. If
  */
 class FlxGameJolt
 {
@@ -56,7 +61,7 @@ class FlxGameJolt
 	public static inline var TROPHIES_ACHIEVED:Int = -2;
 
 	/**
-	 * The hash type to be used for private key encryption. Set to FlxGameJolt.HASH_MD5 or FlxGameJolt.HASH_SHA1. Default is MD5. See https://gamejolt.com/api/doc/game/ section "Signature".
+	 * The hash type to be used for private key encryption. Set to FlxGameJolt.HASH_MD5 or FlxGameJolt.HASH_SHA1. Default is MD5. See http://gamejolt.com/api/doc/game/ section "Signature".
 	 */
 	public static var hashType:Int = HASH_MD5;
 
@@ -65,7 +70,7 @@ class FlxGameJolt
 	 * Useful if you're not getting the right data back.
 	 * Only works in debug mode.
 	 */
-	public static var verbose:Bool = false;
+	public static var verbose:Bool = true;
 
 	/**
 	 * Whether or not the API has been fully initialized by passing game id, private key, and authenticating user name and token.
@@ -124,7 +129,7 @@ class FlxGameJolt
 	/**
 	 * Internal storage for this game's private key.
 	 * Do NOT store your private key as a string literal in your game!
-	 * This can be found at https://gamejolt.com/dashboard/developer/games/achievements/GAME_ID/ where GAME_ID is your unique game ID number.
+	 * This can be found at http://gamejolt.com/dashboard/developer/games/achievements/GAME_ID/ where GAME_ID is your unique game ID number.
 	 * Each game has a unique private key; you cannot use one key for all of your games.
 	 */
 	static var _privateKey:String = "";
@@ -170,7 +175,9 @@ class FlxGameJolt
 	static var returnMap:Map<String, String> = new Map<String, String>();
 
 	/**
-	 * Various common strings required by the API's https values.
+	 * Various common strings required by the API's HTTP values.
+	 * 
+	 * Version 1 of the API
 	 */
 	static inline var URL_API:String = "https://gamejolt.com/api/game/v1/";
 
@@ -187,42 +194,49 @@ class FlxGameJolt
 	 * @param	GameID		The unique game ID associated with this game on GameJolt. You must create a game profile on GameJolt to get this number.
 	 * @param	PrivateKey	Your private key. You must have a developer account on GameJolt to have this number. Do NOT store this as plaintext in your game!
 	 * @param	AutoAuth	Call authUser after init() has run to authenticate user data.
-	 * @param 	UserName	The username to authenticate, if AutoAuth is true. If you set AutoAuth to true but don't put a value here, FlxGameJolt will attempt to get the user data automatically, which will only work for Flash embedded on GameJolt, or games run via Quick Play.
-	 * @param 	UserToken	The user token to authenticate, if AutoAuth is true. If you set AutoAuth to true but don't put a value here, FlxGameJolt will attempt to get the user data automatically, which will only work for Flash embedded on GameJolt, or games run via Quick Play.
+	 * @param 	UserName	The username to authenticate, if AutoAuth is true. If you set AutoAuth to true but don't put a value here, FlxGameJolt will attempt to get the user data automatically, which will only work for Flash embedded on GameJolt, or desktop games run via Quick Play.
+	 * @param 	UserToken	The user token to authenticate, if AutoAuth is true. If you set AutoAuth to true but don't put a value here, FlxGameJolt will attempt to get the user data automatically, which will only work for Flash embedded on GameJolt, or desktop games run via Quick Play.
 	 * @param 	Callback 	An optional callback function, which is only used if AutoAuth is set to true. Will return true if authentication was successful, false otherwise.
 	 */
-	public static function init(GameID:Int, PrivateKey:String, AutoAuth:Bool = false, ?UserName:String, ?UserToken:String, ?Callback:Dynamic):Void
+	public static function init(GameID:Int, PrivateKey:String, ?Callback:Dynamic):Void
 	{
 		if (_gameID != 0 && _privateKey != "")
+		{
+			Callback(false);
 			return;
+		}
 
 		_gameID = GameID;
 		_privateKey = PrivateKey;
 
+		Callback(true);
+
 		// If we want to automatically authenticate the user, must have both username and usertoken passed
 		// OR it must be embedded flash or quickplay.
 
-		if (AutoAuth)
-		{
-			if (UserName != null && UserToken != null)
-			{
-				authUser(UserName, UserToken, Callback);
-			}
-			else if ((UserName == null || UserToken == null) && (isEmbeddedFlash || isQuickPlay))
-			{
-				authUser(null, null, Callback);
-			}
-			else
-			{
-				Callback(false);
-			}
-		}
+		// I kinda don't wanna do the auto auth thing so xD
+
+		// if (AutoAuth)
+		// {
+		// 	if (UserName != null && UserToken != null)
+		// 	{
+		// 		authUser(UserName, UserToken, Callback);
+		// 	}
+		// 	else if ((UserName == null || UserToken == null) && (isEmbeddedFlash || isQuickPlay))
+		// 	{
+		// 		authUser(null, null, Callback);
+		// 	}
+		// 	else
+		// 	{
+		// 		Callback(false);
+		// 	}
+		// }
 	}
 
 	/**
 	 * Fetch user data. Pass UserID to get user name, pass UserName to get UserID, or pass multiple UserIDs to get multiple usernames.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/users/fetch/
+	 * @see 	http://gamejolt.com/api/doc/game/users/fetch/
 	 * @param	UserID		An integer user ID value. If this is passed, UserName and UserIDs are ignored. Pass 0 to ignore.
 	 * @param	UserName	A string user name. If this is passed, UserIDs is ignored. Pass "" or nothing to ignore. Usernames can only have letters, numbers, hyphens (-) and underscores (_), and must be 3-30 characters long.
 	 * @param	UserIDs	An array of integers representing user IDs. Pass [] or nothing to ignore.
@@ -262,7 +276,7 @@ class FlxGameJolt
 	/**
 	 * Verify user data. Must be called before any user-specific functions, and after init(). Will set initialized to true if successful.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/users/auth/
+	 * @see 	http://gamejolt.com/api/doc/game/users/auth/
 	 * @param	UserName	A user name. Leave null to automatically pull user data (only works for embedded Flash on GameJolt or Quick Play). Usernames can only have letters, numbers, hyphens (-) and underscores (_), and must be 3-30 characters long.
 	 * @param	UserToken	A user token. Players enter this instead of a password to enable highscores, trophies, etc. Leave null to automatically pull user data (only works for embedded Flash on GameJolt or Quick Play). User tokens can only have letters and numbers, and must be 4-30 characters long.
 	 * @param	Callback	An optional callback function. Will return true if authentication was successful, false otherwise.
@@ -277,7 +291,7 @@ class FlxGameJolt
 
 		if (UserName == null || UserToken == null)
 		{
-			#if sys
+			#if desktop
 			for (arg in Sys.args())
 			{
 				var argArray = arg.split("=");
@@ -330,7 +344,7 @@ class FlxGameJolt
 	/**
 	 * Begin a new session. Sessions that are not pinged at most every 120 seconds will be closed. Requires user authentication.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/sessions/open/
+	 * @see 	http://gamejolt.com/api/doc/game/sessions/open/
 	 * @param 	Callback 	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
 	public static function openSession(?Callback:Dynamic):Void
@@ -344,7 +358,7 @@ class FlxGameJolt
 	/**
 	 * Ping the current session. The API states that a session will be closed after 120 seconds without a ping, and recommends pinging every 30 seconds or so. Requires user authentication.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/sessions/ping/
+	 * @see 	http://gamejolt.com/api/doc/game/sessions/ping/
 	 * @param	Active		Leave true to set the session to active, or set to false to set the session to idle.
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
@@ -370,7 +384,7 @@ class FlxGameJolt
 	/**
 	 * Close the current session. Requires user data authentication.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/sessions/close/
+	 * @see 	http://gamejolt.com/api/doc/game/sessions/close/
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
 	public static function closeSession(?Callback:Dynamic):Void
@@ -384,7 +398,7 @@ class FlxGameJolt
 	/**
 	 * Retrieve trophy data. Requires user authentication.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/trophies/fetch/
+	 * @see 	http://gamejolt.com/api/doc/game/trophies/fetch/
 	 * @param	DataType	Pass FlxGameJolt.TROPHIES_MISSING or FlxGameJolt.TROPHIES_ACHIEVED to get the trophies this user is missing or already has, respectively.  Or, pass in a trophy ID # to see if this user has that trophy or not.  If unused or zero, will return all trophies.
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
@@ -413,8 +427,8 @@ class FlxGameJolt
 	/**
 	 * Unlock a trophy for this user. Requires user authentication.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/trophies/add-achieved/
-	 * @param	TrophyID	The unique ID number for this trophy. Can be seen at https://gamejolt.com/dashboard/developer/games/achievements/<Your Game ID>/ in the right-hand column.
+	 * @see 	http://gamejolt.com/api/doc/game/trophies/add-achieved/
+	 * @param	TrophyID	The unique ID number for this trophy. Can be seen at http://gamejolt.com/dashboard/developer/games/achievements/<Your Game ID>/ in the right-hand column.
 	 * @param 	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
 	public static function addTrophy(TrophyID:Int, ?Callback:Dynamic):Void
@@ -428,20 +442,16 @@ class FlxGameJolt
 	/**
 	 * Retrieve the high scores from this game's remote data. If not authenticated, leaving Limit null will still return the top ten scores. Requires initialization.
 	 *
-	 * @see		https://gamejolt.com/api/doc/game/scores/fetch/
-	 * @param	Limit		The maximum number of scores to retrieve. If blank to retrieve only this user's scores.
-	 * @param 	TableID		The ID of the table you want to pull data from. Leave blank to fetch from the primary score table.
-	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
+	 * @see		http://gamejolt.com/api/doc/game/scores/fetch/
+	 * @param	Limit		The maximum number of scores to retrieve. Leave null to retrieve only this user's scores.
+	 * @param	CallBack	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
-	public static function fetchScore(?Limit:Int, ?TableID:Int, ?Callback:Dynamic):Void
+	public static function fetchScore(tableID:Int, ?Limit:Int, ?Callback:Dynamic):Void
 	{
 		if (!gameInit)
 			return;
 
-		var tempURL = URL_API + "scores/" + RETURN_TYPE + URL_GAME_ID + _gameID;
-
-		if (TableID != null)
-			tempURL += "&table_id=" + TableID;
+		var tempURL = URL_API + "scores/" + RETURN_TYPE + URL_GAME_ID + _gameID + "&table_id" + tableID;
 
 		if (!_initialized)
 		{
@@ -471,7 +481,7 @@ class FlxGameJolt
 	 * If user data is not authenticated, GuestName is required.
 	 * Please note: On native platforms, having spaces in your Sort, GuestName, or ExtraData values will break this function.
 	 *
-	 * @see		https://gamejolt.com/api/doc/game/scores/add/
+	 * @see		http://gamejolt.com/api/doc/game/scores/add/
 	 * @param	Score		A string representation of the score, such as "234 Jumps".
 	 * @param	Sort		A numerical representation of the score, such as 234. Used for sorting of data.
 	 * @param 	TableID	Optional: the ID of the table you'd lke to send data to. If null, score will be sent to the primary high score table. Ignored if zero.
@@ -518,7 +528,7 @@ class FlxGameJolt
 	/**
 	 * Retrieve a list of high score tables for this game.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/scores/tables/
+	 * @see 	http://gamejolt.com/api/doc/game/scores/tables/
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
 	public static function getTables(?Callback:Dynamic):Void
@@ -532,7 +542,7 @@ class FlxGameJolt
 	/**
 	 * Get data from the remote data store.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/data-store/fetch/
+	 * @see 	http://gamejolt.com/api/doc/game/data-store/fetch/
 	 * @param	Key			The key for the data to retrieve.
 	 * @param	User		Whether or not to get the data associated with this user. True by default.
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
@@ -563,7 +573,7 @@ class FlxGameJolt
 	 * Set data in the remote data store.
 	 * Please note: On native platforms, having spaces in your Value parameter will break this function.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/data-store/set/
+	 * @see 	http://gamejolt.com/api/doc/game/data-store/set/
 	 * @param	Key			The key for this data.
 	 * @param	Value		The key value.
 	 * @param	User		Whether or not to associate this with this user. True by default.
@@ -595,7 +605,7 @@ class FlxGameJolt
 	 * Update data which is in the data store.
 	 * Please note: On native platforms, having spaces in your Value parameter will break this function.
 	 *
-	 * @see		https://gamejolt.com/api/doc/game/data-store/update/
+	 * @see		http://gamejolt.com/api/doc/game/data-store/update/
 	 * @param	Key			The key of the data you'd like to manipulate.
 	 * @param	Operation	The type of operation. Acceptable values: "add", "subtract", "multiply", "divide", "append", "prepend". The former four are only valid on numerical values, the latter two only on strings.
 	 * @param	Value		The value that you'd like to work with on the data store.
@@ -627,7 +637,7 @@ class FlxGameJolt
 	/**
 	 * Remove data from the remote data store.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/data-store/remove/
+	 * @see 	http://gamejolt.com/api/doc/game/data-store/remove/
 	 * @param	Key			The key for the data to remove.
 	 * @param	User		Whether or not to remove the data associated with this user. True by default.
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
@@ -657,7 +667,7 @@ class FlxGameJolt
 	/**
 	 * Get all keys in the data store.
 	 *
-	 * @see 	https://gamejolt.com/api/doc/game/data-store/get-keys/
+	 * @see 	http://gamejolt.com/api/doc/game/data-store/get-keys/
 	 * @param	User		Whether or not to get the keys associated with this user. True by default.
 	 * @param	Callback	An optional callback function. Will return a Map<String:String> whose keys and values are equivalent to the key-value pairs returned by GameJolt.
 	 */
@@ -691,6 +701,7 @@ class FlxGameJolt
 	 */
 	static function sendLoaderRequest(URLString:String, ?Callback:Dynamic):Void
 	{
+		trace(URLString);
 		var request:URLRequest = new URLRequest(URLString + "&signature=" + encryptURL(URLString));
 		request.method = URLRequestMethod.POST;
 
@@ -699,10 +710,7 @@ class FlxGameJolt
 		if (_loader == null)
 			_loader = new URLLoader();
 
-		#if debug
-		if (verbose)
-			FlxG.log.add("FlxGameJolt: Contacting " + request.url);
-		#end
+		trace(request.url);
 
 		_loader.addEventListener(Event.COMPLETE, parseData);
 		_loader.load(request);
@@ -714,7 +722,7 @@ class FlxGameJolt
 	 * However, if we're getting an image, a second URLRequest is called, and that will be done first.
 	 * Or, if we're authenticating the user, the verifyAuthentication function will be called instead.
 	 *
-	 * @param	e	The URLLoader complete event.
+	 * @param	The URLLoader complete event.
 	 */
 	static function parseData(e:Event):Void
 	{
@@ -729,6 +737,8 @@ class FlxGameJolt
 		}
 
 		var stringArray:Array<String> = Std.string((cast e.currentTarget).data).split("\r");
+
+		trace(stringArray);
 
 		// this regex will remove line breaks and quotes down below
 		var r:EReg = ~/[\r\n\t"]+/g;
@@ -747,7 +757,10 @@ class FlxGameJolt
 
 		#if debug
 		if (returnMap.exists("message") && verbose)
+		{
 			FlxG.log.add("FlxGameJolt: GameJolt returned the following message: " + returnMap.get("message"));
+		}
+		trace(returnMap);
 		#end
 
 		if (_getImage)
@@ -878,7 +891,7 @@ class FlxGameJolt
 	/**
 	 * Generate an MD5 or SHA1 hash signature, required by the API to verify game data is valid. Passed to the API as "&signature=".
 	 *
-	 * @see		https://gamejolt.com/api/doc/game/ 	Section titled "Signature".
+	 * @see		http://gamejolt.com/api/doc/game/ 	Section titled "Signature".
 	 * @param	Url		The URL to encrypt. This and the private key form the string which is encoded.
 	 * @return	An encoded MD5 or SHA1 hash. By default, will be MD5; set FlxGameJolt.hashType = FlxGameJolt.HASH_SHA1 to use SHA1 encoding.
 	 */
@@ -954,7 +967,7 @@ class FlxGameJolt
 
 	static function get_isQuickPlay():Bool
 	{
-		#if !sys
+		#if !desktop
 		return false;
 		#else
 		var argmap:Map<String, String> = new Map<String, String>();
