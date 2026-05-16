@@ -1,6 +1,6 @@
 package;
 
-import shaderHell.TestingShader;
+import shaderHell.ThresholdShader;
 import utilShitsie.api.scoreboards.Scoreboard;
 import utilShitsie.api.scoreboards.Scoreboards;
 import utilShitsie.Define;
@@ -96,8 +96,6 @@ class PlayState extends EnboState
 					t.cancel();
 			}
 		}, 0);
-
-		charSpr.shader = new TestingShader();
 	}
 
 	override function preScreenshot()
@@ -159,12 +157,13 @@ class PlayState extends EnboState
 
 		if (charState != prevState)
 		{
+			if (charSprShader != null)
+				charSprShader.brightnessThreshold = 1;
+
 			if (CHAR_ASSET_LIST.get(char)[charState] != null)
 			{
 				charSpr.loadGraphic(CHAR_ASSET_LIST.get(char)[charState]);
 				charSpr.screenCenter();
-
-				characterFlash();
 			}
 
 			if (ITEM_ASSET_LIST.get(char)[charState] != null)
@@ -172,6 +171,8 @@ class PlayState extends EnboState
 				itemSpr.loadGraphic(ITEM_ASSET_LIST.get(char)[charState]);
 				itemSpr.screenCenter();
 			}
+
+			characterFlash();
 		}
 
 		if (t != null)
@@ -193,11 +194,18 @@ class PlayState extends EnboState
 		// trace(((4 - charState) / 4));
 	}
 
+	var charSprShader:ThresholdShader = null;
+	var charSprShaderTween:FlxTween;
+
 	function characterFlash()
 	{
-		charSpr.alpha = 0;
-		FlxTween.cancelTweensOf(charSpr);
-		FlxTween.tween(charSpr, {alpha: 1}, 1, {ease: FlxEase.quintOut});
+		if (charSprShaderTween != null)
+			charSprShaderTween.cancel();
+
+		if (charSprShader == null)
+			charSpr.shader = charSprShader = new ThresholdShader(1);
+
+		charSprShaderTween = FlxTween.num(1, 0, 2.5, {ease: FlxEase.quintOut}, v -> charSprShader.brightnessThreshold = v);
 	}
 
 	function jumpscare(t:FlxTimer)
@@ -205,6 +213,8 @@ class PlayState extends EnboState
 		stateChangeTmr.cancel();
 		stateChangeTmr.destroy();
 		stateChangeTmr = null;
+
+		transOut = null;
 
 		trace('u dead');
 		FlxG.switchState(() -> new DeadState());

@@ -17,6 +17,8 @@ class DeadState extends EnboState
 
 	override function create()
 	{
+		transIn = null;
+
 		super.create();
 
 		sprite = new FlxSprite(0, 0, 'characters/${PlayState.char}/death'.makePath(image));
