@@ -3,3 +3,5 @@ export/
 dump/
 
 .DS_Store
+
+**.secret
