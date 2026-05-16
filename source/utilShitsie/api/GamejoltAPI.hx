@@ -67,6 +67,8 @@ class GamejoltAPI
 	{
 		if (!authenticated && !allowGuest)
 			return;
+		else
+			guestName = null;
 
 		API.addScore(scoreStr, score, tableID, allowGuest, guestName, extraData, d ->
 		{

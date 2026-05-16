@@ -7,12 +7,12 @@ class Scoreboard
 
 	var tableID:Int;
 
-	public function new(tableID:Int, allowGuest:Bool = true)
+	public function new(tableID:Int, guestPrefix:String, allowGuest:Bool = true)
 	{
 		this.tableID = tableID;
 		this.allowGuest = allowGuest;
 
-		guestName += '_${Date.now().getTime() / 1000}';
+		guestName = '${guestPrefix}_${guestName}_${Date.now().getTime() / 1000}';
 	}
 
 	public function addScore(scoreStr:String, score:Float, extraData:Dynamic, ?thirdWheel:Dynamic)
