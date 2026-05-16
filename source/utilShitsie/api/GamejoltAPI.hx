@@ -21,6 +21,11 @@ class GamejoltAPI
 		API.verbose = #if debug true #else false #end;
 		API.init(1070390, privateKey);
 
+		if (Paycheck.game.gd_username != null && Paycheck.game.gd_usertoken != null)
+			login(Paycheck.game.gd_username, Paycheck.game.gd_usertoken);
+		else if (username != null && usertoken != null)
+			login(username, usertoken);
+
 		FlxG.stage.application.onExit.add(l -> closeSession());
 	}
 
@@ -71,5 +76,19 @@ class GamejoltAPI
 
 			return API.authenticated;
 		}
+	}
+
+	public static var username(get, never):String;
+
+	static function get_username():String
+	{
+		return (!authenticated || API.usertoken.toLowerCase() == 'no user') ? null : API.username;
+	}
+
+	public static var usertoken(get, never):String;
+
+	static function get_usertoken():String
+	{
+		return (!authenticated || API.usertoken.toLowerCase() == 'no token') ? null : API.usertoken;
 	}
 }

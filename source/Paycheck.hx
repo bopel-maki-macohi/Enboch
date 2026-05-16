@@ -8,6 +8,9 @@ typedef PaycheckData =
 
 	trophies:Array<Int>,
 	firstTime:Bool,
+
+	gd_username:String,
+	gd_usertoken:String,
 }
 
 class Paycheck
@@ -20,6 +23,8 @@ class Paycheck
 		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
 		trophies: [],
 		firstTime: true,
+		gd_username: null,
+		gd_usertoken: null,
 	};
 
 	public static function load()
@@ -51,8 +56,12 @@ class Paycheck
 		game = {
 			totalPay: totalPay,
 			keybinds: keybinds,
+
 			trophies: [], // tba
 			firstTime: false,
+
+			gd_username: null,
+			gd_usertoken: null,
 		};
 
 		FlxG.save.data.game = game;
