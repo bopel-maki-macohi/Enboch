@@ -1,14 +1,51 @@
 package ui;
 
+import utilShitsie.controls.Controls;
+import flixel.util.FlxColor;
+import flixel.text.FlxText;
+import flixel.FlxG;
 import flixel.addons.ui.FlxUIInputText;
 import utilShitsie.EnboState;
 
 class GamejoltLoginState extends EnboState
 {
-    var usernameInput:FlxUIInputText;
+	var usernameInput:FlxUIInputText;
+	var usertokenInput:FlxUIInputText;
 
 	override function create()
 	{
 		super.create();
+
+		FlxG.camera.bgColor = FlxColor.GRAY;
+
+		usernameInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 4), '', 32);
+		usertokenInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 4), '', 32);
+
+		usernameInput.screenCenter(X);
+		usernameInput.x -= usernameInput.width;
+		usertokenInput.screenCenter(X);
+		usertokenInput.x += usernameInput.width;
+
+		usernameInput.screenCenter(Y);
+		usertokenInput.screenCenter(Y);
+
+        usernameInput.borderSize = 2;
+        usertokenInput.borderSize = 2;
+
+		addMultiple([
+			usernameInput,
+			usertokenInput,
+
+			new FlxText(usernameInput.x, usernameInput.y - 24, 0, 'Username', 16),
+			new FlxText(usertokenInput.x, usertokenInput.y - 24, 0, 'Usertoken', 16),
+		]);
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		if (Controls.leave.justPressed)
+			FlxG.switchState(() -> new MainMenuState());
 	}
 }

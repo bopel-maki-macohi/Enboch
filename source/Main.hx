@@ -1,5 +1,6 @@
 package;
 
+import ui.GamejoltLoginState;
 import ui.MainMenuState;
 import flixel.util.typeLimit.NextState.InitialState;
 import macroShit.GitShit;
@@ -27,6 +28,10 @@ class Main extends Sprite
 	{
 		#if DIE
 		return DeadState;
+		#end
+
+		#if GD_LOGIN
+		return GamejoltLoginState;
 		#end
 
 		return MainMenuState;
