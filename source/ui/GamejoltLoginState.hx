@@ -25,7 +25,7 @@ class GamejoltLoginState extends EnboState
 
 		usernameInput.screenCenter(X);
 		usernameInput.x -= usernameInput.width;
-		
+
 		usertokenInput.screenCenter(X);
 		usertokenInput.x += usernameInput.width;
 
@@ -47,8 +47,8 @@ class GamejoltLoginState extends EnboState
 			usernameInput,
 			usertokenInput,
 
-			new FlxText(usernameInput.x, usernameInput.y - 24, 0, 'Username', 16),
-			new FlxText(usertokenInput.x, usertokenInput.y - 24, 0, 'Usertoken', 16),
+			new FlxText(usernameInput.getGraphicMidpoint().x, usernameInput.y - 24, 0, 'Username', 16),
+			new FlxText(usertokenInput.getGraphicMidpoint().x, usertokenInput.y - 24, 0, 'Usertoken', 16),
 		]);
 
 		FlxG.mouse.visible = true;
