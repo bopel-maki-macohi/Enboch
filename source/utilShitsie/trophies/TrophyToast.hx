@@ -13,25 +13,14 @@ import openfl.display.Sprite;
 
 class TrophyToast extends Sprite
 {
-	override public function new()
+	public static final BGBITMAP_PADDING:Int = 16;
+
+	override public function new(trophy:Int)
 	{
 		super();
 
 		mouseEnabled = false;
-	}
 
-	public static function displayToastFor(trophy:Int)
-	{
-		if (Main.trophyToast == null)
-			return;
-
-		Main.trophyToast.addToast(trophy);
-	}
-
-	public static final BGBITMAP_PADDING:Int = 16;
-
-	public function addToast(trophy:Int)
-	{
 		var toastBitmapGraphic:FlxGraphic = FlxGraphic.fromAssetKey('trophies/$trophy'.makePath(image));
 		var toastBitmap:Bitmap = new Bitmap(toastBitmapGraphic.bitmap);
 
@@ -42,7 +31,7 @@ class TrophyToast extends Sprite
 		addChild(toastBGBitmap);
 		addChild(toastBitmap);
 
-		toastBGBitmap.y = FlxG.height - height - toastBGBitmap.height;
+		toastBGBitmap.y = 0;
 		toastBitmap.y = toastBGBitmap.y + BGBITMAP_PADDING / 2;
 
 		toastBitmap.x = toastBGBitmap.x + BGBITMAP_PADDING / 2;
@@ -63,6 +52,8 @@ class TrophyToast extends Sprite
 
 				toastBGBitmap = null;
 				toastBitmap = null;
+
+				this.parent.removeChild(this);
 			},
 		});
 	}
