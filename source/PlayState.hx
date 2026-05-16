@@ -32,7 +32,6 @@ class PlayState extends EnboState
 	function makeRNGList()
 	{
 		rngList = RNGUtil.generateRNGList(5);
-		updateRNGEncryption();
 	}
 
 	var stateChangeTmr:FlxTimer;
