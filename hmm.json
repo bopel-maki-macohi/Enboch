@@ -11,6 +11,11 @@
       "version": "4.0.1"
     },
     {
+      "name": "flixel-ui",
+      "type": "haxelib",
+      "version": "2.6.4"
+    },
+    {
       "name": "hxcpp",
       "type": "haxelib",
       "version": null

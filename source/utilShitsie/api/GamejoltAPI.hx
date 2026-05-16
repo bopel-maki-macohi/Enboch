@@ -1,5 +1,6 @@
 package utilShitsie.api;
 
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 import macroShit.SecretDataFile;
 import flixel.addons.api.FlxGameJolt as API;
@@ -8,22 +9,56 @@ class GamejoltAPI
 {
 	static var privateKey:String = SecretDataFile.build('dev/api/gamejolt-privateKey');
 
+	public static var SESSION_PINGTIME_SECONDS:Int = 30;
+
+	public static function callback(?params:Dynamic, ?id:String)
+	{
+		trace('GAMEJOLT API THINGY : $params ($id)');
+	}
+
 	public static function init()
 	{
 		API.verbose = #if debug true #else false #end;
 		API.init(1070390, privateKey);
 
-		FlxG.stage.application.onExit.add(l -> close());
+		FlxG.stage.application.onExit.add(l -> closeSession());
+	}
+
+	public static function login(username:String, usertoken:String)
+	{
+		API.authUser(username, usertoken, (authed:Bool) ->
+		{
+			startSession();
+			callback(authed, 'logged in');
+		});
 	}
 
 	public static function logout()
 	{
-		close();
+		closeSession();
 	}
 
-	public static function close()
+	public static function startSession()
 	{
-		API.closeSession();
+		API.openSession(() ->
+		{
+			callback('open', 'session');
+
+			new FlxTimer().start(SESSION_PINGTIME_SECONDS, function(tmr:FlxTimer)
+			{
+				pingSession();
+			}, 0);
+		});
+	}
+
+	public static function pingSession()
+	{
+		API.pingSession(true, () -> callback('pinged', 'session'));
+	}
+
+	public static function closeSession()
+	{
+		API.closeSession(() -> callback('closed', 'session'));
 	}
 
 	public static var authenticated(get, never):Bool;
