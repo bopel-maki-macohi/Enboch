@@ -2,6 +2,9 @@ package shaderHell;
 
 import flixel.system.FlxAssets;
 
+/**
+ * Base: https://github.com/47rooks/parasol/blob/main/parasol/shaders/ThresholdShader.hx
+ */
 class ThresholdShader extends FlxShader
 {
 	@:glFragmentSource('
