@@ -38,7 +38,10 @@ class GamejoltAPI
 	{
 		if (authenticated)
 		{
-			API.addTrophy(ID, callback);
+			API.addTrophy(ID, d ->
+			{
+				callback(d, 'trophy');
+			});
 		}
 	}
 

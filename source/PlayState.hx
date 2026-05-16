@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.trophies.Trophies;
 import ui.MainMenuState;
 import utilShitsie.controls.Controls;
 import utilShitsie.ScreenshotPlugin;
@@ -155,7 +156,14 @@ class PlayState extends EnboState
 			t.reset();
 
 			if (charState < 3 && (t.elapsedLoops % 2 == 0))
-				Paycheck.getPayed(((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2));
+			{
+				final percentage = ((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2);
+
+				if (char == 'drowned' && percentage == 1)
+					Trophies.DROWNED_PLAY.unlock();
+
+				Paycheck.getPayed(percentage);
+			}
 		}
 
 		// trace(((4 - charState) / 4));
