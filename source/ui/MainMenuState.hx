@@ -15,7 +15,7 @@ class MainMenuState extends EnboState
 
 	var entries:Array<String> = [
 		'Play',
-		'Trophies',
+		// 'Trophies',
 		// 'Options',
 		'',
 		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
