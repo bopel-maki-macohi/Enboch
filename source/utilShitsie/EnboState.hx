@@ -1,9 +1,9 @@
 package utilShitsie;
 
+import flixel.addons.ui.FlxUIState;
 import flixel.FlxBasic;
-import flixel.FlxState;
 
-class EnboState extends FlxState
+class EnboState extends FlxUIState
 {
 	public function addMultiple(basics:Array<FlxBasic>)
 	{
