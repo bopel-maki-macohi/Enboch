@@ -1,5 +1,7 @@
 package;
 
+import ui.MainMenuState;
+import utilShitsie.controls.Controls;
 import utilShitsie.ScreenshotPlugin;
 import utilShitsie.RNGUtil;
 import utilShitsie.GraphicUtil;
@@ -192,6 +194,9 @@ class PlayState extends EnboState
 			if (charSpr.alpha == 1)
 				useItem();
 		}
+
+		if (Controls.leave.justPressed && charState < 3)
+			FlxG.switchState(() -> new MainMenuState());
 	}
 
 	function updateItemRNG()
