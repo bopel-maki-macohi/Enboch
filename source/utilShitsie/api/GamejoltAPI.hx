@@ -10,7 +10,7 @@ using StringTools;
 
 class GamejoltAPI
 {
-	static var privateKey:String = SecretDataFile.build('dev/api/gamejolt-privateKey');
+	public static var PRIVATE_KEY:String = SecretDataFile.build('dev/api/gamejolt-privateKey');
 
 	public static var SESSION_PINGTIME_SECONDS:Int = 30;
 
@@ -28,7 +28,7 @@ class GamejoltAPI
 	public static function init(?onAuthCallback:Bool->Void)
 	{
 		API.verbose = true;
-		API.init(1070390, privateKey);
+		API.init(1070390, PRIVATE_KEY);
 
 		FlxG.stage.application.onExit.add(l -> closeSession());
 

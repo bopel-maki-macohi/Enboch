@@ -1,5 +1,6 @@
 package flixel.addons.api;
 
+import utilShitsie.api.GamejoltAPI;
 import openfl.display.Loader;
 import openfl.display.BitmapData;
 import openfl.events.Event;
@@ -173,7 +174,13 @@ class FlxGameJolt
 	 * Various common strings required by the API's https values.
 	 */
 	static inline var URL_API_V1:String = "https://gamejolt.com/api/game/v1/";
+
 	static inline var URL_API_V1_2:String = "https://gamejolt.com/api/game/v1_2/";
+
+	public static function makeSignature(url:String):String
+	{
+		return '&signature=${GamejoltAPI.PRIVATE_KEY}';
+	}
 
 	static inline var RETURN_TYPE:String = "?format=keypair";
 	static inline var URL_GAME_ID:String = "&game_id=";
@@ -407,7 +414,9 @@ class FlxGameJolt
 			default:
 				tempURL += "&trophy_id=" + Std.string(DataType);
 		}
+		tempURL += makeSignature(tempURL);
 
+		trace(tempURL);
 		sendLoaderRequest(tempURL, Callback);
 	}
 
