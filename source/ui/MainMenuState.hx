@@ -1,5 +1,8 @@
 package ui;
 
+import flixel.util.FlxColor;
+import flixel.FlxG;
+import flixel.FlxObject;
 import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import utilShitsie.EnboState;
@@ -9,6 +12,10 @@ class MainMenuState extends EnboState
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
 	var entries:Array<String> = ['Levels', 'Options',];
+
+	var camFollow:FlxObject;
+
+	var curSelect:Int = 0;
 
 	override function create()
 	{
@@ -23,6 +30,9 @@ class MainMenuState extends EnboState
 
 			textGrp.add(newText);
 		}
+
+		add(camFollow = new FlxObject(640));
+		FlxG.camera.follow(camFollow, LOCKON, 0.1);
 	}
 
 	override function update(elapsed:Float)
@@ -32,7 +42,14 @@ class MainMenuState extends EnboState
 		for (text in textGrp.members)
 		{
 			text.screenCenter(X);
-			text.y = (2 + text.ID) * 64;
+			text.y = text.ID * 64;
+			text.color = FlxColor.WHITE;
+
+			if (curSelect == text.ID)
+			{
+				text.color = FlxColor.YELLOW;
+				camFollow.y = text.y;
+			}
 		}
 	}
 }
