@@ -88,21 +88,7 @@ class PlayState extends EnboState
 			}
 		}, 0);
 
-		if (!Paycheck.game.waitTimes.exists(char.toLowerCase()))
-			Paycheck.game.waitTimes.set(char.toLowerCase(), 0);
-
 		var scoreboard:Scoreboard = Scoreboards.WAIT_TIME(char.toLowerCase());
-
-		try
-		{
-			if (Paycheck.game.waitTimes.exists(char.toLowerCase()))
-				currentScore = Paycheck.game.waitTimes.get(char.toLowerCase());
-		}
-		catch (e)
-		{
-			trace('Stupid fucking eror im sure :$e');
-			currentScore = 0;
-		}
 
 		scoreboardTmr.start((Define.SCOREBOARD_TESTING) ? 1 : 60, t ->
 		{
@@ -112,21 +98,12 @@ class PlayState extends EnboState
 			if (scoreboard == null)
 				return;
 
-			if (t.elapsedLoops > currentScore)
-				currentScore = t.elapsedLoops;
-			else
-				return;
-
 			if (Define.SCOREBOARD_TESTING)
 				scoreboard.addScore(str, t.elapsedLoops, 'SCOREBOARD_TESTING_${Date.now().getTime() / 1000}');
 			else
 				scoreboard.addScore(str, t.elapsedLoops, Date.now().getTime() / 1000);
-
-			Paycheck.game.waitTimes.set(char, currentScore);
 		}, 0);
 	}
-
-	var currentScore:Float = 0;
 
 	override function preScreenshot()
 	{

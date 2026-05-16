@@ -16,7 +16,6 @@ typedef PaycheckData =
 	firstTime:Bool,
 
 	trophies:Array<Int>,
-	waitTimes:Map<String, Float>,
 
 	gj_username:String,
 	gj_usertoken:String,
@@ -32,7 +31,6 @@ class Paycheck
 		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
 		firstTime: true,
 		trophies: [],
-		waitTimes: [],
 		gj_username: null,
 		gj_usertoken: null,
 	};
@@ -81,7 +79,6 @@ class Paycheck
 			keybinds: keybinds,
 
 			trophies: game.trophies,
-			waitTimes: game.waitTimes,
 			firstTime: false,
 
 			gj_username: GamejoltAPI.username,
