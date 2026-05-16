@@ -13,6 +13,9 @@ class Control
 	{
 		this.id = id;
 		this.keys = keys;
+
+		if (!Controls.keys.contains(this))
+			Controls.keys.push(this);
 	}
 
 	public function loadFromSave():Control
