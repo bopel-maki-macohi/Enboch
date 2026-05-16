@@ -13,6 +13,10 @@ class Trophy
 
 	public function unlock(?callbackFucker:Bool->Void)
 	{
+		if (Paycheck.game.trophies.contains(this.ID))
+			return;
+
+		Paycheck.game.trophies.push(this.ID);
 		GamejoltAPI.unlockTrophy(this.ID, callbackFucker);
 	}
 }
