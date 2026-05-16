@@ -22,6 +22,7 @@ class DeadState extends EnboState
 		add(sprite);
 
 		text.text += '\n\nTotal pay: ${Paycheck.totalPay} (+ ${Paycheck.earned})';
+		text.text += '\n\nPress any of the following: ${Controls.accept.keyList} to go back';
 
 		add(text);
 		text.screenCenter();

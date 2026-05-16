@@ -43,7 +43,7 @@ class Paycheck
 		var keybinds:Map<String, Array<String>> = [];
 
 		for (key in Controls.keys)
-			keybinds.set(key.id, [for (key in key.keys) key.toString().toUpperCase()]);
+			keybinds.set(key.id, key.keyList);
 
 		game = {
 			totalPay: totalPay,

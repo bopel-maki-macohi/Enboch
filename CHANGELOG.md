@@ -2,6 +2,7 @@
 
 ## Changed
 
+- The death state now states the control(s) to leave
 - [WEB] Game Orientation is now landscape
 
 ## Fixed

@@ -9,6 +9,11 @@ class Control
 
 	public var keys:Array<FlxKey>;
 
+	public var keyList(get, never):Array<String>;
+
+	function get_keyList():Array<String>
+		return [for (key in keys) key.toString().toUpperCase()];
+
 	public function new(id:String, keys:Array<FlxKey>)
 	{
 		this.id = id;
@@ -22,7 +27,7 @@ class Control
 	{
 		if (!Paycheck.game.keybinds.exists(this.id))
 		{
-			Paycheck.game.keybinds.set(this.id, [for (key in keys) key.toString().toUpperCase()]);
+			Paycheck.game.keybinds.set(this.id, keyList);
 			return this;
 		}
 
