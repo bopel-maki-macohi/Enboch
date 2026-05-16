@@ -21,6 +21,10 @@ class GamejoltAPI
 		API.verbose = #if debug true #else false #end;
 		API.init(1070390, privateKey);
 
+		FlxG.stage.application.onExit.add(l -> closeSession());
+
+		API.fetchTrophy(0, haxe.Log.trace);
+
 		if (Paycheck.game.gd_username != null && Paycheck.game.gd_usertoken != null)
 			login(Paycheck.game.gd_username, Paycheck.game.gd_usertoken, onAuthCallback);
 		else if (username != null && usertoken != null)
@@ -30,15 +34,6 @@ class GamejoltAPI
 			if (onAuthCallback != null)
 				onAuthCallback(false);
 		}
-
-		FlxG.stage.application.onExit.add(l -> closeSession());
-
-		API.fetchTrophy(0, d ->
-		{
-			callback(d, 'trophies');
-
-			trace(d);
-		});
 	}
 
 	public static function unlockTrophy(ID:Int)
