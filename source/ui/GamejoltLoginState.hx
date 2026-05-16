@@ -20,14 +20,14 @@ class GamejoltLoginState extends EnboState
 
 		FlxG.camera.bgColor = FlxColor.GRAY;
 
-		usernameInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 4), '', 32);
-		usertokenInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 4), '', 32);
+		usernameInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), '', 32);
+		usertokenInput = new FlxUIInputText(0, 0, Math.round(FlxG.width / 3), '', 32);
 
 		usernameInput.screenCenter(X);
-		usernameInput.x -= usernameInput.width;
+		usernameInput.x -= usernameInput.width / 1.5;
 
 		usertokenInput.screenCenter(X);
-		usertokenInput.x += usernameInput.width;
+		usertokenInput.x += usernameInput.width / 1.5;
 
 		usernameInput.screenCenter(Y);
 		usertokenInput.screenCenter(Y);
@@ -41,14 +41,20 @@ class GamejoltLoginState extends EnboState
 		topText.screenCenter(X);
 		topText.y = topText.height;
 
+		var usernameTXT = new FlxText(usernameInput.getGraphicMidpoint().x, usernameInput.y - 24, 0, 'Username', 16);
+		var usertokenTXT = new FlxText(usertokenInput.getGraphicMidpoint().x, usertokenInput.y - 24, 0, 'Usertoken', 16);
+
+		usernameTXT.x -= usernameTXT.width / 2;
+		usertokenTXT.x -= usertokenTXT.width / 2;
+
 		addMultiple([
 			topText,
 
 			usernameInput,
 			usertokenInput,
 
-			new FlxText(usernameInput.getGraphicMidpoint().x, usernameInput.y - 24, 0, 'Username', 16),
-			new FlxText(usertokenInput.getGraphicMidpoint().x, usertokenInput.y - 24, 0, 'Usertoken', 16),
+			usernameTXT,
+			usertokenTXT,
 		]);
 
 		FlxG.mouse.visible = true;
