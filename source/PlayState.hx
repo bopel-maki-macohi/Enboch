@@ -166,8 +166,10 @@ class PlayState extends EnboState
 			{
 				final percentage = ((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2);
 
+				#if !BOTPLAY
 				if (char == 'drowned' && percentage == 1)
 					Trophies.DROWNED_PLAY.unlock();
+				#end
 
 				Paycheck.getPayed(percentage);
 			}
