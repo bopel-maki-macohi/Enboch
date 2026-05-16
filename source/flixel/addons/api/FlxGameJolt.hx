@@ -172,7 +172,8 @@ class FlxGameJolt
 	/**
 	 * Various common strings required by the API's https values.
 	 */
-	static inline var URL_API:String = "https://gamejolt.com/api/game/v1_2/";
+	static inline var URL_API_V1:String = "https://gamejolt.com/api/game/v1/";
+	static inline var URL_API_V1_2:String = "https://gamejolt.com/api/game/v1_2/";
 
 	static inline var RETURN_TYPE:String = "?format=keypair";
 	static inline var URL_GAME_ID:String = "&game_id=";
@@ -230,7 +231,7 @@ class FlxGameJolt
 	 */
 	public static function fetchUser(?UserID:Int, ?UserName:String, ?UserIDs:Array<Int>, ?Callback:Dynamic):Void
 	{
-		var tempURL:String = URL_API + "users/" + RETURN_TYPE + URL_GAME_ID + _gameID;
+		var tempURL:String = URL_API_V1 + "users/" + RETURN_TYPE + URL_GAME_ID + _gameID;
 
 		if (UserID != null && UserID != 0)
 		{
@@ -317,7 +318,7 @@ class FlxGameJolt
 		{
 			_idURL = URL_GAME_ID + _gameID + URL_USER_NAME + _userName + URL_USER_TOKEN + _userToken;
 			_verifyAuth = true;
-			sendLoaderRequest(URL_API + "users/auth/" + RETURN_TYPE + _idURL, Callback);
+			sendLoaderRequest(URL_API_V1 + "users/auth/" + RETURN_TYPE + _idURL, Callback);
 		}
 		else
 		{
@@ -338,7 +339,7 @@ class FlxGameJolt
 		if (!authenticated)
 			return;
 
-		sendLoaderRequest(URL_API + "sessions/open/" + RETURN_TYPE + _idURL, Callback);
+		sendLoaderRequest(URL_API_V1 + "sessions/open/" + RETURN_TYPE + _idURL, Callback);
 	}
 
 	/**
@@ -353,7 +354,7 @@ class FlxGameJolt
 		if (!authenticated)
 			return;
 
-		var tempURL = URL_API + "sessions/ping/" + RETURN_TYPE + _idURL + "&active=";
+		var tempURL = URL_API_V1 + "sessions/ping/" + RETURN_TYPE + _idURL + "&active=";
 
 		if (Active)
 		{
@@ -378,7 +379,7 @@ class FlxGameJolt
 		if (!authenticated)
 			return;
 
-		sendLoaderRequest(URL_API + "sessions/close/" + RETURN_TYPE + _idURL, Callback);
+		sendLoaderRequest(URL_API_V1 + "sessions/close/" + RETURN_TYPE + _idURL, Callback);
 	}
 
 	/**
@@ -393,7 +394,7 @@ class FlxGameJolt
 		if (!authenticated)
 			return;
 
-		var tempURL:String = URL_API + "trophies/" + RETURN_TYPE + _idURL;
+		var tempURL:String = URL_API_V1_2 + "trophies/" + RETURN_TYPE + _idURL;
 
 		switch (DataType)
 		{
@@ -422,7 +423,7 @@ class FlxGameJolt
 		if (!authenticated)
 			return;
 
-		sendLoaderRequest(URL_API + "trophies/add-achieved/" + RETURN_TYPE + _idURL + "&trophy_id=" + TrophyID, Callback);
+		sendLoaderRequest(URL_API_V1 + "trophies/add-achieved/" + RETURN_TYPE + _idURL + "&trophy_id=" + TrophyID, Callback);
 	}
 
 	/**
@@ -438,7 +439,7 @@ class FlxGameJolt
 		if (!gameInit)
 			return;
 
-		var tempURL = URL_API + "scores/" + RETURN_TYPE + URL_GAME_ID + _gameID;
+		var tempURL = URL_API_V1 + "scores/" + RETURN_TYPE + URL_GAME_ID + _gameID;
 
 		if (TableID != null)
 			tempURL += "&table_id=" + TableID;
@@ -489,7 +490,7 @@ class FlxGameJolt
 		if (!authenticated && !AllowGuest)
 			return;
 
-		var tempURL = URL_API + "scores/add/" + RETURN_TYPE + "&game_id=" + _gameID + "&score=" + Score + "&sort=" + Std.string(Sort);
+		var tempURL = URL_API_V1 + "scores/add/" + RETURN_TYPE + "&game_id=" + _gameID + "&score=" + Score + "&sort=" + Std.string(Sort);
 
 		// If AllowGuest is true
 
@@ -526,7 +527,7 @@ class FlxGameJolt
 		if (!gameInit)
 			return;
 
-		sendLoaderRequest(URL_API + "scores/tables/" + RETURN_TYPE + URL_GAME_ID + _gameID, Callback);
+		sendLoaderRequest(URL_API_V1 + "scores/tables/" + RETURN_TYPE + URL_GAME_ID + _gameID, Callback);
 	}
 
 	/**
@@ -545,7 +546,7 @@ class FlxGameJolt
 		if (User && !authenticated)
 			return;
 
-		var tempURL = URL_API + "data-store/" + RETURN_TYPE + "&key=" + Key;
+		var tempURL = URL_API_V1 + "data-store/" + RETURN_TYPE + "&key=" + Key;
 
 		if (User)
 		{
@@ -577,7 +578,7 @@ class FlxGameJolt
 		if (User && !authenticated)
 			return;
 
-		var tempURL = URL_API + "data-store/set/" + RETURN_TYPE + "&key=" + Key + "&data=" + Value;
+		var tempURL = URL_API_V1 + "data-store/set/" + RETURN_TYPE + "&key=" + Key + "&data=" + Value;
 
 		if (User)
 		{
@@ -610,7 +611,7 @@ class FlxGameJolt
 		if (User && !authenticated)
 			return;
 
-		var tempURL = URL_API + "data-store/update/" + RETURN_TYPE + "&key=" + Key + "&operation=" + Operation + "&value=" + Value;
+		var tempURL = URL_API_V1 + "data-store/update/" + RETURN_TYPE + "&key=" + Key + "&operation=" + Operation + "&value=" + Value;
 
 		if (User)
 		{
@@ -640,7 +641,7 @@ class FlxGameJolt
 		if (User && !authenticated)
 			return;
 
-		var tempURL = URL_API + "data-store/remove/" + RETURN_TYPE + "&key=" + Key;
+		var tempURL = URL_API_V1 + "data-store/remove/" + RETURN_TYPE + "&key=" + Key;
 
 		if (User)
 		{
@@ -669,7 +670,7 @@ class FlxGameJolt
 		if (User && !authenticated)
 			return;
 
-		var tempURL = URL_API + "data-store/get-keys/" + RETURN_TYPE;
+		var tempURL = URL_API_V1 + "data-store/get-keys/" + RETURN_TYPE;
 
 		if (User)
 		{
@@ -804,7 +805,7 @@ class FlxGameJolt
 
 		_idURL = URL_GAME_ID + _gameID + URL_USER_NAME + _userName + URL_USER_TOKEN + _userToken;
 		_verifyAuth = true;
-		sendLoaderRequest(URL_API + "users/auth/" + RETURN_TYPE + _idURL, Callback);
+		sendLoaderRequest(URL_API_V1 + "users/auth/" + RETURN_TYPE + _idURL, Callback);
 	}
 
 	/**
