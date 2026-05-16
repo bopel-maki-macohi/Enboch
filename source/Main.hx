@@ -34,6 +34,13 @@ class Main extends Sprite
 		if (Define.TROPHY_TESTING)
 			return TrophyTesting;
 
+		if (Define.GAME != null)
+		{
+			PlayState.char = Define.GAME;
+
+			return PlayState;
+		}
+
 		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
 			return GamejoltLoginState;
 
