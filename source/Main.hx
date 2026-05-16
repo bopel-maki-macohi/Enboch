@@ -1,7 +1,9 @@
 package;
 
+import utilShitsie.trophies.TrophyToast;
 import ui.GamejoltLoginState;
 import ui.MainMenuState;
+import ui.debug.TrophyTesting;
 import flixel.util.typeLimit.NextState.InitialState;
 import macroShit.GitShit;
 import flixel.FlxGame;
@@ -11,6 +13,8 @@ class Main extends Sprite
 {
 	public static var gitBranch:String = GitShit.getGitBranch();
 	public static var gitCommit:String = GitShit.getGitCommit();
+
+	public static var trophyToast:TrophyToast;
 
 	public function new()
 	{
@@ -22,12 +26,18 @@ class Main extends Sprite
 		trace('Git Commit: $gitCommit');
 
 		addChild(new InitState(getInitalState()));
+
+		addChild(trophyToast = new TrophyToast());
 	}
 
 	function getInitalState():InitialState
 	{
 		#if DIE
 		return DeadState;
+		#end
+
+		#if TROPHY_TESTING
+		return TrophyTesting;
 		#end
 
 		if (Paycheck.game.firstTime || #if GD_LOGIN true #else false #end)
