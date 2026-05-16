@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://lime.openfl.org/project/1.0.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://lime.openfl.org/project/1.0.4"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://lime.openfl.org/project/1.0.4 http://lime.openfl.org/xsd/project-1.0.4.xsd">
 
 	<!-- _________________________ Application Settings _________________________ -->
@@ -22,9 +23,9 @@
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
 
 	<source path="source" />
-	
-	<assets path="content" exclude="*.ogg" if="web"/>
-	<assets path="content" exclude="*.mp3" unless="web"/>
+
+	<assets path="content" exclude="*.ogg" if="web" />
+	<assets path="content" exclude="*.mp3" unless="web" />
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -35,11 +36,12 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="FLX_NO_HEALTH" />
-	
+
 	<haxedef name="FLX_NO_MOUSE" if="mobile" />
 	<haxedef name="FLX_NO_KEYBOARD" if="mobile" />
 	<haxedef name="FLX_NO_TOUCH" if="desktop" />
-	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
+	<!--<haxedef
+	name="FLX_NO_GAMEPAD" />-->
 
 	<haxedef name="FLX_NO_DEBUG" unless="debug" />
 	<haxedef name="NAPE_RELEASE_BUILD" unless="debug" />
@@ -49,6 +51,12 @@
 
 	<icon path="icon.png" />
 
-	<define name="DEBUG_TEXT" if="debug"/>
+	<define name="DEBUG_TEXT" if="debug" />
+
+
+	<haxeflag name="--dce full" if="release" />
+	
+	<haxedef name="HXCPP_CHECK_POINTER" />
+	<haxedef name="HXCPP_STACK_LINE" />
 
 </project>
