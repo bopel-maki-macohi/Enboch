@@ -2,7 +2,9 @@ package utilShitsie;
 
 import flixel.util.FlxTimer;
 import flixel.util.FlxSignal;
+#if sys
 import sys.io.File;
+#end
 import openfl.display.PNGEncoderOptions;
 import openfl.display.BitmapData;
 import openfl.utils.ByteArray;
@@ -44,9 +46,11 @@ class ScreenshotPlugin extends FlxBasic
 
 			FlxTimer.wait(.1, function()
 			{
+				#if sys
 				File.saveBytes('content/screenshot-$date.png', screenshot);
 
 				trace('Took screenshot: $date');
+				#end
 
 				postScreenshot.dispatch();
 			});
