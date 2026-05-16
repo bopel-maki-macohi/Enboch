@@ -1,6 +1,5 @@
 package;
 
-import utilShitsie.Screenshotting;
 import flixel.util.typeLimit.NextState.InitialState;
 import macroShit.GitShit;
 import flixel.FlxGame;
@@ -20,9 +19,7 @@ class Main extends Sprite
 		trace('Git Branch: $gitBranch');
 		trace('Git Commit: $gitCommit');
 
-		Screenshotting.init();
-
-		addChild(new FlxGame(0, 0, getInitalState()));
+		addChild(new InitState(getInitalState()));
 	}
 
 	function getInitalState():InitialState
