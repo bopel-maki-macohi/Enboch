@@ -1,3 +1,4 @@
+import flixel.system.frontEnds.LogFrontEnd;
 import flixel.FlxG;
 import utilShitsie.ScreenshotPlugin;
 import utilShitsie.api.GamejoltAPI;
@@ -16,9 +17,15 @@ class InitState extends FlxGame
 
 		ScreenshotPlugin.init();
 
+		@:privateAccess
+		FlxG.log._standardTraceFunction = null;
+
 		GamejoltAPI.init(authed ->
 		{
-			trace('Authed: $authed');
+			trace('Authed Status: $authed');
+
+			@:privateAccess
+			FlxG.log._standardTraceFunction = haxe.Log.trace;
 
 			addEventListener(Event.ADDED_TO_STAGE, create);
 			create(null);

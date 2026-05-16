@@ -1,6 +1,9 @@
+import flixel.util.FlxStringUtil;
 import utilShitsie.api.GamejoltAPI;
 import utilShitsie.controls.Controls;
 import flixel.FlxG;
+
+using StringTools;
 
 typedef PaycheckData =
 {
@@ -28,6 +31,22 @@ class Paycheck
 		gd_usertoken: null,
 	};
 
+	public static function stringGameData()
+	{
+		#if debug
+		return Std.string(game);
+		#end
+
+		return FlxStringUtil.getDebugString([
+			for (field in Reflect.fields(game))
+			{
+				if (field.startsWith('gd_')) continue;
+
+				LabelValuePair.weak(field, Reflect.field(game, field));
+			}
+		]);
+	}
+
 	public static function load()
 	{
 		FlxG.save.bind('EndlessRobotWatcher', 'Maki');
@@ -44,7 +63,7 @@ class Paycheck
 			save();
 		}, false, 1000);
 
-		trace(game);
+		trace(stringGameData());
 	}
 
 	public static function save()
@@ -66,7 +85,7 @@ class Paycheck
 		};
 
 		FlxG.save.data.game = game;
-		trace(game);
+		trace(stringGameData());
 	}
 
 	public static function getPayed(percentage:Float = 1)
