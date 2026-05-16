@@ -203,7 +203,7 @@ class PlayState extends EnboState
 			charSprShaderTween.cancel();
 
 		if (charSprShader == null)
-			itemSpr.shader = charSpr.shader = charSprShader = new ThresholdShader(1);
+			charSpr.shader = charSprShader = new ThresholdShader(1);
 
 		charSprShaderTween = FlxTween.num(1, 0, 2.5, {ease: FlxEase.quintOut}, v -> charSprShader.brightnessThreshold = v);
 	}
