@@ -15,8 +15,8 @@ typedef PaycheckData =
 	trophies:Array<Int>,
 	firstTime:Bool,
 
-	gd_username:String,
-	gd_usertoken:String,
+	gj_username:String,
+	gj_usertoken:String,
 }
 
 class Paycheck
@@ -29,8 +29,8 @@ class Paycheck
 		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
 		trophies: [],
 		firstTime: true,
-		gd_username: null,
-		gd_usertoken: null,
+		gj_username: null,
+		gj_usertoken: null,
 	};
 
 	public static function stringGameData()
@@ -39,8 +39,8 @@ class Paycheck
 
 		if (Define.debug)
 		{
-			nonoes.push('gd_username');
-			nonoes.push('gd_usertoken');
+			nonoes.push('gj_username');
+			nonoes.push('gj_usertoken');
 		}
 
 		return '\n' + DebugString.generateBasedOnData(game, nonoes);
@@ -79,8 +79,8 @@ class Paycheck
 			trophies: [], // tba
 			firstTime: false,
 
-			gd_username: GamejoltAPI.username,
-			gd_usertoken: GamejoltAPI.usertoken,
+			gj_username: GamejoltAPI.username,
+			gj_usertoken: GamejoltAPI.usertoken,
 		};
 
 		FlxG.save.data.game = game;

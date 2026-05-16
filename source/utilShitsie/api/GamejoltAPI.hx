@@ -32,8 +32,8 @@ class GamejoltAPI
 
 		FlxG.stage.application.onExit.add(l -> closeSession());
 
-		if (Paycheck.game.gd_username != null && Paycheck.game.gd_usertoken != null)
-			login(Paycheck.game.gd_username, Paycheck.game.gd_usertoken, onAuthCallback);
+		if (Paycheck.game.gj_username != null && Paycheck.game.gj_usertoken != null)
+			login(Paycheck.game.gj_username, Paycheck.game.gj_usertoken, onAuthCallback);
 		else if (username != null && usertoken != null)
 			login(username, usertoken, onAuthCallback);
 		else

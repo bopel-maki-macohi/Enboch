@@ -34,7 +34,7 @@ class Main extends Sprite
 		if (Define.TROPHY_TESTING)
 			return TrophyTesting;
 
-		if (Paycheck.game.firstTime || Define.GD_LOGIN)
+		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
 			return GamejoltLoginState;
 
 		return MainMenuState;
