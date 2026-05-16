@@ -68,7 +68,7 @@ class PlayState extends EnboState
 
 		stateChangeTmr.start(5, stateChangeCheck, 0);
 
-		medalTmr.start(60 * 20, t ->
+		medalTmr.start(1 * 20, t ->
 		{
 			trace(t.elapsedLoops + ' day cycles');
 		}, 0);
@@ -208,7 +208,7 @@ class PlayState extends EnboState
 		#if BOTPLAY
 		debugTXT.text += '\nBOTPLAY';
 		#end
-		debugTXT.text += '\nDAY CYCLE: ${(medalTmr.elapsedTime / 1000) / (60 * 20)}';
+		debugTXT.text += '\nDAY CYCLE PROGRESS: ${medalTmr.progress}';
 		#end
 
 		#if !BOTPLAY
