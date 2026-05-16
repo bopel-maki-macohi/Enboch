@@ -63,6 +63,8 @@ class GamejoltAPI
 	{
 		API.authUser(username, usertoken, (authed:Bool) ->
 		{
+			API.fetchTrophy(0, d -> callback(d, 'trophies'));
+
 			startSession();
 			callback(authed, 'logged in');
 
