@@ -9,6 +9,6 @@ class GamejoltAPI
 
 	public static function init()
 	{
-		FlxGameJolt.init(1070390, '', true);
+		FlxGameJolt.init(1070390, privateKey, true);
 	}
 }
