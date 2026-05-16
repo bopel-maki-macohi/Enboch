@@ -5,6 +5,7 @@ typedef PaycheckData =
 {
 	totalPay:Int,
 	keybinds:Map<String, Array<String>>,
+	trophies:Array<Int>,
 }
 
 class Paycheck
@@ -14,7 +15,8 @@ class Paycheck
 
 	public static var game:PaycheckData = {
 		totalPay: 0,
-		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],]
+		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
+		trophies: [],
 	};
 
 	public static function load()
@@ -45,7 +47,8 @@ class Paycheck
 
 		game = {
 			totalPay: totalPay,
-			keybinds: keybinds
+			keybinds: keybinds,
+			trophies: [], // tba
 		};
 
 		FlxG.save.data.game = game;
