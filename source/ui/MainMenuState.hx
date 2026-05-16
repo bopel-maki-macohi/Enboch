@@ -12,7 +12,11 @@ class MainMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
-	var entries:Array<String> = ['Levels', 'Options',];
+	var entries:Array<String> = [
+		'Levels',
+		'Trophies',
+		'Options',
+	];
 
 	var camFollow:FlxObject;
 
