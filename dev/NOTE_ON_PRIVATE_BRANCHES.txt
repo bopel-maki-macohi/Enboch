@@ -1,0 +1,5 @@
+Private branches based on private-indev have this format now:
+
+currentReleasedVersion-Thing
+or
+currentReleasedVersion-Thing-subThingy
