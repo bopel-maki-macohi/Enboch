@@ -25,6 +25,6 @@ class TestingShader extends FlxShader
 	{
 		super();
 
-		this.u_brightnessThreshold.value = [0.5];
+		this.u_brightnessThreshold.value = [0.25];
 	}
 }
