@@ -221,7 +221,7 @@ class PlayState extends EnboState
 
 	function updateItemRNG()
 	{
-		var itemRNG = RNGUtil.generateRNGList(2);
+		var itemRNG = RNGUtil.generateRNGList(1);
 
 		rngList[3] = itemRNG[0];
 	}
