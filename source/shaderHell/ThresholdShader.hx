@@ -34,5 +34,9 @@ class ThresholdShader extends FlxShader
 		return this.u_brightnessThreshold.value[0];
 
 	function set_brightnessThreshold(brightnessThreshold:Float):Float
-		return this.u_brightnessThreshold.value[0] = brightnessThreshold;
+	{
+		this.u_brightnessThreshold.value = [brightnessThreshold];
+
+		return this.u_brightnessThreshold.value[0];
+	}
 }

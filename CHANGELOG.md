@@ -1,11 +1,8 @@
-# Unreleased
-
-## Fixed
-
-- Sound Save Stuff persists between sessions now
+# 0.1.2 - 5/16/2026
 
 ## Added
 
+- Cool Shader to character and item that replaces the boring alpha fade
 - Added Version Text to main menu
 
 - Screenshot Plugin! (Was there since 0.1.0 but its fleshed out more now and is availible for everyone to use!)
@@ -13,6 +10,10 @@
 - UI Transitions inbetween states
 - An extra UI sound plays in the Gamejolt Login State
 - Added UI Sounds to the Main Menu
+
+## Fixed
+
+- Sound Save Stuff persists between sessions now
 
 # 0.1.1 - 5/16/2026
 
