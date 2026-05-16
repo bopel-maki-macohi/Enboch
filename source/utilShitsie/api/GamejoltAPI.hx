@@ -32,17 +32,24 @@ class GamejoltAPI
 		}
 
 		FlxG.stage.application.onExit.add(l -> closeSession());
+
+		API.fetchTrophy(0, d ->
+		{
+			callback(d, 'trophies');
+
+			trace(d);
+		});
 	}
 
 	public static function unlockTrophy(ID:Int)
 	{
-		if (authenticated)
+		if (!authenticated)
+			return;
+
+		API.addTrophy(ID, d ->
 		{
-			API.addTrophy(ID, d ->
-			{
-				callback(d, 'trophy');
-			});
-		}
+			callback(d, 'trophy');
+		});
 	}
 
 	public static function login(username:String, usertoken:String, ?onAuthCallback:Bool->Void)
