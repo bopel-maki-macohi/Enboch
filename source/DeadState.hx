@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.controls.Controls;
 import flixel.tweens.FlxTween;
 import flixel.sound.FlxSound;
 import flixel.FlxSprite;
@@ -41,7 +42,7 @@ class DeadState extends EnboState
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justReleased.ENTER)
+		if (Controls.accept.justPressed)
 			FlxG.switchState(() -> new PlayState());
 	}
 }

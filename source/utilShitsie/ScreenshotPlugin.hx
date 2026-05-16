@@ -1,5 +1,6 @@
 package utilShitsie;
 
+import utilShitsie.controls.Controls;
 import flixel.util.FlxTimer;
 import flixel.util.FlxSignal;
 #if sys
@@ -35,7 +36,7 @@ class ScreenshotPlugin extends FlxBasic
 	{
 		super.update(elapsed);
 
-		if (FlxG.keys.justPressed.F3)
+		if (Controls.screenshot.justPressed)
 		{
 			preScreenshot.dispatch();
 

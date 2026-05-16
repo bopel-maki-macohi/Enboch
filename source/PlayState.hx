@@ -2,6 +2,7 @@ package;
 
 import utilShitsie.ScreenshotPlugin;
 import utilShitsie.RNGUtil;
+import utilShitsie.GraphicUtil;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.effects.FlxFlicker;
@@ -27,21 +28,12 @@ class PlayState extends EnboState
 	var itemAssetsList:Array<FlxGraphic> = [];
 
 	var rngList:Array<Int> = [];
-	var encryptedRng:Array<String> = [];
 
 	function makeRNGList()
-	{
-		rngList = RNGUtil.generateRNGList(5);
-		updateRNGEncryption();
-	}
+		rngList = RNGUtil.generateRNGList(4);
 
-	function updateRNGEncryption()
-	{
-		encryptedRng = utilShitsie.RNGCodeEncrypt.encrypt(rngList);
-	}
-
-	var stateChangeTmr:FlxTimer;
-	var killTmr:FlxTimer;
+	var stateChangeTmr:FlxTimer = new FlxTimer();
+	var killTmr:FlxTimer = new FlxTimer();
 
 	override public function create()
 	{
@@ -49,29 +41,18 @@ class PlayState extends EnboState
 
 		Paycheck.earned = 0;
 
-		charAssetsList = [];
-		itemAssetsList = [];
-
 		for (i in 0...4)
 		{
 			charAssetsList.push(FlxG.bitmap.add('characters/$char/char-phase$i'.getPath(image)));
 			itemAssetsList.push(FlxG.bitmap.add('characters/$char/item-phase$i'.getPath(image)));
 		}
 
-		for (graphic in charAssetsList)
-			if (graphic != null)
-				graphic.persist = true;
-
-		for (graphic in itemAssetsList)
-			if (graphic != null)
-				graphic.persist = true;
-
-		charSpr = new FlxSprite(0, 0);
-		itemSpr = new FlxSprite(0, 0);
+		GraphicUtil.persistGraphics(charAssetsList);
+		GraphicUtil.persistGraphics(itemAssetsList);
 
 		addMultiple([
-			charSpr,
-			itemSpr,
+			charSpr = new FlxSprite(0, 0),
+			itemSpr = new FlxSprite(0, 0),
 
 			#if debug
 			debugTXT = new FlxText(0, 0, 0, '', 16),
@@ -80,9 +61,7 @@ class PlayState extends EnboState
 
 		stateChangeCheck(null);
 
-		resetRSCT();
-
-		killTmr = new FlxTimer();
+		stateChangeTmr.start(5, stateChangeCheck, 0);
 	}
 
 	override function preScreenshot()
@@ -107,22 +86,10 @@ class PlayState extends EnboState
 
 	override function destroy()
 	{
-		for (graphic in charAssetsList)
-			graphic?.destroy();
-
-		for (graphic in itemAssetsList)
-			graphic?.destroy();
+		GraphicUtil.destroyGraphics(charAssetsList);
+		GraphicUtil.destroyGraphics(itemAssetsList);
 
 		super.destroy();
-	}
-
-	function resetRSCT()
-	{
-		if (stateChangeTmr != null)
-			return;
-
-		stateChangeTmr = new FlxTimer();
-		stateChangeTmr.start(5, stateChangeCheck, 0);
 	}
 
 	function stateChangeCheck(t:FlxTimer)
@@ -137,8 +104,6 @@ class PlayState extends EnboState
 			rngList[0] = 2;
 			rngList[1] = 0;
 			charState = 2;
-
-			updateRNGEncryption();
 		}
 
 		if (t != null)
@@ -217,7 +182,7 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		#if debug
-		debugTXT.text = '$charState\n${encryptedRng.join('')}\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
+		debugTXT.text = '$charState\n${charSpr.alpha}\n${Paycheck.totalPay}\n$itemSpam';
 		#end
 
 		if (FlxG.mouse.justPressed)
@@ -231,11 +196,9 @@ class PlayState extends EnboState
 
 	function updateItemRNG()
 	{
-		var itemRNG = RNGUtil.generateRNGList(2);
+		var itemRNG = RNGUtil.generateRNGList(1);
 
 		rngList[3] = itemRNG[0];
-
-		updateRNGEncryption();
 	}
 
 	var itemSpam:Int = 0;
