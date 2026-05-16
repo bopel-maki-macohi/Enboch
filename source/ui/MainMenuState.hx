@@ -25,7 +25,7 @@ class MainMenuState extends EnboState
 
 		for (entry in entries)
 		{
-			var newText = new FlxText(0, 0, 0, entry, 16);
+			var newText = new FlxText(0, 0, 0, entry, 64);
 			newText.ID = textGrp.length;
 
 			textGrp.add(newText);
@@ -42,7 +42,7 @@ class MainMenuState extends EnboState
 		for (text in textGrp.members)
 		{
 			text.screenCenter(X);
-			text.y = text.ID * 64;
+			text.y = text.ID * 128;
 			text.color = FlxColor.WHITE;
 
 			if (curSelect == text.ID)
