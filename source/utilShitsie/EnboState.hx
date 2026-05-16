@@ -8,7 +8,8 @@ class EnboState extends FlxState
 	public function addMultiple(basics:Array<FlxBasic>)
 	{
 		for (basic in basics)
-			add(basic);
+			if (basic != null)
+				add(basic);
 	}
 
 	override function create()

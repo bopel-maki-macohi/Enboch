@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.Define;
 import utilShitsie.trophies.Trophies;
 import ui.MainMenuState;
 import utilShitsie.controls.Controls;
@@ -59,9 +60,7 @@ class PlayState extends EnboState
 			charSpr = new FlxSprite(0, 0),
 			itemSpr = new FlxSprite(0, 0),
 
-			#if DEBUG_TEXT
-			debugTXT = new FlxText(0, 0, 0, '', 16),
-			#end
+			((Define.DEBUG_TEXT) ? debugTXT = new FlxText(0, 0, 0, '', 16) : null),
 		]);
 
 		stateChangeCheck(null);
@@ -91,20 +90,18 @@ class PlayState extends EnboState
 	{
 		super.preScreenshot();
 
-		#if DEBUG_TEXT
-		if (debugTXT != null)
-			debugTXT.visible = false;
-		#end
+		if (Define.DEBUG_TEXT)
+			if (debugTXT != null)
+				debugTXT.visible = false;
 	}
 
 	override function postScreenshot()
 	{
 		super.postScreenshot();
 
-		#if DEBUG_TEXT
-		if (debugTXT != null)
-			debugTXT.visible = true;
-		#end
+		if (Define.DEBUG_TEXT)
+			if (debugTXT != null)
+				debugTXT.visible = true;
 	}
 
 	override function destroy()
@@ -179,10 +176,9 @@ class PlayState extends EnboState
 			{
 				final percentage = ((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2);
 
-				#if !BOTPLAY
-				if (char == 'drowned' && percentage == 1)
-					Trophies.DROWNED_PLAY.unlock();
-				#end
+				if (!Define.BOTPLAY)
+					if (char == 'drowned' && percentage == 1)
+						Trophies.DROWNED_PLAY.unlock();
 
 				Paycheck.getPayed(percentage);
 			}
@@ -213,31 +209,32 @@ class PlayState extends EnboState
 	{
 		super.update(elapsed);
 
-		#if DEBUG_TEXT
-		debugTXT.text = '$charState';
-		debugTXT.text += '\n${charSpr.alpha}';
-		debugTXT.text += '\n${Paycheck.totalPay}';
-		debugTXT.text += '\n$itemSpam';
-		#if BOTPLAY
-		debugTXT.text += '\nBOTPLAY';
-		#end
-		debugTXT.text += '\nDAY CYCLE PROGRESS: ${medalTmr.progress}';
-		#end
-
-		#if !BOTPLAY
-		if (FlxG.mouse.justPressed)
+		if (Define.DEBUG_TEXT)
 		{
-			itemSpam++;
+			debugTXT.text = '$charState';
+			debugTXT.text += '\n${charSpr.alpha}';
+			debugTXT.text += '\n${Paycheck.totalPay}';
+			debugTXT.text += '\n$itemSpam';
+			if (Define.BOTPLAY)
+				debugTXT.text += '\nBOTPLAY';
+			debugTXT.text += '\nDAY CYCLE PROGRESS: ${medalTmr.progress}';
+		}
 
-			if (charSpr.alpha == 1)
+		if (Define.BOTPLAY)
+		{
+			if (charSpr.alpha == 1 && charState > 0)
 				useItem();
 		}
-		#end
+		else
+		{
+			if (FlxG.mouse.justPressed)
+			{
+				itemSpam++;
 
-		#if BOTPLAY
-		if (charSpr.alpha == 1 && charState > 0)
-			useItem();
-		#end
+				if (charSpr.alpha == 1)
+					useItem();
+			}
+		}
 
 		if (Controls.leave.justPressed && charState < 3)
 			FlxG.switchState(() -> new MainMenuState());

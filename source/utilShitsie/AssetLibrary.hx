@@ -9,6 +9,7 @@ class AssetLibrary
 	public static var pathTypes:Map<OneOfTwo<String, AssetLibraryPathType>, Array<String>> = [
 		//
 		image => [null, 'png'],
+		// Define.web doesnt work here for some reason?
 		audio => ['audio', #if web 'mp3' #else 'ogg' #end],
 	];
 
