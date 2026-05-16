@@ -52,7 +52,7 @@ class GamejoltAPI
 		{
 			var success:Bool = d.get('success') == 'true';
 
-			callback('Unlocked: $success', 'trophy');
+			callback('Unlocked: $success', 'trophy=$ID');
 
 			if (callbackFucker != null)
 				callbackFucker(success);
