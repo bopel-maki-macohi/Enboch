@@ -25,14 +25,14 @@ class GamejoltLoginState extends EnboState
 
 		usernameInput.screenCenter(X);
 		usernameInput.x -= usernameInput.width;
+		
 		usertokenInput.screenCenter(X);
 		usertokenInput.x += usernameInput.width;
 
 		usernameInput.screenCenter(Y);
 		usertokenInput.screenCenter(Y);
 
-		usernameInput.borderSize = 2;
-		usertokenInput.borderSize = 2;
+		usernameInput.fieldBorderThickness = usertokenInput.fieldBorderThickness = 2;
 
 		topText = new FlxText();
 		topText.size = 32;
