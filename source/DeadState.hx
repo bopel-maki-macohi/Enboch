@@ -1,5 +1,6 @@
 package;
 
+import ui.MainMenuState;
 import utilShitsie.controls.Controls;
 import flixel.tweens.FlxTween;
 import flixel.sound.FlxSound;
@@ -23,6 +24,7 @@ class DeadState extends EnboState
 
 		text.text += '\n\nTotal pay: ${Paycheck.totalPay} (+ ${Paycheck.earned})';
 		text.text += '\n\nPress any of the following: ${Controls.accept.keyList} to go back';
+		text.text += '\n\nPress any of the following: ${Controls.leave.keyList} to go to the main menu';
 
 		add(text);
 		text.screenCenter();
@@ -42,6 +44,9 @@ class DeadState extends EnboState
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+
+		if (Controls.leave.justPressed)
+			FlxG.switchState(() -> new MainMenuState());
 
 		if (Controls.accept.justPressed)
 			FlxG.switchState(() -> new PlayState());
