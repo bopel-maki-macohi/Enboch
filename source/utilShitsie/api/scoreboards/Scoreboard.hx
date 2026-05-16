@@ -1,4 +1,4 @@
-package utilShitsie.api.scoreboard;
+package utilShitsie.api.scoreboards;
 
 class Scoreboard
 {
