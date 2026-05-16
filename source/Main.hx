@@ -1,5 +1,6 @@
 package;
 
+import ui.MainMenuState;
 import flixel.util.typeLimit.NextState.InitialState;
 import macroShit.GitShit;
 import flixel.FlxGame;
@@ -28,6 +29,6 @@ class Main extends Sprite
 		return DeadState;
 		#end
 
-		return PlayState;
+		return MainMenuState;
 	}
 }
