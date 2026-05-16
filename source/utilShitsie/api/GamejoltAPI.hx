@@ -5,7 +5,7 @@ import flixel.addons.api.FlxGameJolt;
 
 class GamejoltAPI
 {
-	static var privateKey:String = SecretDataFile.build('api/gamejolt-privateKey'.getPath(secret));
+	static var privateKey:String = SecretDataFile.build('api/gamejolt-privateKey'.makePath(secret));
 
 	public static function init()
 	{

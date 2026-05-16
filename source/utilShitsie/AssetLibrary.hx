@@ -15,7 +15,7 @@ class AssetLibrary
 	public static function addPathType(type:String, folder:String, extension:String)
 		pathTypes.set(type, [folder ?? null, extension ?? null]);
 
-	public static function getPath(path:String, ?type:OneOfTwo<String, AssetLibraryPathType>):String
+	public static function makePath(path:String, ?type:OneOfTwo<String, AssetLibraryPathType>):String
 	{
 		var typeFolder:String = pathTypes.get(type)[0] ?? '';
 
