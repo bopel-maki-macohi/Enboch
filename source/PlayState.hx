@@ -59,7 +59,7 @@ class PlayState extends EnboState
 			charSpr = new FlxSprite(0, 0),
 			itemSpr = new FlxSprite(0, 0),
 
-			#if debug
+			#if DEBUG_TEXT
 			debugTXT = new FlxText(0, 0, 0, '', 16),
 			#end
 		]);
@@ -78,7 +78,7 @@ class PlayState extends EnboState
 	{
 		super.preScreenshot();
 
-		#if debug
+		#if DEBUG_TEXT
 		if (debugTXT != null)
 			debugTXT.visible = false;
 		#end
@@ -88,7 +88,7 @@ class PlayState extends EnboState
 	{
 		super.postScreenshot();
 
-		#if debug
+		#if DEBUG_TEXT
 		if (debugTXT != null)
 			debugTXT.visible = true;
 		#end
@@ -200,7 +200,7 @@ class PlayState extends EnboState
 	{
 		super.update(elapsed);
 
-		#if debug
+		#if DEBUG_TEXT
 		debugTXT.text = '$charState';
 		debugTXT.text += '\n${charSpr.alpha}';
 		debugTXT.text += '\n${Paycheck.totalPay}';

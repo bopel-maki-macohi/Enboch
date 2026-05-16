@@ -49,4 +49,6 @@
 
 	<icon path="icon.png" />
 
+	<define name="DEBUG_TEXT" if="debug"/>
+
 </project>
