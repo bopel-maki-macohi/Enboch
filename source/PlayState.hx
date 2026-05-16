@@ -31,7 +31,7 @@ class PlayState extends EnboState
 
 	function makeRNGList()
 	{
-		rngList = RNGUtil.generateRNGList(5);
+		rngList = RNGUtil.generateRNGList(4);
 	}
 
 	var stateChangeTmr:FlxTimer;
