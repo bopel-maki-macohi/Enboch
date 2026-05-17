@@ -28,7 +28,7 @@ class MainMenuState extends EnboState
 	var curSelect:Int = 0;
 
 	var version:FlxText = new FlxText(0, 0, 0,
-		'ENBOCH v${Application.current.meta.get('version')}' + (!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})', 16);
+		'ENBOCH v${Application.current.meta.get('version')}' + ((!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
 
 	override function create()
 	{
