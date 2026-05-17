@@ -27,7 +27,7 @@ class WebVideo extends FlxBasic
 
 	public var vidPath:String = '';
 
-	public function new(vidPath:String)
+	public function new(vidPath:String, ?back:Bool = false)
 	{
 		super();
 
@@ -35,7 +35,13 @@ class WebVideo extends FlxBasic
 
 		vid = new Video();
 		vid.x = vid.y = 0;
-		FlxG.addChildBelowMouse(vid);
+		if (back)
+		{
+            trace('Dont forget `FlxG.camera.bgColor.alpha`');
+			FlxG.stage.addChildAt(vid, 0);
+		}
+		else
+			FlxG.stage.addChild(vid);
 
 		var netConnection:NetConnection = new NetConnection();
 		netConnection.connect(null);
@@ -67,6 +73,6 @@ class WebVideo extends FlxBasic
 			return;
 
 		netStream.dispose();
-		FlxG.removeChild(vid);
+		FlxG.stage.removeChild(vid);
 	}
 }
