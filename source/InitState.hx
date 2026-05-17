@@ -34,12 +34,12 @@ class InitState extends FlxGame
 		#if js
 		trace(document.URL);
 
-		if (document.URL.contains('gjapi='))
+		if (document.URL.contains('gjapi_username='))
 			if (document.URL.contains('gjapi_token='))
 			{
 				var wantedPieces = document.URL.split('?')[1].split('&');
 
-				trace(wantedPieces[0]); // gjapi
+				trace(wantedPieces[0]); // gjapi_username
 				trace(wantedPieces[1]); // gjapi_token
 			}
 		#end
