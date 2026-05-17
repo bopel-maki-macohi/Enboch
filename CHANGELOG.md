@@ -2,6 +2,7 @@
 
 ## Added
 
+- LEVEL 2 : SKELETON
 - LEVEL SELECT MENU!!
 
 - Version Text in Main Menu (Was there in 0.1.2 but debug only)
