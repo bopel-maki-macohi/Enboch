@@ -1,3 +1,9 @@
+# 0.2.1 - 5/17/2026
+
+## Fixed
+
+- Skeleton now has a death SFX
+
 # 0.2.0 - 5/17/2026
 
 ## Added
