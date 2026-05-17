@@ -69,6 +69,8 @@ class LevelSelectMenuState extends EnboState
 		add(swagShitMoneyMoney);
 
 		swagShitMoneyMoney.screenCenter(X);
+		
+		changeSelect(0);
 	}
 
 	override function update(elapsed:Float)

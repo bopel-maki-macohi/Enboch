@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.math.FlxMath;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import utilShitsie.video.*;
@@ -109,6 +110,8 @@ class MainMenuState extends EnboState
 		version.y = FlxG.height - version.height;
 		version.scrollFactor.set();
 		add(version);
+
+		changeSelect(0);
 	}
 
 	override function update(elapsed:Float)
@@ -155,6 +158,13 @@ class MainMenuState extends EnboState
 
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
+
+		for (thing in textGrp)
+		{
+			var ID = thing.ID + 1;
+
+			// trace('thing${ID} : ${1 -Math.abs(ID - (curSelect + 1)) / 1}');
+		}
 
 		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
 	}
