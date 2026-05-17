@@ -1,5 +1,6 @@
 package ui;
 
+import ui.objects.MainMenuButton;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import utilShitsie.Define;
@@ -15,7 +16,7 @@ import utilShitsie.EnboState;
 
 class MainMenuState extends EnboState
 {
-	public var textGrp:FlxTypedSpriteGroup<FlxText>;
+	public var textGrp:FlxTypedSpriteGroup<MainMenuButton>;
 
 	var entries:Array<String> = [
 		'Levels',
@@ -48,11 +49,11 @@ class MainMenuState extends EnboState
 	{
 		super.create();
 
-		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
+		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());
 
 		for (i => entry in entries)
 		{
-			var newText = new FlxText(0, 0, 0, entry, 64);
+			var newText = new MainMenuButton(entry);
 			newText.ID = i;
 
 			textGrp.add(newText);
@@ -72,15 +73,10 @@ class MainMenuState extends EnboState
 
 		for (text in textGrp.members)
 		{
-			text.screenCenter(X);
-			text.y = text.ID * 128;
-			text.color = FlxColor.WHITE;
+			text.y = text.ID * 512;
 
 			if (curSelect == text.ID)
-			{
-				text.color = FlxColor.YELLOW;
 				camFollow.y = text.y;
-			}
 		}
 
 		if (Controls.ui_up.justPressed)
