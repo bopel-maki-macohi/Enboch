@@ -41,22 +41,6 @@ class InitState extends FlxGame
 	{
 		Paycheck.load();
 
-		super(0, 0, getInitalState());
-		removeEventListener(Event.ADDED_TO_STAGE, create);
-
-		FlxG.mouse.visible = false;
-
-		ScreenshotPlugin.init();
-
-		if (!Define.debug)
-		{
-			@:privateAccess
-			FlxG.log._standardTraceFunction = (v, ?i) -> {};
-		}
-
-		@:privateAccess
-		FlxG.sound.loadSavedPrefs();
-
 		#if js
 		// trace(document.URL);
 
@@ -79,6 +63,22 @@ class InitState extends FlxGame
 				Paycheck.game.firstTime = false;
 			}
 		#end
+
+		super(0, 0, getInitalState());
+		removeEventListener(Event.ADDED_TO_STAGE, create);
+
+		FlxG.mouse.visible = false;
+
+		ScreenshotPlugin.init();
+
+		if (!Define.debug)
+		{
+			@:privateAccess
+			FlxG.log._standardTraceFunction = (v, ?i) -> {};
+		}
+
+		@:privateAccess
+		FlxG.sound.loadSavedPrefs();
 
 		GamejoltAPI.init(authed ->
 		{

@@ -4,6 +4,10 @@
 
 - Added leave button to Gamejolt login screen
 
+## Fixed
+
+- [WEB] When auto-logged in on web it wont send you to the Gamejolt login screen anymore
+
 # 0.2.1 - 5/17/2026
 
 ## Fixed
@@ -15,7 +19,7 @@
 ## Added
 
 - LEVEL 2 : SKELETON
-    - This includes a buncho internal stuff so if yall makin' a mod I gotchu B)
+  - This includes a buncho internal stuff so if yall makin' a mod I gotchu B)
 - LEVEL SELECT MENU!!
 
 - Version Text in Main Menu (Was there in 0.1.2 but debug only)
