@@ -42,7 +42,7 @@ class PlayState extends EnboState
 
 		if (using_cAM_ro)
 		{
-			this.rng_cAM_ro_max = Math.round(Math.min(rngList[4], cAM_ro_max_max));
+			this.rng_cAM_ro_max = Math.round(Math.max(Math.min(rngList[4], cAM_ro_max_max), cAM_ro_max_min));
 		}
 	}
 
@@ -61,6 +61,7 @@ class PlayState extends EnboState
 
 	public var using_cAM_ro:Bool = true;
 	public var cAM_ro_max_max:Int = 10;
+	public var cAM_ro_max_min:Int = 0;
 
 	override public function new()
 	{
