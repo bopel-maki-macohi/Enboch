@@ -1,5 +1,6 @@
 package;
 
+import ui.debug.PathFunctionTesting;
 import utilShitsie.Define;
 import ui.GamejoltLoginState;
 import ui.MainMenuState;
@@ -40,6 +41,9 @@ class Main extends Sprite
 
 			return PlayState;
 		}
+
+		if (Define.PATH_FUNCTION_TESTING)
+			return PathFunctionTesting;
 
 		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
 			return GamejoltLoginState;
