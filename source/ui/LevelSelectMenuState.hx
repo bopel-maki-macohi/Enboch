@@ -1,7 +1,6 @@
 package ui;
 
 import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
 import utilShitsie.Define;
 import lime.app.Application;
 import utilShitsie.api.GamejoltAPI;
@@ -13,37 +12,15 @@ import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import utilShitsie.EnboState;
 
-class MainMenuState extends EnboState
+class LevelSelectMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
-	var entries:Array<String> = [
-		'Levels',
-		// 'Trophies',
-		// 'Options',
-		'',
-		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
-	];
+	var entries:Array<String> = ['Drowned', 'Skeleton',];
 
 	var camFollow:FlxObject;
 
 	var curSelect:Int = 0;
-
-	var version:FlxText = new FlxText(0, 0, 0,
-		'ENBOCH v${Application.current.meta.get('version')}' + ((!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
-
-	override public function new(?TransIn:TransitionData, ?TransOut:TransitionData)
-	{
-		if (Define.debug)
-		{
-			if (TransIn == null)
-				TransIn = EnboState.DEFAULT_TRANSITION;
-			if (TransOut == null)
-				TransOut = EnboState.DEFAULT_TRANSITION;
-		}
-
-		super(TransIn, TransOut);
-	}
 
 	override function create()
 	{
@@ -61,10 +38,6 @@ class MainMenuState extends EnboState
 
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
-
-		version.y = FlxG.height - version.height;
-		version.scrollFactor.set();
-		add(version);
 	}
 
 	override function update(elapsed:Float)
@@ -88,6 +61,14 @@ class MainMenuState extends EnboState
 			changeSelect(-1);
 		if (Controls.ui_down.justPressed)
 			changeSelect(1);
+		
+		if (Controls.leave.justPressed)
+		{
+			transOut = null;
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxG.switchState(() -> new MainMenuState());
+		}
+
 		if (Controls.accept.justPressed)
 			selectThingy();
 	}
@@ -118,25 +99,8 @@ class MainMenuState extends EnboState
 		var selection = entries[curSelect];
 
 		FlxG.sound.play('ui_select'.makePath(audio));
-		switch (selection.toLowerCase())
-		{
-			case 'levels', 'play':
-				transOut = null;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxG.switchState(() -> new LevelSelectMenuState());
 
-			case 'trophies':
-				FlxG.switchState(() -> new TrophiesMenuState());
-
-			case 'gamejolt login':
-				FlxG.switchState(() -> new GamejoltLoginState());
-
-			case 'gamejolt logout':
-				FlxG.sound.play('gamejolt_logout'.makePath(audio));
-				GamejoltAPI.logout(() ->
-				{
-					FlxG.resetState();
-				});
-		}
+		PlayState.char = selection.toLowerCase();
+		FlxG.switchState(() -> new PlayState());
 	}
 }
