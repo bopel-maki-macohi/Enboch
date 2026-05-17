@@ -1,3 +1,4 @@
+import utilShitsie.api.trophies.Trophies;
 import utilShitsie.EnboState;
 import flixel.addons.transition.FlxTransitionableState;
 import utilShitsie.Define;
@@ -79,6 +80,14 @@ class InitState extends FlxGame
 
 		@:privateAccess
 		FlxG.sound.loadSavedPrefs();
+
+		PlayState.config_trophies_daycycle = [
+			1 => Trophies.DAYCYCLE_ONE,
+			3 => Trophies.DAYCYCLE_THREE,
+			9 => Trophies.DAYCYCLE_NINE,
+			27 => Trophies.DAYCYCLE_TWENTY_SEVEN,
+			28 => null,
+		];
 
 		GamejoltAPI.init(authed ->
 		{
