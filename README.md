@@ -27,6 +27,7 @@ This tutorial is assuming you got the code downloaded already.
         
     - Linux
         - [Extra setup stuff](https://lime.openfl.org/docs/advanced-setup/linux/)
+        - [hxvlc setup stuff](https://github.com/MAJigsaw77/hxvlc#dependencies)
 
     - HTML5 / Web : Nothing exta needed
 1. Run `lime test <your platform`>
