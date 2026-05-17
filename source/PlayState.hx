@@ -74,13 +74,7 @@ class PlayState extends EnboState
 
 	public var config_states:Int = 4;
 
-	public static var config_trophies_daycycle:Map<Int, Trophy> = [
-		1 => Trophies.DAYCYCLE_ONE,
-		3 => Trophies.DAYCYCLE_THREE,
-		9 => Trophies.DAYCYCLE_NINE,
-		27 => Trophies.DAYCYCLE_TWENTY_SEVEN,
-		28 => null,
-	];
+	public static var config_trophies_daycycle:Map<Int, Trophy> = [];
 
 	override public function new()
 	{
