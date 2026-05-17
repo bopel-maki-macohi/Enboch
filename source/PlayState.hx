@@ -33,7 +33,7 @@ class PlayState extends EnboState
 
 	function regenRNG()
 	{
-		rngList = RNGUtil.generateRNGList(rngList_length);
+		rngList = RNGUtil.generateRNGList(rngList_length, config_rng_minNumber, config_rng_maxNumber);
 
 		this.rng_stateChangeChance = rngList[0];
 		this.rng_deathWaitSeconds = rngList[1];
@@ -64,6 +64,13 @@ class PlayState extends EnboState
 	public var config_cAM_ro_max_max:Int = 10;
 	public var config_cAM_ro_max_min:Int = 0;
 
+	public var config_stateChange_state1Chances:Array<Int> = [];
+	public var config_stateChange_state2Chances:Array<Int> = [];
+	public var config_stateChange_state3Chances:Array<Int> = [];
+
+	public var config_rng_minNumber:Int = 0;
+	public var config_rng_maxNumber:Int = 10;
+
 	override public function new()
 	{
 		super();
@@ -75,6 +82,23 @@ class PlayState extends EnboState
 			case 'skeleton':
 				config_cAM_ro_max_max = 3;
 		}
+
+		for (i in 0...config_rng_maxNumber + 1)
+		{
+			if (i % 3 == 0)
+			{
+				config_stateChange_state1Chances.push(i);
+
+				if (i + 1 < config_rng_maxNumber + 1)
+					config_stateChange_state2Chances.push(i + 1);
+				if (i + 2 < config_rng_maxNumber + 1)
+					config_stateChange_state3Chances.push(i + 2);
+			}
+		}
+
+		trace(config_stateChange_state1Chances);
+		trace(config_stateChange_state2Chances);
+		trace(config_stateChange_state3Chances);
 	}
 
 	override public function create()
@@ -139,24 +163,20 @@ class PlayState extends EnboState
 		{
 			rng_stateChangeChance = 2;
 			rng_deathWaitSeconds = 0;
-			charSpr.state = 2;
+			charSpr.state = 3;
+		}
+		else
+		{
+			if (charSpr.state == 0 && config_stateChange_state1Chances.contains(rng_stateChangeChance))
+				charSpr.state = (rng_stateJumpChance < 10) ? 1 : 2;
+			else if (charSpr.state == 1 && config_stateChange_state2Chances.contains(rng_stateChangeChance))
+				charSpr.state = (rng_stateJumpChance < 10) ? 2 : 1;
+			else if (charSpr.state == 2 && config_stateChange_state3Chances.contains(rng_stateChangeChance))
+				charSpr.state = 3; // ur dead lmao
 		}
 
-		switch (rng_stateChangeChance)
-		{
-			case 0, 3, 6, 9:
-				if (charSpr.state == 0)
-					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rng_stateJumpChance < 10) ? 1 : 2);
-			case 1, 4, 7, 10:
-				if (charSpr.state == 1)
-					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rng_stateJumpChance < 10) ? 2 : 1);
-			case 2, 5, 8:
-				if (charSpr.state == 2)
-				{
-					charSpr.state = 3; // ur dead lmao
-					deathTmr.start(3 + rng_deathWaitSeconds, death);
-				}
-		}
+		if (charSpr.state >= 3)
+			deathTmr.start(3 + rng_deathWaitSeconds, death);
 
 		regenRNG();
 		t.reset(5 + FlxG.random.int(0, rng_cAM_ro_max));
