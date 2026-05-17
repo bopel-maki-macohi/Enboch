@@ -19,10 +19,9 @@ class MainMenuState extends EnboState
 
 	var entries:Array<String> = [
 		'Levels',
-		// 'Trophies',
-		// 'Options',
+		'Options',
 		'',
-		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
+		((GamejoltAPI.authenticated) ? 'GJ Logout' : 'GJ Login'),
 	];
 
 	var camFollow:FlxObject;
