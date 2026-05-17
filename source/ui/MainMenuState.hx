@@ -14,6 +14,8 @@ import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import utilShitsie.EnboState;
 
+using StringTools;
+
 class MainMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<MainMenuButton>;
@@ -53,6 +55,9 @@ class MainMenuState extends EnboState
 
 		for (i => entry in entries)
 		{
+			if (entry == '' || entry == null)
+				continue;
+
 			var newText = new MainMenuButton(entry);
 			newText.ID = i;
 
