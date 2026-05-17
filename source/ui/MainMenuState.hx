@@ -51,11 +51,7 @@ class MainMenuState extends EnboState
 		super(TransIn, TransOut);
 	}
 
-	#if web
-	var video:WebVideo;
-	#else
-	var video:flixel.FlxSprite = new flixel.FlxSprite();
-	#end
+	var video:Video;
 
 	override function create()
 	{
@@ -63,12 +59,13 @@ class MainMenuState extends EnboState
 
 		super.create();
 
-		#if web
-		video = new WebVideo('menuBG', true);
+		video = new Video('menuBG', #if web true #end);
+
 		add(video);
 
 		video.looping = true;
 
+		#if web
 		FlxG.camera.bgColor.alpha = 0;
 		#end
 

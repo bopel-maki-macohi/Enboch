@@ -33,6 +33,8 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
+	<haxelib name="hxvlc" if="desktop" unless="hl"/>
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="FLX_NO_HEALTH" />
