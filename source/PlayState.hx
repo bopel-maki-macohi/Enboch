@@ -241,8 +241,7 @@ class PlayState extends EnboState
 		if (charSpr.state >= 3 || charSpr.state <= 0)
 			return;
 
-		if (itemSpam > 0)
-			itemSpam = 0;
+		itemSpam = 0;
 
 		if (rng_itemUseChance < 5 && charSpr.state == 2 || rng_itemUseChance < 8)
 		{
