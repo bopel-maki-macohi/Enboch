@@ -27,6 +27,7 @@ class DebugGameText extends FlxText
 		{
 			text = 'STATE: ${game?.charSpr?.state}\n';
 			text += 'STATES: ${game?.config_states}\n';
+			text += 'DEATH STATE: ${game?.config_states - 1}\n';
 			text += 'RNG LIST: ${game?.rngList?.join('-')}\n';
 			text += 'MOVEMENT TIME: ${game?.charAITmr?.time}s\n';
 			text += 'MOVEMENT TIME LEFT: ${FlxMath.roundDecimal(game?.charAITmr?.timeLeft, 2)}s\n';
