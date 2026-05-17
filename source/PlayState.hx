@@ -14,6 +14,14 @@ import utilShitsie.EnboState;
 import flixel.util.FlxTimer;
 import flixel.FlxG;
 
+@:build(macroShit.RNGListField.generateList([
+	'stateChangeChance',
+	'deathWaitSeconds',
+	'stateJumpChance',
+	'itemUseChance',
+	'cAM_ro_min', // Character AI Movement Random Offset Min
+	'cAM_ro_max', // Character AI Movement Random Offset Max
+]))
 class PlayState extends EnboState
 {
 	public static var character:String = 'drowned';
@@ -25,7 +33,16 @@ class PlayState extends EnboState
 	var rngList:Array<Int> = [];
 
 	function regenRNG()
-		rngList = RNGUtil.generateRNGList(4);
+	{
+		rngList = RNGUtil.generateRNGList(rngList_length - 1);
+
+		this.rng_stateChangeChance = rngList[0];
+		this.rng_deathWaitSeconds = rngList[1];
+		this.rng_stateJumpChance = rngList[2];
+		this.rng_itemUseChance = rngList[3];
+		this.rng_cAM_ro_min = rngList[4];
+		this.rng_cAM_ro_max = rngList[5];
+	}
 
 	public var charAITmr:FlxTimer = new FlxTimer();
 	public var deathTmr:FlxTimer = new FlxTimer();
@@ -68,6 +85,8 @@ class PlayState extends EnboState
 			itemSpr.screenCenter();
 		});
 
+		regenRNG();
+
 		charAITmr.start(5, charAIMethod, 0);
 
 		daycycleTmr.start(60 * 20, t ->
@@ -98,24 +117,24 @@ class PlayState extends EnboState
 
 		if (itemSpam >= itemSpamMax)
 		{
-			rngList[0] = 2;
-			rngList[1] = 0;
+			rng_stateChangeChance = 2;
+			rng_deathWaitSeconds = 0;
 			charSpr.state = 2;
 		}
 
-		switch (rngList[0])
+		switch (rng_stateChangeChance)
 		{
 			case 0, 3, 6, 9:
 				if (charSpr.state == 0)
-					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rngList[2] < 10) ? 1 : 2);
+					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rng_stateJumpChance < 10) ? 1 : 2);
 			case 1, 4, 7, 10:
 				if (charSpr.state == 1)
-					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rngList[2] < 10) ? 2 : 1);
+					charSpr.state = (itemSpam >= itemSpamMax) ? 3 : ((rng_stateJumpChance < 10) ? 2 : 1);
 			case 2, 5, 8:
 				if (charSpr.state == 2)
 				{
 					charSpr.state = 3; // ur dead lmao
-					deathTmr.start(3 + rngList[1], death);
+					deathTmr.start(3 + rng_deathWaitSeconds, death);
 				}
 		}
 
@@ -184,14 +203,14 @@ class PlayState extends EnboState
 		if (itemSpam > 0)
 			itemSpam = 0;
 
-		if (rngList[3] < 5 && charSpr.state == 2 || rngList[3] < 8)
+		if (rng_itemUseChance < 5 && charSpr.state == 2 || rng_itemUseChance < 8)
 		{
 			regenRNG();
 			return;
 		}
 
 		charSpr.state -= 1;
-		rngList[0] = -1;
+		rng_stateChangeChance = -1;
 		charAIMethod(charAITmr);
 	}
 }
