@@ -120,6 +120,7 @@ class MainMenuState extends EnboState
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':
+				transOut = null;
 				FlxG.switchState(() -> new LevelSelectMenuState());
 
 			case 'trophies':
