@@ -14,11 +14,4 @@ class MainMenuButton extends FlxSprite
         scale.set(.5, .5);
         updateHitbox();
 	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		screenCenter(X);
-	}
 }

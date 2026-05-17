@@ -25,6 +25,18 @@ class WebVideo extends FlxBasic
 		return l;
 	}
 
+	public var alpha(get, set):Float;
+
+	function get_alpha():Float
+	{
+		return vid.alpha;
+	}
+
+	function set_alpha(alpha:Float):Float
+	{
+		return vid.alpha = alpha;
+	}
+
 	public var vidPath:String = '';
 
 	public function new(vidPath:String, ?back:Bool = false)
@@ -37,7 +49,7 @@ class WebVideo extends FlxBasic
 		vid.x = vid.y = 0;
 		if (back)
 		{
-            trace('Dont forget `FlxG.camera.bgColor.alpha`');
+			trace('Dont forget `FlxG.camera.bgColor.alpha`');
 			FlxG.stage.addChildAt(vid, 0);
 		}
 		else

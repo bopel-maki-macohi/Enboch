@@ -1,5 +1,7 @@
 package ui;
 
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
 import utilShitsie.video.*;
 import ui.objects.MainMenuButton;
 import flixel.addons.transition.FlxTransitionableState;
@@ -48,18 +50,37 @@ class MainMenuState extends EnboState
 		super(TransIn, TransOut);
 	}
 
+	#if web
+	var video:WebVideo;
+	#else
+	var video:flixel.FlxSprite = new flixel.FlxSprite();
+	#end
+
 	override function create()
 	{
+		transIn = null;
+
 		super.create();
 
 		#if web
-		var video = new WebVideo('menuBG', true);
+		video = new WebVideo('menuBG', true);
 		add(video);
 
 		video.looping = true;
 
 		FlxG.camera.bgColor.alpha = 0;
 		#end
+
+		video.alpha = 0;
+
+		canSelect = false;
+		FlxTween.tween(video, {alpha: 1}, 1 + entries.length * .1, {
+			ease: FlxEase.sineInOut,
+			onComplete: t ->
+			{
+				canSelect = true;
+			}
+		});
 
 		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());
 
@@ -70,6 +91,14 @@ class MainMenuState extends EnboState
 
 			var newText = new MainMenuButton(entry);
 			newText.ID = i;
+
+			newText.screenCenter(X);
+			var oldX = newText.x;
+			newText.x = -newText.width * 2;
+			FlxTween.tween(newText, {x: oldX}, 1, {
+				ease: FlxEase.sineInOut,
+				startDelay: i * .1,
+			});
 
 			textGrp.add(newText);
 		}
@@ -88,6 +117,9 @@ class MainMenuState extends EnboState
 
 		for (text in textGrp.members)
 		{
+			if (canSelect)
+				text.screenCenter(X);
+
 			text.y = text.ID * 128;
 			text.setColorTransform();
 
@@ -127,17 +159,37 @@ class MainMenuState extends EnboState
 		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
 	}
 
+	var canSelect:Bool = true;
+
 	function selectThingy()
 	{
+		if (!canSelect)
+			return;
+
 		var selection = entries[curSelect];
 
 		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':
-				transOut = null;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxG.switchState(() -> new LevelSelectMenuState());
+				canSelect = false;
+				for (thing in textGrp)
+				{
+					FlxTween.tween(thing, {x: FlxG.width + thing.width}, 1, {
+						startDelay: thing.ID * .1,
+						ease: FlxEase.sineInOut,
+					});
+				}
+
+				FlxTween.tween(video, {alpha: 0}, 1 + entries.length * .1, {
+					ease: FlxEase.sineInOut,
+					onComplete: t ->
+
+					{
+						transOut = null;
+						FlxG.switchState(() -> new LevelSelectMenuState());
+					}
+				});
 
 			case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
 
