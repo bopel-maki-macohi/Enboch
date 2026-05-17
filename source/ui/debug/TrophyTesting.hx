@@ -22,7 +22,7 @@ class TrophyTesting extends EnboState
 
 		if (Controls.accept.justPressed)
 		{
-			Trophies.DROWNED_PLAY.unlock();
+			Trophies.FULLPAY_DROWNED.unlock();
 			// TrophyToastHolder.displayToastFor(Trophies.DROWNED_PLAY.ID);
 		}
 	}
