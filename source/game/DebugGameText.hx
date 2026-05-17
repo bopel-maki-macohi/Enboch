@@ -29,10 +29,10 @@ class DebugGameText extends FlxText
 			text += 'RNG LIST: ${game?.rngList?.join('-')}\n';
 			text += 'MOVEMENT TIME: ${game?.charAITmr?.time}s\n';
 			text += 'MOVEMENT TIME LEFT: ${FlxMath.roundDecimal(game?.charAITmr?.timeLeft, 2)}s\n';
-			text += 'TOTAL PAY: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, true, true)}\n';
+			text += 'TOTAL PAY: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}\n';
 			text += 'ITEM SPAM: ${game?.itemSpam}\n';
 			text += 'DAYCYCLE TIMER PROGRESS: ${FlxMath.roundDecimal(game?.daycycleTmr?.progress * 100, 2)}\n';
-			text += 'PAY: $' + '${FlxStringUtil.formatMoney(100 * game?.payPercentage, true, true)}\n';
+			text += 'PAY: $' + '${FlxStringUtil.formatMoney(100 * game?.payPercentage, false, true)}\n';
 		}
 	}
 }

@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.util.FlxStringUtil;
 import flixel.addons.transition.FlxTransitionableState;
 import utilShitsie.Define;
 import lime.app.Application;
@@ -22,6 +23,8 @@ class LevelSelectMenuState extends EnboState
 
 	var curSelect:Int = 0;
 
+	var swagShitMoneyMoney:FlxText;
+
 	override function create()
 	{
 		super.create();
@@ -38,6 +41,12 @@ class LevelSelectMenuState extends EnboState
 
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
+
+		swagShitMoneyMoney = new FlxText(0, 0, 0, 'TOTAL MONEY: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, false)}', 16);
+		swagShitMoneyMoney.scrollFactor.set();
+		add(swagShitMoneyMoney);
+
+		swagShitMoneyMoney.screenCenter(X);
 	}
 
 	override function update(elapsed:Float)
@@ -61,7 +70,7 @@ class LevelSelectMenuState extends EnboState
 			changeSelect(-1);
 		if (Controls.ui_down.justPressed)
 			changeSelect(1);
-		
+
 		if (Controls.leave.justPressed)
 		{
 			transOut = null;

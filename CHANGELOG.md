@@ -2,6 +2,8 @@
 
 ## Added
 
+- Added "Total Money" text to the Level Select
+
 - Added leave button to Gamejolt login screen
 
 ## Fixed
