@@ -8,7 +8,7 @@ class MainMenuButton extends FlxSprite
 	{
 		super();
 
-		loadGraphic('ui/mainmenu/$button');
+		loadGraphic('ui/mainmenu/$button'.makePath(image));
 	}
 
 	override function update(elapsed:Float)
