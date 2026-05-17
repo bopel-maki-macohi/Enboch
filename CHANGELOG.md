@@ -3,14 +3,6 @@
 ## Added
 
 - LEVEL 3: GUARDIAN
-- NEW INTERNAL STUFF IN PLAYSTATE!
-  -
-  
-  - `getNumberRelativeToRNGListMaxOutput(number:Int)` : This helps when the RNG List max output (`config_rng_maxNumber`) is higher then `10`
-  
-  - `config_states` : This allows you to control how many states you have (Current _allowed_ values are `3`,`4`, and `5`)
-    - Downside: You have to hardcode the state switching stuff :(
-      - I TRIED TO MAKE IT AS EASY AS POSSIBLE THO :DDDDDD
 
 - Added leave button to Gamejolt login screen
 

@@ -1,5 +1,6 @@
 package;
 
+import game.StateChangeManager;
 import utilShitsie.api.trophies.Trophy;
 import game.DebugGameText;
 import game.GamePhaseSprite;
@@ -208,20 +209,7 @@ class PlayState extends EnboState
 
 				var code:String = '${config_states}${i}${charSpr.state}';
 
-				switch (code)
-				{
-					case '400', '300':
-						charSpr.state = (!jump) ? 1 : 2;
-					case '411':
-						charSpr.state = (!jump) ? 2 : 1;
-					case '422':
-						charSpr.state = 3; // ur dead lmao
-
-					case '311':
-						charSpr.state = (!jump) ? 2 : 0; // Be glad you're given a chance
-
-					default:
-				}
+				charSpr.state = StateChangeManager.parseCode(code, charSpr.state, jump);
 			}
 		}
 
