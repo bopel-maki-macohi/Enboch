@@ -33,7 +33,11 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<haxelib name="hxvlc" if="desktop" unless="hl"/>
+	<section if="cpp">
+		
+		<haxelib name="hxvlc" if="desktop || mobile" unless="hl" />
+
+	</section>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -63,4 +67,6 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
+	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+	
 </project>

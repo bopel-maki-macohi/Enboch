@@ -17,10 +17,12 @@ class WebVideo extends FlxBasic
 
 	function set_looping(l:Bool):Bool
 	{
+		#if (js && html5)
 		@:privateAccess {
 			if (netStream?.__video != null)
 				netStream.__video.loop = l;
 		}
+		#end
 
 		return l;
 	}
