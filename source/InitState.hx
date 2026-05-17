@@ -9,6 +9,8 @@ import flixel.util.typeLimit.NextState.InitialState;
 import flixel.FlxGame;
 import openfl.events.Event;
 
+using StringTools;
+
 class InitState extends FlxGame
 {
 	override public function new(startingState:InitialState)
@@ -28,6 +30,19 @@ class InitState extends FlxGame
 
 		@:privateAccess
 		FlxG.sound.loadSavedPrefs();
+
+		#if js
+		trace(document.URL);
+
+		if (document.URL.contains('gjapi='))
+			if (document.URL.contains('gjapi_token='))
+			{
+				var wantedPieces = document.URL.split('?')[1].split('&');
+
+				trace(wantedPieces[0]); // gjapi
+				trace(wantedPieces[1]); // gjapi_token
+			}
+		#end
 
 		GamejoltAPI.init(authed ->
 		{
