@@ -28,7 +28,7 @@ class MainMenuState extends EnboState
 	var curSelect:Int = 0;
 
 	var version:FlxText = new FlxText(0, 0, 0,
-		'ENBOCH v${Application.current.meta.get('version')}' + (!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})', 16);
+		'ENBOCH v${Application.current.meta.get('version')}' + ((!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
 
 	override function create()
 	{
@@ -106,7 +106,7 @@ class MainMenuState extends EnboState
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':
-				FlxG.switchState(() -> new PlayState());
+				FlxG.switchState(() -> new LevelSelectMenuState());
 
 			case 'trophies':
 				FlxG.switchState(() -> new TrophiesMenuState());
