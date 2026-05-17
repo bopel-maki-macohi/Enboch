@@ -4,6 +4,8 @@ class StateManager
 {
 	public static function parseMovementCode(code:String, state:Int, jump:Bool):Int
 	{
+		trace('$code-$jump');
+
 		switch (code)
 		{
 			case '400', '300':
