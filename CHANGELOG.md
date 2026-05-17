@@ -1,5 +1,9 @@
 # Unreleased
 
+## Added
+
+- Added leave button to Gamejolt login screen
+
 # 0.2.1 - 5/17/2026
 
 ## Fixed

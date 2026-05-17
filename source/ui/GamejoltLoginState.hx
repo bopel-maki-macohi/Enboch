@@ -18,6 +18,7 @@ class GamejoltLoginState extends EnboState
 	var usertokenInput:FlxUIInputText;
 
 	var authBtn:FlxUIButton;
+	var leaveBtn:FlxUIButton;
 
 	var canDoAnything:Bool = true;
 
@@ -56,19 +57,37 @@ class GamejoltLoginState extends EnboState
 		usertokenTXT.x -= usertokenTXT.width / 2;
 
 		authBtn = new FlxUIButton(0, 0, 'Log in', authBtnClick);
+		leaveBtn = new FlxUIButton(0, 0, 'Leave', leaveBtnClick);
 
 		authBtn.resize(authBtn.width * 2, authBtn.height * 2);
 		authBtn.setLabelFormat(null, authBtn.label.size * 2, FlxColor.BLACK, CENTER);
 
+		leaveBtn.resize(leaveBtn.width * 2, leaveBtn.height * 2);
+		leaveBtn.setLabelFormat(null, leaveBtn.label.size * 2, FlxColor.BLACK, CENTER);
+
 		for (point in authBtn.labelOffsets)
-		{
 			point.y -= 6;
-		}
+		for (point in leaveBtn.labelOffsets)
+			point.y -= 6;
 
 		authBtn.screenCenter();
 		authBtn.y += authBtn.height * 2;
 
-		addMultiple([topText, usernameInput, usertokenInput, usernameTXT, usertokenTXT, authBtn]);
+		leaveBtn.screenCenter();
+		leaveBtn.y += leaveBtn.height * 2;
+
+		authBtn.x -= authBtn.width;
+		leaveBtn.x += leaveBtn.width;
+
+		addMultiple([
+			topText,
+			usernameInput,
+			usertokenInput,
+			usernameTXT,
+			usertokenTXT,
+			authBtn,
+			leaveBtn
+		]);
 
 		FlxG.mouse.visible = true;
 	}
@@ -81,6 +100,16 @@ class GamejoltLoginState extends EnboState
 		canDoAnything = false;
 		FlxG.sound.play('ui_select'.makePath(audio));
 		GamejoltAPI.login(usernameInput.text, usertokenInput.text, onAuthThingy);
+	}
+
+	function leaveBtnClick()
+	{
+		if (!canDoAnything)
+			return;
+
+		canDoAnything = false;
+		FlxG.sound.play('ui_select'.makePath(audio));
+		FlxG.switchState(() -> new MainMenuState());
 	}
 
 	function onAuthThingy(authed:Bool)
