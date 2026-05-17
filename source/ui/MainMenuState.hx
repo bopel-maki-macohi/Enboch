@@ -79,9 +79,13 @@ class MainMenuState extends EnboState
 		for (text in textGrp.members)
 		{
 			text.y = text.ID * 128;
+			text.setColorTransform();
 
 			if (curSelect == text.ID)
+			{
 				camFollow.y = text.y;
+				text.setColorTransform(1.5, 1.5);
+			}
 		}
 
 		if (Controls.ui_up.justPressed)
