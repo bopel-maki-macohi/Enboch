@@ -50,6 +50,7 @@ class InitState extends FlxGame
 
 				Paycheck.game.gj_username = gjapi_username;
 				Paycheck.game.gj_usertoken = gjapi_token;
+				Paycheck.game.firstTime = false;
 			}
 		#end
 
