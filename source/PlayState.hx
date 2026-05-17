@@ -33,7 +33,7 @@ class PlayState extends EnboState
 
 	function regenRNG()
 	{
-		rngList = RNGUtil.generateRNGList(rngList_length - 1);
+		rngList = RNGUtil.generateRNGList(rngList_length);
 
 		this.rng_stateChangeChance = rngList[0];
 		this.rng_deathWaitSeconds = rngList[1];
