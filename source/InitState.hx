@@ -32,21 +32,24 @@ class InitState extends FlxGame
 		FlxG.sound.loadSavedPrefs();
 
 		#if js
-		trace(document.URL);
+		// trace(document.URL);
 
 		if (document.URL.contains('gjapi_username='))
 			if (document.URL.contains('gjapi_token='))
 			{
 				var wantedPieces = document.URL.split('?')[1].split('&');
 
-				trace(wantedPieces[0]); // gjapi_username
-				trace(wantedPieces[1]); // gjapi_token
+				// trace(wantedPieces[0]); // gjapi_username
+				// trace(wantedPieces[1]); // gjapi_token
 
 				var gjapi_username = wantedPieces[0].split('=')[1];
 				var gjapi_token = wantedPieces[1].split('=')[1];
 
-				trace(gjapi_username); // gjapi_username
-				trace(gjapi_token); // gjapi_token
+				// trace(gjapi_username); // gjapi_username
+				// trace(gjapi_token); // gjapi_token
+
+				Paycheck.game.gj_username = gjapi_username;
+				Paycheck.game.gj_usertoken = gjapi_token;
 			}
 		#end
 
