@@ -46,7 +46,12 @@ class PlayState extends EnboState
 
 		if (config_using_cAM_ro)
 		{
-			this.rng_cAM_ro_max = Math.round(Math.max(Math.min(rngList[4], config_cAM_ro_max_max), config_cAM_ro_max_min));
+			this.rng_cAM_ro_max = rngList[4];
+
+			if (rng_cAM_ro_max > config_cAM_ro_max_max)
+				rng_cAM_ro_max = config_cAM_ro_max_max;
+			if (rng_cAM_ro_max < config_cAM_ro_max_min)
+				rng_cAM_ro_max = config_cAM_ro_max_min;
 		}
 	}
 
@@ -120,7 +125,10 @@ class PlayState extends EnboState
 	{
 		super.create();
 
-		config_states = Math.round(Math.max(Math.min(config_states, STATES_MAX), STATES_MIN));
+		if (config_states < STATES_MIN)
+			config_states = STATES_MIN;
+		if (config_states > STATES_MAX)
+			config_states = STATES_MAX;
 
 		Paycheck.earned = 0;
 
@@ -188,7 +196,8 @@ class PlayState extends EnboState
 				if (!thing.contains(rng_stateChangeChance))
 					continue;
 
-				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state, (rng_stateJumpChance >= jumpChanceNumber));
+				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state,
+					(rng_stateJumpChance >= jumpChanceNumber));
 			}
 		}
 
