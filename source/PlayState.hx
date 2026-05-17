@@ -181,9 +181,7 @@ class PlayState extends EnboState
 
 			if (charState < 3 && (t.elapsedLoops % 2 == 0))
 			{
-				final percentage = ((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2);
-
-				if (!Define.BOTPLAY && percentage == 1)
+				if (payPercentage == 1)
 					switch (char)
 					{
 						case 'drowned':
@@ -192,13 +190,14 @@ class PlayState extends EnboState
 							Trophies.FULLPAY_SKELETON.unlock();
 					}
 
-				if (!Define.BOTPLAY)
-					Paycheck.getPayed(percentage);
+				Paycheck.getPayed(payPercentage);
 			}
 		}
 
 		// trace(((4 - charState) / 4));
 	}
+
+	var payPercentage = 1.0;
 
 	var charSprShader:ThresholdShader = null;
 	var charSprShaderTween:FlxTween;
@@ -231,6 +230,11 @@ class PlayState extends EnboState
 	{
 		super.update(elapsed);
 
+		payPercentage = ((4 - charState) / 4) - ((itemSpam / itemSpamMax) / 2);
+
+		if (Define.BOTPLAY)
+			payPercentage = 0.0;
+
 		if (Define.DEBUG_TEXT)
 		{
 			debugTXT.text = '$charState';
@@ -240,6 +244,7 @@ class PlayState extends EnboState
 			if (Define.BOTPLAY)
 				debugTXT.text += '\nBOTPLAY';
 			debugTXT.text += '\nDAY CYCLE PROGRESS: ${medalTmr.progress}';
+			debugTXT.text += '\nESTIM PAY: ${100 * payPercentage}';
 		}
 
 		if (Define.BOTPLAY)
