@@ -1,3 +1,9 @@
+# Unreleased
+
+## Fixed
+
+- Leaving Gameplay sends you to the level select
+
 # 0.2.2 - 5/17/2026
 
 ## Added

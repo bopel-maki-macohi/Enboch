@@ -1,5 +1,6 @@
 package;
 
+import ui.LevelSelectMenuState;
 import game.PlayStateConstants.*;
 import game.ConfigSetter;
 import game.StateManager;
@@ -240,7 +241,7 @@ class PlayState extends EnboState
 			useItem();
 
 		if (Controls.leave.justPressed && charSpr.state < config_states - 1)
-			FlxG.switchState(() -> new MainMenuState());
+			FlxG.switchState(() -> new LevelSelectMenuState());
 	}
 
 	function useItem()
