@@ -44,9 +44,9 @@ class PlayState extends EnboState
 
 	var medalTmr:FlxTimer = new FlxTimer();
 
-	override public function create()
+	override public function new()
 	{
-		super.create();
+		super();
 
 		Paycheck.earned = 0;
 
@@ -67,6 +67,11 @@ class PlayState extends EnboState
 			]);
 			GraphicUtil.persistGraphics(ITEM_ASSET_LIST.get(char));
 		}
+	}
+
+	override public function create()
+	{
+		super.create();
 
 		addMultiple([
 			charSpr = new FlxSprite(0, 0),
