@@ -13,9 +13,35 @@ using StringTools;
 
 class InitState extends FlxGame
 {
-	override public function new(startingState:InitialState)
+	function getInitalState():InitialState
 	{
-		super(0, 0, startingState);
+		if (Define.DIE)
+			return DeadState;
+
+		if (Define.TROPHY_TESTING)
+			return ui.debug.TrophyTesting;
+
+		if (Define.GAME != null)
+		{
+			PlayState.character = Define.GAME;
+
+			return PlayState;
+		}
+
+		if (Define.PATH_FUNCTION_TESTING)
+			return ui.debug.PathFunctionTesting;
+
+		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
+			return ui.GamejoltLoginState;
+
+		return ui.MainMenuState;
+	}
+
+	override public function new()
+	{
+		Paycheck.load();
+
+		super(0, 0, getInitalState());
 		removeEventListener(Event.ADDED_TO_STAGE, create);
 
 		FlxG.mouse.visible = false;

@@ -1,11 +1,5 @@
 package;
 
-import ui.debug.PathFunctionTesting;
-import utilShitsie.Define;
-import ui.GamejoltLoginState;
-import ui.MainMenuState;
-import ui.debug.TrophyTesting;
-import flixel.util.typeLimit.NextState.InitialState;
 import macroShit.GitShit;
 import flixel.FlxGame;
 import openfl.display.Sprite;
@@ -19,35 +13,9 @@ class Main extends Sprite
 	{
 		super();
 
-		Paycheck.load();
-
 		trace('Git Branch: $gitBranch');
 		trace('Git Commit: $gitCommit');
 
-		addChild(new InitState(getInitalState()));
-	}
-
-	function getInitalState():InitialState
-	{
-		if (Define.DIE)
-			return DeadState;
-
-		if (Define.TROPHY_TESTING)
-			return TrophyTesting;
-
-		if (Define.GAME != null)
-		{
-			PlayState.character = Define.GAME;
-
-			return PlayState;
-		}
-
-		if (Define.PATH_FUNCTION_TESTING)
-			return PathFunctionTesting;
-
-		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
-			return GamejoltLoginState;
-
-		return MainMenuState;
+		addChild(new InitState());
 	}
 }
