@@ -55,8 +55,10 @@
 
 
 	<haxeflag name="--dce full" if="release" />
-	
+
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
+
+	<haxedef name="lime_disable_assets_version" />
 
 </project>
