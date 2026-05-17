@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.addons.transition.TransitionData;
 import utilShitsie.Define;
 import lime.app.Application;
 import utilShitsie.api.GamejoltAPI;
@@ -29,6 +30,19 @@ class MainMenuState extends EnboState
 
 	var version:FlxText = new FlxText(0, 0, 0,
 		'ENBOCH v${Application.current.meta.get('version')}' + ((!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
+
+	override public function new(?TransIn:TransitionData, ?TransOut:TransitionData)
+	{
+		if (Define.debug)
+		{
+			if (TransIn == null)
+				TransIn = EnboState.DEFAULT_TRANSITION;
+			if (TransOut == null)
+				TransOut = EnboState.DEFAULT_TRANSITION;
+		}
+
+		super(TransIn, TransOut);
+	}
 
 	override function create()
 	{
