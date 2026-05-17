@@ -23,6 +23,8 @@ class ConfigSetter
 				game.config_rng_maxNumber = 15;
 
 				game.config_states = 3;
+
+				game.config_trophy_fullpay = Trophies.FULLPAY_GUARDIAN;
 		}
 	}
 }

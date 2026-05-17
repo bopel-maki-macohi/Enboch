@@ -66,9 +66,9 @@ class LevelSelectMenuState extends EnboState
 			}
 		}
 
-		if (Controls.ui/ui_up.justPressed)
+		if (Controls.ui_up.justPressed)
 			changeSelect(-1);
-		if (Controls.ui/ui_down.justPressed)
+		if (Controls.ui_down.justPressed)
 			changeSelect(1);
 
 		if (Controls.leave.justPressed)
