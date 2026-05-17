@@ -84,9 +84,9 @@ class MainMenuState extends EnboState
 			}
 		}
 
-		if (Controls.ui_up.justPressed)
+		if (Controls.ui/ui_up.justPressed)
 			changeSelect(-1);
-		if (Controls.ui_down.justPressed)
+		if (Controls.ui/ui_down.justPressed)
 			changeSelect(1);
 		if (Controls.accept.justPressed)
 			selectThingy();
@@ -110,14 +110,14 @@ class MainMenuState extends EnboState
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 
-		FlxG.sound.play('ui_scroll'.makePath(audio));
+		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
 	}
 
 	function selectThingy()
 	{
 		var selection = entries[curSelect];
 
-		FlxG.sound.play('ui_select'.makePath(audio));
+		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':
@@ -130,7 +130,7 @@ class MainMenuState extends EnboState
 			case 'gamejolt login': FlxG.switchState(() -> new GamejoltLoginState());
 
 			case 'gamejolt logout':
-				FlxG.sound.play('gamejolt_logout'.makePath(audio));
+				FlxG.sound.play('gamejolt/gamejolt_logout'.makePath(audio));
 				GamejoltAPI.logout(() ->
 				{
 					FlxG.resetState();

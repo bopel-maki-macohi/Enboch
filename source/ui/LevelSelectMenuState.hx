@@ -66,9 +66,9 @@ class LevelSelectMenuState extends EnboState
 			}
 		}
 
-		if (Controls.ui_up.justPressed)
+		if (Controls.ui/ui_up.justPressed)
 			changeSelect(-1);
-		if (Controls.ui_down.justPressed)
+		if (Controls.ui/ui_down.justPressed)
 			changeSelect(1);
 
 		if (Controls.leave.justPressed)
@@ -100,14 +100,14 @@ class LevelSelectMenuState extends EnboState
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 
-		FlxG.sound.play('ui_scroll'.makePath(audio));
+		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
 	}
 
 	function selectThingy()
 	{
 		var selection = entries[curSelect];
 
-		FlxG.sound.play('ui_select'.makePath(audio));
+		FlxG.sound.play('ui/ui_select'.makePath(audio));
 
 		PlayState.character = selection.toLowerCase();
 		FlxG.switchState(() -> new PlayState());

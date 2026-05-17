@@ -58,7 +58,7 @@ class GamejoltAPI
 				callbackFucker(success);
 
 			if (success)
-				FlxG.sound.play('gamejolt_medal'.makePath(audio));
+				FlxG.sound.play('gamejolt/gamejolt_medal'.makePath(audio));
 		});
 	}
 

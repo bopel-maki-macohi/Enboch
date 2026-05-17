@@ -98,7 +98,7 @@ class GamejoltLoginState extends EnboState
 			return;
 
 		canDoAnything = false;
-		FlxG.sound.play('ui_select'.makePath(audio));
+		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		GamejoltAPI.login(usernameInput.text, usertokenInput.text, onAuthThingy);
 	}
 
@@ -108,7 +108,7 @@ class GamejoltLoginState extends EnboState
 			return;
 
 		canDoAnything = false;
-		FlxG.sound.play('ui_select'.makePath(audio));
+		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		FlxG.switchState(() -> new MainMenuState());
 	}
 
@@ -117,12 +117,12 @@ class GamejoltLoginState extends EnboState
 		if (authed)
 		{
 			topText.text = 'GAMEJOLT LOGIN MENU\nLOGGED IN!';
-			FlxG.sound.play('gamejolt_loggedIn'.makePath(audio));
+			FlxG.sound.play('gamejolt/gamejolt_loggedIn'.makePath(audio));
 		}
 		else
 		{
 			topText.text = 'GAMEJOLT LOGIN MENU\nCould not log in...';
-			FlxG.sound.play('gamejolt_loginFAIL'.makePath(audio));
+			FlxG.sound.play('gamejolt/gamejolt_loginFAIL'.makePath(audio));
 		}
 
 		FlxTimer.wait(1, () ->

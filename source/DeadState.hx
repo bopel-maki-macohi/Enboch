@@ -35,7 +35,7 @@ class DeadState extends EnboState
 		text.screenCenter();
 		text.alpha = 0;
 
-		sound.loadEmbedded('death-${PlayState.character}'.makePath(audio));
+		sound.loadEmbedded('death/${PlayState.character}'.makePath(audio));
 		sound.play();
 
 		FlxTween.tween(text, {alpha: 1}, (sound.length / 1000) / 2, {
