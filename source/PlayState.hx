@@ -29,7 +29,7 @@ class PlayState extends EnboState
 
 	var itemSpr:GamePhaseSprite;
 
-	var rngList:Array<Int> = [];
+	public var rngList:Array<Int> = [];
 
 	function regenRNG()
 	{

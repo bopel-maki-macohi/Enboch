@@ -24,6 +24,8 @@ class DebugGameText extends FlxText
 		else
 		{
 			text = 'STATE: ${game?.charSpr?.state}\n';
+			text += 'RNG LIST: ${game?.rngList?.join('-')}\n';
+			text += 'MOVEMENT TIME: ${game?.charAITmr.time}\n';
 			text += 'TOTAL PAY: ${Paycheck.totalPay}\n';
 			text += 'ITEM SPAM: ${game?.itemSpam}\n';
 			text += 'DAYCYCLE TIMER PROGRESS: ${game?.daycycleTmr?.progress}\n';
