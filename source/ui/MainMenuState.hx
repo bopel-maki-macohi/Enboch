@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import utilShitsie.Define;
 import lime.app.Application;
@@ -121,6 +122,7 @@ class MainMenuState extends EnboState
 		{
 			case 'levels', 'play':
 				transOut = null;
+				FlxTransitionableState.skipNextTransIn = true;
 				FlxG.switchState(() -> new LevelSelectMenuState());
 
 			case 'trophies':

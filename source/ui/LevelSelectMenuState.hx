@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.addons.transition.FlxTransitionableState;
 import utilShitsie.Define;
 import lime.app.Application;
 import utilShitsie.api.GamejoltAPI;
@@ -15,10 +16,7 @@ class LevelSelectMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
-	var entries:Array<String> = [
-        'Drowned',
-        'Skeleton',
-    ];
+	var entries:Array<String> = ['Drowned', 'Skeleton',];
 
 	var camFollow:FlxObject;
 
@@ -63,8 +61,14 @@ class LevelSelectMenuState extends EnboState
 			changeSelect(-1);
 		if (Controls.ui_down.justPressed)
 			changeSelect(1);
+		
 		if (Controls.leave.justPressed)
+		{
+			transOut = null;
+			FlxTransitionableState.skipNextTransIn = true;
 			FlxG.switchState(() -> new MainMenuState());
+		}
+
 		if (Controls.accept.justPressed)
 			selectThingy();
 	}
@@ -96,7 +100,7 @@ class LevelSelectMenuState extends EnboState
 
 		FlxG.sound.play('ui_select'.makePath(audio));
 
-        PlayState.char = selection.toLowerCase();
+		PlayState.char = selection.toLowerCase();
 		FlxG.switchState(() -> new PlayState());
 	}
 }
