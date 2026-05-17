@@ -19,7 +19,6 @@ import flixel.FlxG;
 	'deathWaitSeconds',
 	'stateJumpChance',
 	'itemUseChance',
-	'cAM_ro_min', // Character AI Movement Random Offset Min
 	'cAM_ro_max', // Character AI Movement Random Offset Max
 ]))
 class PlayState extends EnboState
@@ -40,8 +39,11 @@ class PlayState extends EnboState
 		this.rng_deathWaitSeconds = rngList[1];
 		this.rng_stateJumpChance = rngList[2];
 		this.rng_itemUseChance = rngList[3];
-		this.rng_cAM_ro_min = rngList[4];
-		this.rng_cAM_ro_max = rngList[5];
+
+		if (using_cAM_ro)
+		{
+			this.rng_cAM_ro_max = rngList[4];
+		}
 	}
 
 	public var charAITmr:FlxTimer = new FlxTimer();
@@ -56,6 +58,19 @@ class PlayState extends EnboState
 
 	var charSprShader:ThresholdShader = null;
 	var charSprShaderTween:FlxTween;
+
+	public var using_cAM_ro:Bool = true;
+
+	override public function new()
+	{
+		super();
+
+		switch (character)
+		{
+			case 'drowned':
+				using_cAM_ro = false;
+		}
+	}
 
 	override public function create()
 	{
@@ -87,7 +102,7 @@ class PlayState extends EnboState
 
 		regenRNG();
 
-		charAITmr.start(5, charAIMethod, 0);
+		charAITmr.start(5 + FlxG.random.int(0, rng_cAM_ro_max), charAIMethod, 0);
 
 		daycycleTmr.start(60 * 20, t ->
 		{
@@ -138,9 +153,8 @@ class PlayState extends EnboState
 				}
 		}
 
-		t.reset();
-
 		regenRNG();
+		t.reset(5 + FlxG.random.int(0, rng_cAM_ro_max));
 
 		if (!deathTmr.active && (t.elapsedLoops % 2 == 0))
 		{
