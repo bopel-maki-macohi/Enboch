@@ -59,8 +59,10 @@ class MainMenuState extends EnboState
 
 		super.create();
 
-		video = new Video('menuBG', #if web true #end);
-
+		video = new Video({
+			filePath: 'menuBG',
+			shouldLoop: true,
+		});
 		add(video);
 
 		video.looping = true;

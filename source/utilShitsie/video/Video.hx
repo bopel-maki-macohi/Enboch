@@ -2,7 +2,7 @@ package utilShitsie.video;
 
 import flixel.FlxSprite;
 
-#if hxvlc
+#if hxCodec
 typedef Video = DesktopVideo;
 #elseif web
 typedef Video = WebVideo;

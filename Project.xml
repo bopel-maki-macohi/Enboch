@@ -34,8 +34,8 @@
 	<haxelib name="flixel-ui" />
 
 	<section if="cpp">
-		
-		<haxelib name="hxvlc" if="desktop || mobile" unless="hl" />
+
+		<haxelib name="hxCodec" if="desktop || android" unless="hl" />
 
 	</section>
 
@@ -67,6 +67,5 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
-	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
-	
+	<haxedef name="HXC_LIBVLC_LOGGING" if="hxvlc debug" />
 </project>

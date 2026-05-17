@@ -13,20 +13,6 @@ class WebVideo extends FlxBasic
 
 	var netStream:NetStream;
 
-	public var looping(default, set):Bool = false;
-
-	function set_looping(l:Bool):Bool
-	{
-		#if (js && html5)
-		@:privateAccess {
-			if (netStream?.__video != null)
-				netStream.__video.loop = l;
-		}
-		#end
-
-		return l;
-	}
-
 	public var alpha(get, set):Float;
 
 	function get_alpha():Float
@@ -39,17 +25,15 @@ class WebVideo extends FlxBasic
 		return vid.alpha = alpha;
 	}
 
-	public var vidPath:String = '';
+	var settings:VideoSettings;
 
-	public function new(vidPath:String, ?back:Bool = false)
+	public function new(settings:VideoSettings)
 	{
 		super();
 
-		this.vidPath = vidPath;
-
 		vid = new Video();
 		vid.x = vid.y = 0;
-		if (back)
+		if (settings?.web_back ?? true)
 		{
 			trace('Dont forget `FlxG.camera.bgColor.alpha`');
 			FlxG.stage.addChildAt(vid, 0);
@@ -64,7 +48,19 @@ class WebVideo extends FlxBasic
 		netStream.client = {onMetaData: onMeta};
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 
-		netStream.play(vidPath.makePath(video));
+		netStream.play(settings.filePath.makePath(video));
+
+		if (settings.shouldLoop)
+		{
+			#if (js && html5)
+			@:privateAccess {
+				if (netStream?.__video != null)
+					netStream.__video.loop = true;
+			}
+			#end
+		}
+
+		this.settings = settings;
 	}
 
 	function onMeta(data:Dynamic)
@@ -83,7 +79,7 @@ class WebVideo extends FlxBasic
 
 	public function finishVideo()
 	{
-		if (looping)
+		if (settings.shouldLoop)
 			return;
 
 		netStream.dispose();

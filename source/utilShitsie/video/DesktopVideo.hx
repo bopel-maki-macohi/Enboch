@@ -1,8 +1,8 @@
 package utilShitsie.video;
 
 import flixel.FlxG;
-#if hxvlc
-import hxvlc.flixel.FlxVideoSprite;
+#if hxCodec
+import hxcodec.flixel.FlxVideoSprite;
 #end
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
@@ -16,48 +16,40 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 	public var looping:Bool;
 
-	#if hxvlc
+	#if hxCodec
 	var video:FlxVideoSprite;
 	#end
 
-	public function new(filePath:String)
+	public function new(settings:VideoSettings)
 	{
 		super();
 
-		#if hxvlc
-		video.active = false;
-
-		video.bitmap.onEndReached.add(finishVideo);
-
-		video.bitmap.onFormatSetup.add(function():Void
-		{
-			if (video.bitmap != null && video.bitmap.bitmapData != null)
-			{
-				final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
-
-				video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
-				video.updateHitbox();
-				video.screenCenter();
-			}
-		});
-
-		video.bitmap.onEncounteredError.add(function(msg:String):Void
-		{
-			trace('Video error: $msg');
-			finishVideo();
-		});
+		#if hxCodec
+		video = new FlxVideoSprite();
 
 		if (video != null)
 		{
+			video.bitmap.onEndReached.add(finishVideo);
+
 			add(video);
 
-			video.load(filePath, []);
-			video.play();
+			video.play(settings.filePath, settings.shouldLoop);
+
+			// Resize videos bigger or smaller than the screen.
+			video.bitmap.onTextureSetup.add(() ->
+			{
+				video.setGraphicSize(FlxG.width, FlxG.height);
+				video.updateHitbox();
+				video.x = 0;
+				video.y = 0;
+				// video.scale.set(0.5, 0.5);
+			});
+
+			//   onVideoStarted.dispatch();
 		}
 		else
 		{
-			trace('ALERT: Video is null! Could not play cutscene!');
-			finishVideo();
+			trace('ALERT: Video is null! Could not play video!');
 		}
 		#else
 		finishVideo();
@@ -66,14 +58,18 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 	function finishVideo()
 	{
-		#if hxvlc
+		#if hxCodec
 		if (looping)
 		{
-			video.play();
+			video.bitmap.time = 0;
 			return;
 		}
 
+		video.stop();
 		remove(video);
+
+		video.destroy();
+		video = null;
 		#end
 	}
 }
