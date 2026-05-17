@@ -65,14 +65,14 @@ class PlayState extends EnboState
 	public var config_cAM_ro_max_max:Int = 10;
 	public var config_cAM_ro_max_min:Int = 0;
 
-	public var config_stateChange_state1Chances:Array<Int> = [];
-	public var config_stateChange_state2Chances:Array<Int> = [];
-	public var config_stateChange_state3Chances:Array<Int> = [];
+	public var config_stateChangeChances:Array<Array<Int>> = [];
 
 	public var config_rng_minNumber:Int = 0;
 	public var config_rng_maxNumber:Int = 10;
 
 	public var config_trophy_fullpay:Trophy;
+
+	public var config_states:Int = 4;
 
 	public static var config_trophies_daycycle:Map<Int, Trophy> = [
 		1 => Trophies.DAYCYCLE_ONE,
@@ -94,29 +94,48 @@ class PlayState extends EnboState
 			case 'skeleton':
 				config_cAM_ro_max_max = 3;
 				config_trophy_fullpay = Trophies.FULLPAY_SKELETON;
+			case 'guardian':
+				config_rng_minNumber = -2;
+
+				config_cAM_ro_max_min = -2;
+				config_cAM_ro_max_max = 2;
+
+				config_rng_maxNumber = 15;
+
+				config_states = 3;
 		}
+
+		for (i in 0...config_states)
+			config_stateChangeChances.push([]);
 
 		for (i in 0...config_rng_maxNumber + 1)
 		{
-			if (i % 3 == 0)
+			if (i % Math.round(config_states * (3 / 4)) == 0)
 			{
-				config_stateChange_state1Chances.push(i);
+				var o = 0;
 
-				if (i + 1 < config_rng_maxNumber + 1)
-					config_stateChange_state2Chances.push(i + 1);
-				if (i + 2 < config_rng_maxNumber + 1)
-					config_stateChange_state3Chances.push(i + 2);
+				for (thing in config_stateChangeChances)
+				{
+					if (i + o < config_rng_maxNumber + 1)
+						thing.push(i + o);
+					o++;
+				}
 			}
 		}
 
-		trace(config_stateChange_state1Chances);
-		trace(config_stateChange_state2Chances);
-		trace(config_stateChange_state3Chances);
+		for (i => thing in config_stateChangeChances)
+			trace('state $i : $thing');
 	}
 
 	override public function create()
 	{
 		super.create();
+
+		if (config_states < 3)
+			config_states = 3;
+
+		if (config_states > 4)
+			config_states = 4;
 
 		Paycheck.earned = 0;
 
@@ -162,6 +181,9 @@ class PlayState extends EnboState
 		characterPulse();
 	}
 
+	function getNumberRelativeToRNGListMaxOutput(number:Int)
+		return Math.round(config_rng_maxNumber * (number / 10));
+
 	function charAIMethod(t:FlxTimer)
 	{
 		if (t == null)
@@ -169,21 +191,43 @@ class PlayState extends EnboState
 
 		if (itemSpam >= itemSpamMax)
 		{
-			rng_stateChangeChance = 2;
 			rng_deathWaitSeconds = 0;
-			charSpr.state = 3;
+			charSpr.state = config_states - 1;
 		}
 		else
 		{
-			if (charSpr.state == 0 && config_stateChange_state1Chances.contains(rng_stateChangeChance))
-				charSpr.state = (rng_stateJumpChance < 10) ? 1 : 2;
-			else if (charSpr.state == 1 && config_stateChange_state2Chances.contains(rng_stateChangeChance))
-				charSpr.state = (rng_stateJumpChance < 10) ? 2 : 1;
-			else if (charSpr.state == 2 && config_stateChange_state3Chances.contains(rng_stateChangeChance))
-				charSpr.state = 3; // ur dead lmao
+			var jumpChanceNumber:Int = getNumberRelativeToRNGListMaxOutput(10);
+
+			if (config_states == 3)
+				jumpChanceNumber = getNumberRelativeToRNGListMaxOutput(5);
+
+			var jump:Bool = (rng_stateJumpChance >= jumpChanceNumber);
+
+			for (i => thing in config_stateChangeChances)
+			{
+				if (!thing.contains(rng_stateChangeChance))
+					continue;
+
+				var code:String = '${config_states}${i}${charSpr.state}';
+
+				switch (code)
+				{
+					case '400', '300':
+						charSpr.state = (!jump) ? 1 : 2;
+					case '411':
+						charSpr.state = (!jump) ? 2 : 1;
+					case '422':
+						charSpr.state = 3; // ur dead lmao
+
+					case '311':
+						charSpr.state = (!jump) ? 2 : 0; // Be glad you're given a chance
+
+					default:
+				}
+			}
 		}
 
-		if (charSpr.state >= 3)
+		if (charSpr.state >= config_states - 1)
 			deathTmr.start(3 + rng_deathWaitSeconds, death);
 
 		regenRNG();
