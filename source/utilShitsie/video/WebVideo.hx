@@ -13,7 +13,17 @@ class WebVideo extends FlxBasic
 
 	var netStream:NetStream;
 
-	public var looping:Bool = false;
+	public var looping(default, set):Bool = false;
+
+	function set_looping(l:Bool):Bool
+	{
+		@:privateAccess {
+			if (netStream?.__video != null)
+				netStream.__video.loop = l;
+		}
+
+		return l;
+	}
 
 	public var vidPath:String = '';
 
@@ -54,11 +64,7 @@ class WebVideo extends FlxBasic
 	public function finishVideo()
 	{
 		if (looping)
-		{
-			netStream.play(vidPath.makePath(video));
-
 			return;
-		}
 
 		netStream.dispose();
 		FlxG.removeChild(vid);
