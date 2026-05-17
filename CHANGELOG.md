@@ -3,12 +3,15 @@
 ## Added
 
 - LEVEL 3: GUARDIAN
+  - More coolio internal stuff that I'm not spoiling :)
 
 - Added "Total Money" text to the Level Select
 
 - Added leave button to Gamejolt login screen
 
 ## Fixed
+
+- The death state now has the money formatted
 
 - [WEB] When auto-logged in on web it wont send you to the Gamejolt login screen anymore
 

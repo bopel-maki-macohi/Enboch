@@ -1,5 +1,6 @@
 package;
 
+import flixel.util.FlxStringUtil;
 import ui.MainMenuState;
 import utilShitsie.controls.Controls;
 import flixel.tweens.FlxTween;
@@ -24,7 +25,9 @@ class DeadState extends EnboState
 		sprite = new FlxSprite(0, 0, 'characters/${PlayState.character}/death'.makePath(image));
 		add(sprite);
 
-		text.text += '\n\nTotal pay: ${Paycheck.totalPay} (+ ${Paycheck.earned})';
+		text.text += '\n\nTotal pay: $'
+			+ '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)} (+ $'
+			+ '${FlxStringUtil.formatMoney(Paycheck.earned, false, true)})';
 		text.text += '\n\nPress any of the following: ${Controls.accept.keyList} to go back';
 		text.text += '\n\nPress any of the following: ${Controls.leave.keyList} to go to the main menu';
 
