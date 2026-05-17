@@ -17,12 +17,12 @@ class GamePhaseSprite extends FlxSprite
 	public static var CHAR_ASSET_LIST:Map<String, Array<FlxGraphic>> = [];
 	public static var ITEM_ASSET_LIST:Map<String, Array<FlxGraphic>> = [];
 
-	public static function loadCharacterAssets(character:String)
+	public static function loadCharacterAssets(character:String, phases:Int = 4)
 	{
 		if (!CHAR_ASSET_LIST.exists(character))
 		{
 			CHAR_ASSET_LIST.set(character, [
-				for (i in 0...4)
+				for (i in 0...phases)
 					FlxG.bitmap.add('characters/$character/char-phase$i'.makePath(image))
 			]);
 			GraphicUtil.persistGraphics(CHAR_ASSET_LIST.get(character));
@@ -31,7 +31,7 @@ class GamePhaseSprite extends FlxSprite
 		if (!ITEM_ASSET_LIST.exists(character))
 		{
 			ITEM_ASSET_LIST.set(character, [
-				for (i in 0...4)
+				for (i in 0...phases)
 					FlxG.bitmap.add('characters/$character/item-phase$i'.makePath(image))
 			]);
 			GraphicUtil.persistGraphics(ITEM_ASSET_LIST.get(character));
@@ -69,8 +69,6 @@ class GamePhaseSprite extends FlxSprite
 	override public function new(character:String, type:GamePhaseSpriteType)
 	{
 		super();
-
-		loadCharacterAssets(character);
 
 		this.character = character;
 		this.type = type;

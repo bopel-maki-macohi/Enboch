@@ -105,12 +105,14 @@ class PlayState extends EnboState
 				config_states = 3;
 		}
 
-		for (i in 0...config_states)
+		for (i in 0...config_states - 1)
 			config_stateChangeChances.push([]);
+
+		var existingNumbers:Array<Int> = [];
 
 		for (i in 0...config_rng_maxNumber + 1)
 		{
-			if (i % Math.round(config_states * (3 / 4)) == 0)
+			if (i % Math.round(3 * (config_states / 4)) == 0)
 			{
 				var o = 0;
 
@@ -124,7 +126,9 @@ class PlayState extends EnboState
 		}
 
 		for (i => thing in config_stateChangeChances)
-			trace('state $i : $thing');
+			trace('phase$i : $thing');
+
+		GamePhaseSprite.loadCharacterAssets(character, config_states);
 	}
 
 	override public function create()
@@ -182,7 +186,7 @@ class PlayState extends EnboState
 	}
 
 	function getNumberRelativeToRNGListMaxOutput(number:Int)
-		return Math.round(config_rng_maxNumber * (number / 10));
+		return Math.round(number * (config_rng_maxNumber / 10));
 
 	function charAIMethod(t:FlxTimer)
 	{
