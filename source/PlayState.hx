@@ -118,17 +118,17 @@ class PlayState extends EnboState
 		for (i => thing in stateChangeChances)
 			trace('$character-phase$i : $thing');
 
+		if (config_states < STATES_MIN)
+			config_states = STATES_MIN;
+		if (config_states > STATES_MAX)
+			config_states = STATES_MAX;
+
 		GamePhaseSprite.loadCharacterAssets(character, config_states);
 	}
 
 	override public function create()
 	{
 		super.create();
-
-		if (config_states < STATES_MIN)
-			config_states = STATES_MIN;
-		if (config_states > STATES_MAX)
-			config_states = STATES_MAX;
 
 		Paycheck.earned = 0;
 
