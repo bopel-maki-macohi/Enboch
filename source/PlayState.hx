@@ -98,24 +98,6 @@ class PlayState extends EnboState
 		}, 0);
 	}
 
-	override function preScreenshot()
-	{
-		super.preScreenshot();
-
-		if (Define.DEBUG_TEXT)
-			if (debugTXT != null)
-				debugTXT.visible = false;
-	}
-
-	override function postScreenshot()
-	{
-		super.postScreenshot();
-
-		if (Define.DEBUG_TEXT)
-			if (debugTXT != null)
-				debugTXT.visible = true;
-	}
-
 	function stateChangeCheck(t:FlxTimer)
 	{
 		var prevState:Int = charState;
