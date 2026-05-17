@@ -36,7 +36,7 @@ class Main extends Sprite
 
 		if (Define.GAME != null)
 		{
-			PlayState.char = Define.GAME;
+			PlayState.character = Define.GAME;
 
 			return PlayState;
 		}

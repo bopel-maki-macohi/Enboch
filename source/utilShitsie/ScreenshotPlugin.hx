@@ -44,30 +44,25 @@ class ScreenshotPlugin extends FlxBasic
 		if (Controls.screenshot.justPressed)
 		{
 			preScreenshot.dispatch();
+			
+			FlxG.state.draw();
+			var data = BitmapData.fromImage(FlxG.stage.window.readPixels());
+			var screenshot:ByteArray = data.encode(data.rect, new PNGEncoderOptions());
 
-			FlxTimer.wait(1 / FlxG.drawFramerate, function()
-			{
-				var data = BitmapData.fromImage(FlxG.stage.window.readPixels());
-				var screenshot:ByteArray = data.encode(data.rect, new PNGEncoderOptions());
+			var date = Date.now().toString().replace('/', '_').replace(':', '-');
 
-				var date = Date.now().toString().replace('/', '_').replace(':', '-');
+			#if sys
+			if (!sys.FileSystem.exists('content/screenshots'))
+				sys.FileSystem.createDirectory('content/screenshots');
 
-				#if sys
-				if (!sys.FileSystem.exists('content/screenshots'))
-					sys.FileSystem.createDirectory('content/screenshots');
+			File.saveBytes('content/screenshots/$date.png', screenshot);
+			showFancyPreview(data);
+			FlxG.sound.play('screenshot'.makePath(audio));
 
-				File.saveBytes('content/screenshots/$date.png', screenshot);
-				showFancyPreview(data);
-				FlxG.sound.play('screenshot'.makePath(audio));
+			// trace('Took screenshot: $date');
+			#end
 
-				// trace('Took screenshot: $date');
-				#end
-
-				FlxTimer.wait(1 / FlxG.drawFramerate, function()
-				{
-					postScreenshot.dispatch();
-				});
-			});
+			postScreenshot.dispatch();
 		}
 	}
 
@@ -77,7 +72,8 @@ class ScreenshotPlugin extends FlxBasic
 		FlxG.stage.addChild(previewSprite);
 
 		var flashSprite:Sprite = new Sprite();
-		var flashBitmap = new Bitmap(new BitmapData(FlxG.width * 2, FlxG.height * 2, true, Paycheck.game.settings?.flashing ? FlxColor.WHITE : FlxColor.TRANSPARENT));
+		var flashBitmap = new Bitmap(new BitmapData(FlxG.width * 2, FlxG.height * 2, true,
+			Paycheck.game.settings?.flashing ? FlxColor.WHITE : FlxColor.TRANSPARENT));
 
 		flashSprite.mouseEnabled = false;
 		flashSprite.addChild(flashBitmap);

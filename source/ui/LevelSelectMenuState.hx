@@ -100,7 +100,7 @@ class LevelSelectMenuState extends EnboState
 
 		FlxG.sound.play('ui_select'.makePath(audio));
 
-		PlayState.char = selection.toLowerCase();
+		PlayState.character = selection.toLowerCase();
 		FlxG.switchState(() -> new PlayState());
 	}
 }
