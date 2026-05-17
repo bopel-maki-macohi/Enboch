@@ -1,5 +1,6 @@
 package;
 
+import utilShitsie.api.trophies.Trophy;
 import game.DebugGameText;
 import game.GamePhaseSprite;
 import shaderHell.ThresholdShader;
@@ -71,6 +72,16 @@ class PlayState extends EnboState
 	public var config_rng_minNumber:Int = 0;
 	public var config_rng_maxNumber:Int = 10;
 
+	public var config_trophy_fullpay:Trophy;
+
+	public static var config_trophies_daycycle:Map<Int, Trophy> = [
+		1 => Trophies.DAYCYCLE_ONE,
+		3 => Trophies.DAYCYCLE_THREE,
+		9 => Trophies.DAYCYCLE_NINE,
+		27 => Trophies.DAYCYCLE_TWENTY_SEVEN,
+		28 => null,
+	];
+
 	override public function new()
 	{
 		super();
@@ -79,8 +90,10 @@ class PlayState extends EnboState
 		{
 			case 'drowned':
 				config_using_cAM_ro = false;
+				config_trophy_fullpay = Trophies.FULLPAY_DROWNED;
 			case 'skeleton':
 				config_cAM_ro_max_max = 3;
+				config_trophy_fullpay = Trophies.FULLPAY_SKELETON;
 		}
 
 		for (i in 0...config_rng_maxNumber + 1)
@@ -137,17 +150,12 @@ class PlayState extends EnboState
 		{
 			trace(t.elapsedLoops + ' day cycle(s)');
 
-			switch (t.elapsedLoops)
+			if (config_trophies_daycycle.exists(t.elapsedLoops))
 			{
-				case 1:
-					Trophies.DAYCYCLE_ONE.unlock();
-				case 3:
-					Trophies.DAYCYCLE_THREE.unlock();
-				case 9:
-					Trophies.DAYCYCLE_NINE.unlock();
-				case 27:
-					Trophies.DAYCYCLE_TWENTY_SEVEN.unlock();
+				if (config_trophies_daycycle.get(t.elapsedLoops) == null)
 					t.cancel();
+				else
+					config_trophies_daycycle.get(t.elapsedLoops).unlock();
 			}
 		}, 0);
 
@@ -183,14 +191,8 @@ class PlayState extends EnboState
 
 		if (!deathTmr.active && (t.elapsedLoops % 2 == 0))
 		{
-			if (payPercentage == 1)
-				switch (character)
-				{
-					case 'drowned':
-						Trophies.FULLPAY_DROWNED.unlock();
-					case 'skeleton':
-						Trophies.FULLPAY_SKELETON.unlock();
-				}
+			if (payPercentage == 1 && config_trophy_fullpay != null)
+				config_trophy_fullpay.unlock();
 
 			Paycheck.getPayed(payPercentage);
 		}
