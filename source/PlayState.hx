@@ -116,7 +116,7 @@ class PlayState extends EnboState
 		}
 
 		for (i => thing in stateChangeChances)
-			trace('phase$i : $thing');
+			trace('$character-phase$i : $thing');
 
 		GamePhaseSprite.loadCharacterAssets(character, config_states);
 	}
