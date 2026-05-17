@@ -1,4 +1,4 @@
-package source.utilShitsie.video;
+package utilShitsie.video;
 
 import openfl.events.NetStatusEvent;
 import openfl.net.NetConnection;

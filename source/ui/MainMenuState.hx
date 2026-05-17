@@ -1,5 +1,6 @@
 package ui;
 
+import utilShitsie.video.*;
 import ui.objects.MainMenuButton;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
@@ -50,6 +51,11 @@ class MainMenuState extends EnboState
 	override function create()
 	{
 		super.create();
+
+		#if web
+		var video = new WebVideo('menuBG');
+		add(video);
+		#end
 
 		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());
 
