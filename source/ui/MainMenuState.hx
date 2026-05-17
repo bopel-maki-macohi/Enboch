@@ -78,7 +78,7 @@ class MainMenuState extends EnboState
 
 		for (text in textGrp.members)
 		{
-			text.y = text.ID * 512;
+			text.y = text.ID * 128;
 
 			if (curSelect == text.ID)
 				camFollow.y = text.y;

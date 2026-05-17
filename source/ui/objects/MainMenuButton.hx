@@ -11,6 +11,8 @@ class MainMenuButton extends FlxSprite
 		super();
 
 		loadGraphic('ui/mainmenu/${button.toLowerCase().replace(' ', '-')}'.makePath(image));
+        scale.set(.5, .5);
+        updateHitbox();
 	}
 
 	override function update(elapsed:Float)
