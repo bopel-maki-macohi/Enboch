@@ -41,6 +41,12 @@ class InitState extends FlxGame
 
 				trace(wantedPieces[0]); // gjapi_username
 				trace(wantedPieces[1]); // gjapi_token
+
+				var gjapi_username = wantedPieces[0].split('=')[1];
+				var gjapi_token = wantedPieces[1].split('=')[1];
+
+				trace(gjapi_username); // gjapi_username
+				trace(gjapi_token); // gjapi_token
 			}
 		#end
 
