@@ -2,7 +2,7 @@ package game;
 
 class PlayStateConstants
 {
-	public static final STATES_MAX:Int = 4;
+	public static final STATES_MAX:Int = 6;
 	public static final STATES_MIN:Int = 3;
 
 	public static final TIMER_CHAR_AI_DEFAULT_LENGTH:Float = 5;

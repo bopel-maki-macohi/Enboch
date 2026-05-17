@@ -125,11 +125,9 @@ class MainMenuState extends EnboState
 				FlxTransitionableState.skipNextTransIn = true;
 				FlxG.switchState(() -> new LevelSelectMenuState());
 
-			case 'trophies':
-				FlxG.switchState(() -> new TrophiesMenuState());
+			case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
 
-			case 'gamejolt login':
-				FlxG.switchState(() -> new GamejoltLoginState());
+			case 'gamejolt login': FlxG.switchState(() -> new GamejoltLoginState());
 
 			case 'gamejolt logout':
 				FlxG.sound.play('gamejolt_logout'.makePath(audio));

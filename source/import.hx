@@ -3,5 +3,4 @@
 import js.Browser.document;
 #end
 #end
-
 using utilShitsie.AssetLibrary;

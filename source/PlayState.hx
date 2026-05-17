@@ -188,7 +188,8 @@ class PlayState extends EnboState
 				if (!thing.contains(rng_stateChangeChance))
 					continue;
 
-				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state, (rng_stateJumpChance >= jumpChanceNumber));
+				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state,
+					(rng_stateJumpChance >= jumpChanceNumber));
 			}
 		}
 

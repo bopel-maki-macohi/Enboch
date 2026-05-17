@@ -17,11 +17,7 @@ class LevelSelectMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
-	var entries:Array<String> = [
-		'Drowned',
-		'Skeleton',
-		'Guardian',
-	];
+	var entries:Array<String> = ['Drowned', 'Skeleton', 'Guardian',];
 
 	var camFollow:FlxObject;
 

@@ -50,11 +50,9 @@ class GamePhaseSprite extends FlxSprite
 
 		switch (type)
 		{
-			case char:
-				if (CHAR_ASSET_LIST.exists(character) && CHAR_ASSET_LIST.get(character)[s] != null)
+			case char: if (CHAR_ASSET_LIST.exists(character) && CHAR_ASSET_LIST.get(character)[s] != null)
 					loadGraphic(CHAR_ASSET_LIST.get(character)[s]);
-			case item:
-				if (ITEM_ASSET_LIST.exists(character) && ITEM_ASSET_LIST.get(character)[s] != null)
+			case item: if (ITEM_ASSET_LIST.exists(character) && ITEM_ASSET_LIST.get(character)[s] != null)
 					loadGraphic(ITEM_ASSET_LIST.get(character)[s]);
 		}
 

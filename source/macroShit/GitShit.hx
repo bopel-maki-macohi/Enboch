@@ -16,10 +16,10 @@ class GitShit
 
 		var branchName = process.stdout.readLine();
 		process.close();
-        haxe.macro.Context.info('Git Branch: $branchName', haxe.macro.Context.currentPos());
-        #else
-        branchName = '';
-        #end
+		haxe.macro.Context.info('Git Branch: $branchName', haxe.macro.Context.currentPos());
+		#else
+		branchName = '';
+		#end
 
 		return macro $v{branchName};
 	}
@@ -39,7 +39,7 @@ class GitShit
 		var commitHash = process.stdout.readLine().substr(0, 7);
 		process.close();
 
-        haxe.macro.Context.info('Git Commit: $commitHash', haxe.macro.Context.currentPos());
+		haxe.macro.Context.info('Git Commit: $commitHash', haxe.macro.Context.currentPos());
 		#else
 		var commitHash = '';
 		#end

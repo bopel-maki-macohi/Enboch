@@ -14,8 +14,8 @@ class DebugString
 			if (unwantedFields?.contains(field))
 				continue;
 
-            if (i > 0)
-                str += '\n';
+			if (i > 0)
+				str += '\n';
 
 			str += '$field=${Reflect.field(object, field)}';
 		}

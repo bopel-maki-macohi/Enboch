@@ -14,6 +14,6 @@ class RNGUtil
 		while (rngList.length < numbers)
 			rngList.push(FlxG.random.int(minNum, maxNum));
 
-        return rngList;
+		return rngList;
 	}
 }

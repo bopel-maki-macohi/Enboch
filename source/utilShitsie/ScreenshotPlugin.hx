@@ -44,7 +44,7 @@ class ScreenshotPlugin extends FlxBasic
 		if (Controls.screenshot.justPressed)
 		{
 			preScreenshot.dispatch();
-			
+
 			FlxG.state.draw();
 			var data = BitmapData.fromImage(FlxG.stage.window.readPixels());
 			var screenshot:ByteArray = data.encode(data.rect, new PNGEncoderOptions());
