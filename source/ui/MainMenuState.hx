@@ -55,6 +55,8 @@ class MainMenuState extends EnboState
 		#if web
 		var video = new WebVideo('menuBG');
 		add(video);
+
+		video.looping = true;
 		#end
 
 		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());

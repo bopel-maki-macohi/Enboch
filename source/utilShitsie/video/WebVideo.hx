@@ -13,9 +13,15 @@ class WebVideo extends FlxBasic
 
 	var netStream:NetStream;
 
+	public var looping:Bool = false;
+
+	public var vidPath:String = '';
+
 	public function new(vidPath:String)
 	{
 		super();
+
+		this.vidPath = vidPath;
 
 		vid = new Video();
 		vid.x = vid.y = 0;
@@ -47,6 +53,13 @@ class WebVideo extends FlxBasic
 
 	public function finishVideo()
 	{
+		if (looping)
+		{
+			netStream.play(vidPath.makePath(video));
+
+			return;
+		}
+
 		netStream.dispose();
 		FlxG.removeChild(vid);
 	}
