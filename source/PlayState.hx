@@ -1,6 +1,8 @@
 package;
 
-import game.StateChangeManager;
+import game.PlayStateConstants.*;
+import game.ConfigSetter;
+import game.StateManager;
 import utilShitsie.api.trophies.Trophy;
 import game.DebugGameText;
 import game.GamePhaseSprite;
@@ -56,7 +58,6 @@ class PlayState extends EnboState
 	public var payPercentage = 1.0;
 
 	public var itemSpam:Int = 0;
-	public final itemSpamMax:Int = 200;
 
 	var charSprShader:ThresholdShader = null;
 	var charSprShaderTween:FlxTween;
@@ -66,7 +67,7 @@ class PlayState extends EnboState
 	public var config_cAM_ro_max_max:Int = 10;
 	public var config_cAM_ro_max_min:Int = 0;
 
-	public var config_stateChangeChances:Array<Array<Int>> = [];
+	public var stateChangeChances:Array<Array<Int>> = [];
 
 	public var config_rng_minNumber:Int = 0;
 	public var config_rng_maxNumber:Int = 10;
@@ -77,41 +78,30 @@ class PlayState extends EnboState
 
 	public static var config_trophies_daycycle:Map<Int, Trophy> = [];
 
+	function getNumberRelativeToRNGListMaxOutput(number:Int)
+		return Math.round(number * (config_rng_maxNumber / 10));
+
+	function getNumberRelativeToConfigStates(number:Int)
+		return Math.round(number * (config_states / 4));
+
 	override public function new()
 	{
 		super();
 
-		switch (character)
-		{
-			case 'drowned':
-				config_using_cAM_ro = false;
-				config_trophy_fullpay = Trophies.FULLPAY_DROWNED;
-			case 'skeleton':
-				config_cAM_ro_max_max = 3;
-				config_trophy_fullpay = Trophies.FULLPAY_SKELETON;
-			case 'guardian':
-				config_rng_minNumber = -2;
-
-				config_cAM_ro_max_min = -2;
-				config_cAM_ro_max_max = 2;
-
-				config_rng_maxNumber = 15;
-
-				config_states = 3;
-		}
+		ConfigSetter.setConfig(this, character);
 
 		for (i in 0...config_states - 1)
-			config_stateChangeChances.push([]);
+			stateChangeChances.push([]);
 
 		var existingNumbers:Array<Int> = [];
 
 		for (i in 0...config_rng_maxNumber + 1)
 		{
-			if (i % Math.round(3 * (config_states / 4)) == 0)
+			if (i % getNumberRelativeToConfigStates(3) == 0)
 			{
 				var o = 0;
 
-				for (thing in config_stateChangeChances)
+				for (thing in stateChangeChances)
 				{
 					if (i + o < config_rng_maxNumber + 1)
 						thing.push(i + o);
@@ -120,7 +110,7 @@ class PlayState extends EnboState
 			}
 		}
 
-		for (i => thing in config_stateChangeChances)
+		for (i => thing in stateChangeChances)
 			trace('phase$i : $thing');
 
 		GamePhaseSprite.loadCharacterAssets(character, config_states);
@@ -130,11 +120,7 @@ class PlayState extends EnboState
 	{
 		super.create();
 
-		if (config_states < 3)
-			config_states = 3;
-
-		if (config_states > 4)
-			config_states = 4;
+		config_states = Math.round(Math.max(Math.min(config_states, STATES_MAX), STATES_MIN));
 
 		Paycheck.earned = 0;
 
@@ -162,9 +148,9 @@ class PlayState extends EnboState
 
 		regenRNG();
 
-		charAITmr.start(5 + FlxG.random.int(0, rng_cAM_ro_max), charAIMethod, 0);
+		charAITmr.start(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max), charAIMethod, 0);
 
-		daycycleTmr.start(60 * 20, t ->
+		daycycleTmr.start(TIMER_DAYCYCLE_LENGTH, t ->
 		{
 			trace(t.elapsedLoops + ' day cycle(s)');
 
@@ -180,15 +166,12 @@ class PlayState extends EnboState
 		characterPulse();
 	}
 
-	function getNumberRelativeToRNGListMaxOutput(number:Int)
-		return Math.round(number * (config_rng_maxNumber / 10));
-
 	function charAIMethod(t:FlxTimer)
 	{
 		if (t == null)
 			return;
 
-		if (itemSpam >= itemSpamMax)
+		if (itemSpam >= ITEM_SPAM_MAX)
 		{
 			rng_deathWaitSeconds = 0;
 			charSpr.state = config_states - 1;
@@ -200,24 +183,20 @@ class PlayState extends EnboState
 			if (config_states == 3)
 				jumpChanceNumber = getNumberRelativeToRNGListMaxOutput(5);
 
-			var jump:Bool = (rng_stateJumpChance >= jumpChanceNumber);
-
-			for (i => thing in config_stateChangeChances)
+			for (i => thing in stateChangeChances)
 			{
 				if (!thing.contains(rng_stateChangeChance))
 					continue;
 
-				var code:String = '${config_states}${i}${charSpr.state}';
-
-				charSpr.state = StateChangeManager.parseCode(code, charSpr.state, jump);
+				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state, (rng_stateJumpChance >= jumpChanceNumber));
 			}
 		}
 
 		if (charSpr.state >= config_states - 1)
-			deathTmr.start(3 + rng_deathWaitSeconds, death);
+			deathTmr.start(TIMER_DEATH_DEFAULT_LENGTH + rng_deathWaitSeconds, death);
 
 		regenRNG();
-		t.reset(5 + FlxG.random.int(0, rng_cAM_ro_max));
+		t.reset(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max));
 
 		if (!deathTmr.active && (t.elapsedLoops % 2 == 0))
 		{
@@ -251,7 +230,7 @@ class PlayState extends EnboState
 	{
 		super.update(elapsed);
 
-		payPercentage = ((4 - charSpr.state) / 4) - ((itemSpam / itemSpamMax) / 2);
+		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
 		if (Define.BOTPLAY)
 			payPercentage = 0.0;
@@ -259,7 +238,7 @@ class PlayState extends EnboState
 		if ((Define.BOTPLAY && charSpr.state > 0) || FlxG.mouse.justPressed)
 			useItem();
 
-		if (Controls.leave.justPressed && charSpr.state < 3)
+		if (Controls.leave.justPressed && charSpr.state < config_states - 1)
 			FlxG.switchState(() -> new MainMenuState());
 	}
 
@@ -268,12 +247,16 @@ class PlayState extends EnboState
 		if (!Define.BOTPLAY)
 			itemSpam++;
 
-		if (charSpr.state >= 3 || charSpr.state <= 0)
+		if (charSpr.state >= config_states - 1 || charSpr.state <= 0)
 			return;
 
 		itemSpam = 0;
 
-		if (rng_itemUseChance < 5 && charSpr.state == 2 || rng_itemUseChance < 8)
+		var lowerChance:Bool = StateManager.parseLowerItemUseChance(config_states, charSpr.state);
+
+		if (rng_itemUseChance < getNumberRelativeToRNGListMaxOutput(getNumberRelativeToConfigStates(5))
+			&& lowerChance
+			|| rng_itemUseChance < getNumberRelativeToRNGListMaxOutput(8))
 		{
 			regenRNG();
 			return;

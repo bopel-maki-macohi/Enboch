@@ -1,8 +1,8 @@
 package game;
 
-class StateChangeManager
+class StateManager
 {
-	public static function parseCode(code:String, state:Int, jump:Bool):Int
+	public static function parseMovementCode(code:String, state:Int, jump:Bool):Int
 	{
 		switch (code)
 		{
@@ -20,5 +20,18 @@ class StateChangeManager
 		}
 
 		return state;
+	}
+
+	public static function parseLowerItemUseChance(states:Int, state:Int):Bool
+	{
+		switch (states)
+		{
+			case 4:
+				return state == 2;
+			case 3:
+				return state == 1;
+		}
+
+		return false;
 	}
 }
