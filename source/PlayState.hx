@@ -40,9 +40,9 @@ class PlayState extends EnboState
 		this.rng_stateJumpChance = rngList[2];
 		this.rng_itemUseChance = rngList[3];
 
-		if (using_cAM_ro)
+		if (config_using_cAM_ro)
 		{
-			this.rng_cAM_ro_max = Math.round(Math.max(Math.min(rngList[4], cAM_ro_max_max), cAM_ro_max_min));
+			this.rng_cAM_ro_max = Math.round(Math.max(Math.min(rngList[4], config_cAM_ro_max_max), config_cAM_ro_max_min));
 		}
 	}
 
@@ -59,9 +59,10 @@ class PlayState extends EnboState
 	var charSprShader:ThresholdShader = null;
 	var charSprShaderTween:FlxTween;
 
-	public var using_cAM_ro:Bool = true;
-	public var cAM_ro_max_max:Int = 10;
-	public var cAM_ro_max_min:Int = 0;
+	public var config_using_cAM_ro:Bool = true;
+
+	public var config_cAM_ro_max_max:Int = 10;
+	public var config_cAM_ro_max_min:Int = 0;
 
 	override public function new()
 	{
@@ -70,9 +71,9 @@ class PlayState extends EnboState
 		switch (character)
 		{
 			case 'drowned':
-				using_cAM_ro = false;
+				config_using_cAM_ro = false;
 			case 'skeleton':
-				cAM_ro_max_max = 3;
+				config_cAM_ro_max_max = 3;
 		}
 	}
 
