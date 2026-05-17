@@ -1,6 +1,12 @@
 package utilShitsie;
 
+#if !macro
+import haxe.io.Path;
+import lime.utils.Assets;
+#end
 import flixel.util.typeLimit.OneOfTwo;
+
+using StringTools;
 
 class AssetLibrary
 {
@@ -30,6 +36,33 @@ class AssetLibrary
 
 		return '$folder/$typeFolder$path$typeExt';
 	}
+
+	#if !macro
+	public static function pathExists(path:String):Bool
+	{
+		#if sys
+		return sys.FileSystem.exists(path);
+		#end
+
+		var limeFuck = Assets.list().filter(p -> return p.startsWith('$path'));
+		return limeFuck.length > 0;
+	}
+
+	public static function readDirectory(directory:String):Array<String>
+	{
+		if (!pathExists(directory))
+			return [];
+
+		#if sys
+		return [
+			for (file in sys.FileSystem.readDirectory(Path.removeTrailingSlashes(directory)))
+				'${Path.removeTrailingSlashes(directory)}/$file'
+		];
+		#end
+
+		return Assets.list().filter(p -> return p.startsWith('${Path.removeTrailingSlashes(directory)}/'));
+	}
+	#end
 }
 
 enum abstract AssetLibraryPathType(String) from String to String
