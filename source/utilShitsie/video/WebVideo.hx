@@ -1,5 +1,6 @@
 package utilShitsie.video;
 
+import flixel.math.FlxPoint;
 import openfl.events.NetStatusEvent;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
@@ -24,6 +25,8 @@ class WebVideo extends FlxBasic
 	{
 		return vid.alpha = alpha;
 	}
+
+	public var scrollFactor:FlxPoint = new FlxPoint();
 
 	var settings:VideoSettings;
 

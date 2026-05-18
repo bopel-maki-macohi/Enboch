@@ -64,6 +64,7 @@ class MainMenuState extends EnboState
 			shouldLoop: true,
 		});
 		add(video);
+		video.scrollFactor.set();
 
 		#if web
 		FlxG.camera.bgColor.alpha = 0;
