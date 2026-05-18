@@ -75,8 +75,6 @@ class MainMenuState extends EnboState
 
 		Scene3D.add(player);
 
-		Scene3D.camera.bgColor.alpha = 0;
-
 		#if web
 		FlxG.camera.bgColor.alpha = 0;
 		#end
