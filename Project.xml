@@ -67,5 +67,5 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
-	<haxedef name="HXC_LIBVLC_LOGGING" if="hxvlc debug" />
+	<haxedef name="HXC_LIBVLC_LOGGING" if="debug" />
 </project>
