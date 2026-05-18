@@ -27,9 +27,17 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		this.looping = settings.shouldLoop;
 
 		#if hxvlc
-		video = new FlxVideoSprite();
+		video = new FlxVideoSprite(0, 0);
+		video.makeGraphic(FlxG.width, FlxG.height, 0x00000000);
+		video.updateHitbox();
+		video.screenCenter();
+		add(video);
 
-		video.active = false;
+		video.bitmap.onEncounteredError.add(function(msg:String):Void
+		{
+			trace('Video error: $msg');
+			finishVideo();
+		});
 
 		video.bitmap.onEndReached.add(finishVideo);
 
@@ -45,38 +53,38 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 			}
 		});
 
-		video.bitmap.onEncounteredError.add(function(msg:String):Void
-		{
-			trace('Video error: $msg');
-			finishVideo();
-		});
-
 		if (video != null)
 		{
-			add(video);
+			if (video.load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]) && video.play())
+			{
+				if (settings.onPlay != null)
+					settings.onPlay();
 
-			video.load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]);
-			video.play();
+				trace('PLAYING');
+			}
+			else
+			{
+				if (settings.onPlayError != null)
+					settings.onPlayError('COULDNT_PLAY');
+				trace('COULDNT_PLAY');
 
-			if (settings.onPlay != null)
-				settings.onPlay();
-			trace('PLAYING');
+				finishVideo();
+			}
 		}
 		else
 		{
-			trace('ALERT: Video is null! Could not play cutscene!');
-			finishVideo();
-
 			if (settings.onPlayError != null)
 				settings.onPlayError('NULL_VIDEO');
 			trace('NULL_VIDEO');
+
+			finishVideo();
 		}
 		#else
-		finishVideo();
-
 		if (settings.onPlayError != null)
 			settings.onPlayError('NOT_HXVLC');
 		trace('NOT_HXVLC');
+
+		finishVideo();
 		#end
 	}
 
@@ -89,7 +97,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 			return;
 		}
 
+		video.stop();
 		remove(video);
+		video.destroy();
 		#end
 	}
 }
