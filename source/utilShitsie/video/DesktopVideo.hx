@@ -46,11 +46,20 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 				// video.scale.set(0.5, 0.5);
 			});
 
-			var loaded = video.play(settings.filePath.makePath(AssetLibraryPathType.video), settings.shouldLoop);
-			looping = settings.shouldLoop;
+			video.bitmap.onEncounteredError.add(function()
+			{
+				trace('Video Error');
 
-			if (loaded > -1)
+				finishVideo();
+			});
+
+			video.bitmap.onPlaying.add(function()
+			{
 				add(video);
+			});
+
+			video.play(settings.filePath.makePath(AssetLibraryPathType.video), settings.shouldLoop);
+			looping = settings.shouldLoop;
 
 			//   onVideoStarted.dispatch();
 		}
