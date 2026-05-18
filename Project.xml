@@ -67,9 +67,10 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
-	<section if="debug || indev">
-		<haxedef name="HXVLC_VERBOSE" value="4" />
-		<haxedef name="HXVLC_SHOW_LOG_TYPE" />
-		<haxedef name="HXVLC_LOGGING" />
-	</section>
+	<haxedef name="HXVLC_VERBOSE" value="4" if="debug" />
+	<haxedef name="HXVLC_VERBOSE" value="3" if="indev" />
+	<haxedef name="HXVLC_VERBOSE" value="2" unless="debug || indev" />
+
+	<haxedef name="HXVLC_SHOW_LOG_TYPE" />
+	<haxedef name="HXVLC_LOGGING" />
 </project>
