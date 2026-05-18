@@ -36,7 +36,7 @@
 
 	<haxelib name="hxvlc" if="cpp desktop || cpp mobile" unless="hl" />
 
-	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+	<haxelib name="flixel3d" />
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -58,7 +58,6 @@
 
 	<define name="DEBUG_TEXT" if="debug" />
 
-
 	<haxeflag name="--dce full" if="release" />
 
 	<haxedef name="HXCPP_CHECK_POINTER" />
@@ -67,4 +66,7 @@
 	<haxedef name="lime_disable_assets_version" />
 
 	<haxedef name="HXVLC_VERBOSE" value="1" />
+	
+	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+
 </project>
