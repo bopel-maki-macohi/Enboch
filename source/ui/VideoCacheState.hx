@@ -43,6 +43,11 @@ class VideoCacheState extends EnboState
 					{
 						onFilePlay(file);
 					},
+					onPlayError: function(e)
+					{
+						trace('$file : $e');
+						onFilePlay(file);
+					},
 				});
 			});
 			#end
