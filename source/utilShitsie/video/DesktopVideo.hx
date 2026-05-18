@@ -11,6 +11,11 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 {
 	override function set_alpha(Value:Float):Float
 	{
+		#if hxCodec
+		if (video != null)
+			video.alpha = Value;
+		#end
+
 		return super.set_alpha(Value);
 	}
 
@@ -34,6 +39,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 			add(video);
 
 			video.play(settings.filePath, settings.shouldLoop);
+			looping = settings.shouldLoop;
 
 			// Resize videos bigger or smaller than the screen.
 			video.bitmap.onTextureSetup.add(() ->
@@ -50,6 +56,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		else
 		{
 			trace('ALERT: Video is null! Could not play video!');
+			finishVideo();
 		}
 		#else
 		finishVideo();
