@@ -1,61 +1,47 @@
 package utilShitsie.video;
 
-import flixel.FlxG;
 #if hxvlc
+import flixel.FlxG;
 import hxvlc.flixel.FlxVideoSprite;
-#end
-import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 
-class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
+class DesktopVideo extends FlxVideoSprite
 {
-	override function set_alpha(Value:Float):Float
-	{
-		return super.set_alpha(Value);
-	}
-
 	public var looping:Bool = false;
-
-	#if hxvlc
-	var video:FlxVideoSprite;
-	#end
 
 	public function new(settings:VideoSettings)
 	{
 		super();
 
+		trace(settings);
 		this.looping = settings.shouldLoop;
 
-		#if hxvlc
-		video = new FlxVideoSprite(0, 0);
-		video.makeGraphic(FlxG.width, FlxG.height, 0x00000000);
-		video.updateHitbox();
-		video.screenCenter();
-		add(video);
+		makeGraphic(FlxG.width, FlxG.height, 0x00000000);
+		updateHitbox();
+		screenCenter();
 
-		video.bitmap.onEncounteredError.add(function(msg:String):Void
+		bitmap.onEncounteredError.add(function(msg:String):Void
 		{
 			trace('Video error: $msg');
 			finishVideo();
 		});
 
-		video.bitmap.onEndReached.add(finishVideo);
+		bitmap.onEndReached.add(finishVideo);
 
-		video.bitmap.onFormatSetup.add(function():Void
+		bitmap.onFormatSetup.add(function():Void
 		{
-			if (video.bitmap != null && video.bitmap.bitmapData != null)
+			if (bitmap != null && bitmap.bitmapData != null)
 			{
-				final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
+				final scale:Float = Math.min(FlxG.width / bitmap.bitmapData.width, FlxG.height / bitmap.bitmapData.height);
 
-				video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
-				video.updateHitbox();
-				video.screenCenter();
+				setGraphicSize(bitmap.bitmapData.width * scale, bitmap.bitmapData.height * scale);
+				updateHitbox();
+				screenCenter();
 			}
 		});
 
 		if (video != null)
 		{
-			if (video.load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]) && video.play())
+			if (load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]) && play())
 			{
 				if (settings.onPlay != null)
 					settings.onPlay();
@@ -79,27 +65,18 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 			finishVideo();
 		}
-		#else
-		if (settings.onPlayError != null)
-			settings.onPlayError('NOT_HXVLC');
-		trace('NOT_HXVLC');
-
-		finishVideo();
-		#end
 	}
 
 	function finishVideo()
 	{
-		#if hxvlc
 		if (looping)
 		{
-			video.play();
+			play();
 			return;
 		}
 
-		video.stop();
-		remove(video);
-		video.destroy();
-		#end
+		stop();
+		destroy();
 	}
 }
+#end

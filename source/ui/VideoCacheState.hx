@@ -34,23 +34,21 @@ class VideoCacheState extends EnboState
 
 		for (file in toCache)
 		{
-			#if sys
-			Thread.create(() ->
-			{
-				new Video({
-					filePath: file,
-					onPlay: function()
-					{
-						onFilePlay(file);
-					},
-					onPlayError: function(e)
-					{
-						trace('$file : $e');
-						onFilePlay(file);
-					},
-				});
+			var vid = new Video({
+				filePath: file,
+				onPlay: function()
+				{
+					onFilePlay(file);
+				},
+				onPlayError: function(e)
+				{
+					trace('$file : $e');
+					onFilePlay(file);
+				},
 			});
-			#end
+			add(vid);
+
+			trace(file);
 		}
 
 		add(cachin);
