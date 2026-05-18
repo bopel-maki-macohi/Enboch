@@ -188,7 +188,7 @@ class MainMenuState extends EnboState
 		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
-			case 'levels', 'play':
+			case 'levels', 'play', 'options':
 				canSelect = false;
 				for (thing in textGrp)
 				{
@@ -204,11 +204,16 @@ class MainMenuState extends EnboState
 
 					{
 						transOut = null;
-						FlxG.switchState(() -> new LevelSelectMenuState());
+						switch (selection.toLowerCase())
+						{
+							case 'options':
+								FlxG.switchState(() -> new OptionsMenuState());
+
+							default:
+								FlxG.switchState(() -> new LevelSelectMenuState());
+						}
 					}
 				});
-
-			case 'options': FlxG.switchState(() -> new OptionsMenuState());
 
 			case 'gj login': FlxG.switchState(() -> new GamejoltLoginState());
 
