@@ -26,6 +26,11 @@
       "version": null
     },
     {
+      "name": "hxvlc",
+      "type": "haxelib",
+      "version": "1.5.3"
+    },
+    {
       "name": "lime",
       "type": "haxelib",
       "version": "8.3.2"

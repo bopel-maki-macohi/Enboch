@@ -1,4 +1,5 @@
 debug
+indev
 
 web
 desktop
@@ -13,6 +14,8 @@ android
 hl
 neko
 
+hxvlc
+
 DIE
 TROPHY_TESTING
 GJ_LOGIN
@@ -21,3 +24,5 @@ BOTPLAY
 SCOREBOARD_TESTING
 GAME=
 PATH_FUNCTION_TESTING
+
+FORCE_VCS

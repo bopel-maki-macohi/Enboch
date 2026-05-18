@@ -1,5 +1,8 @@
 package ui;
 
+import flixel.tweens.FlxEase;
+import flixel.util.FlxTimer;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxStringUtil;
 import flixel.addons.transition.FlxTransitionableState;
 import utilShitsie.Define;
@@ -27,14 +30,33 @@ class LevelSelectMenuState extends EnboState
 
 	override function create()
 	{
+		transIn = null;
 		super.create();
 
 		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
 
+		canSelect = false;
+
+		FlxTimer.wait((1 + entries.length * .1), () ->
+		{
+			canSelect = true;
+		});
+
 		for (i => entry in entries)
 		{
+			if (entry == '' || entry == null)
+				continue;
+
 			var newText = new FlxText(0, 0, 0, entry, 64);
 			newText.ID = i;
+
+			newText.screenCenter(X);
+			var oldX = newText.x;
+			newText.x = -newText.width * 2;
+			FlxTween.tween(newText, {x: oldX}, 1, {
+				ease: FlxEase.sineInOut,
+				startDelay: i * .1,
+			});
 
 			textGrp.add(newText);
 		}
@@ -47,6 +69,8 @@ class LevelSelectMenuState extends EnboState
 		add(swagShitMoneyMoney);
 
 		swagShitMoneyMoney.screenCenter(X);
+		
+		changeSelect(0);
 	}
 
 	override function update(elapsed:Float)
@@ -55,7 +79,8 @@ class LevelSelectMenuState extends EnboState
 
 		for (text in textGrp.members)
 		{
-			text.screenCenter(X);
+			if (canSelect)
+				text.screenCenter(X);
 			text.y = text.ID * 128;
 			text.color = FlxColor.WHITE;
 
@@ -73,14 +98,27 @@ class LevelSelectMenuState extends EnboState
 
 		if (Controls.leave.justPressed)
 		{
-			transOut = null;
-			FlxTransitionableState.skipNextTransIn = true;
-			FlxG.switchState(() -> new MainMenuState());
+			canSelect = false;
+			for (thing in textGrp)
+			{
+				FlxTween.tween(thing, {x: FlxG.width + thing.width}, 1, {
+					startDelay: thing.ID * .1,
+					ease: FlxEase.sineInOut,
+				});
+			}
+
+			FlxTimer.wait((1 + entries.length * .1), () ->
+			{
+				transOut = null;
+				FlxG.switchState(() -> new MainMenuState());
+			});
 		}
 
-		if (Controls.accept.justPressed)
+		if (Controls.accept.justPressed && canSelect)
 			selectThingy();
 	}
+
+	var canSelect:Bool = true;
 
 	function changeSelect(selection:Int)
 	{

@@ -1,5 +1,10 @@
 package ui;
 
+import flixel.math.FlxMath;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import utilShitsie.video.*;
+import ui.objects.MainMenuButton;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.addons.transition.TransitionData;
 import utilShitsie.Define;
@@ -13,16 +18,17 @@ import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import utilShitsie.EnboState;
 
+using StringTools;
+
 class MainMenuState extends EnboState
 {
-	public var textGrp:FlxTypedSpriteGroup<FlxText>;
+	public var textGrp:FlxTypedSpriteGroup<MainMenuButton>;
 
 	var entries:Array<String> = [
 		'Levels',
-		// 'Trophies',
-		// 'Options',
+		'Options',
 		'',
-		((GamejoltAPI.authenticated) ? 'Gamejolt Logout' : 'Gamejolt Login'),
+		((GamejoltAPI.authenticated) ? 'GJ Logout' : 'GJ Login'),
 	];
 
 	var camFollow:FlxObject;
@@ -45,16 +51,53 @@ class MainMenuState extends EnboState
 		super(TransIn, TransOut);
 	}
 
+	var video:Video;
+
 	override function create()
 	{
+		transIn = null;
+
 		super.create();
 
-		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
+		video = new Video({
+			filePath: 'menuBG',
+			shouldLoop: true,
+		});
+		add(video);
+		video.scrollFactor.set();
+
+		#if web
+		FlxG.camera.bgColor.alpha = 0;
+		#end
+
+		video.alpha = 0;
+
+		canSelect = false;
+		FlxTween.tween(video, {alpha: 1}, 1 + entries.length * .1, {
+			ease: FlxEase.sineInOut,
+			onComplete: t ->
+			{
+				canSelect = true;
+			}
+		});
+
+		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());
 
 		for (i => entry in entries)
 		{
-			var newText = new FlxText(0, 0, 0, entry, 64);
+			if (entry == '' || entry == null)
+				continue;
+
+			var newText = new MainMenuButton(entry);
 			newText.ID = i;
+
+			newText.screenCenter(X);
+			var oldX = newText.x;
+			newText.x = -newText.width * 2;
+			FlxTween.tween(newText, {x: oldX}, 1, {
+				ease: FlxEase.sineInOut,
+				startDelay: i * .1,
+			});
 
 			textGrp.add(newText);
 		}
@@ -65,6 +108,8 @@ class MainMenuState extends EnboState
 		version.y = FlxG.height - version.height;
 		version.scrollFactor.set();
 		add(version);
+
+		changeSelect(0);
 	}
 
 	override function update(elapsed:Float)
@@ -73,14 +118,16 @@ class MainMenuState extends EnboState
 
 		for (text in textGrp.members)
 		{
-			text.screenCenter(X);
+			if (canSelect)
+				text.screenCenter(X);
+
 			text.y = text.ID * 128;
-			text.color = FlxColor.WHITE;
+			text.setColorTransform();
 
 			if (curSelect == text.ID)
 			{
-				text.color = FlxColor.YELLOW;
 				camFollow.y = text.y;
+				text.setColorTransform(1.5, 1.5);
 			}
 		}
 
@@ -110,26 +157,53 @@ class MainMenuState extends EnboState
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 
+		for (thing in textGrp)
+		{
+			var ID = thing.ID + 1;
+
+			// trace('thing${ID} : ${1 -Math.abs(ID - (curSelect + 1)) / 1}');
+		}
+
 		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
 	}
 
+	var canSelect:Bool = true;
+
 	function selectThingy()
 	{
+		if (!canSelect)
+			return;
+
 		var selection = entries[curSelect];
 
 		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
 			case 'levels', 'play':
-				transOut = null;
-				FlxTransitionableState.skipNextTransIn = true;
-				FlxG.switchState(() -> new LevelSelectMenuState());
+				canSelect = false;
+				for (thing in textGrp)
+				{
+					FlxTween.tween(thing, {x: FlxG.width + thing.width}, 1, {
+						startDelay: thing.ID * .1,
+						ease: FlxEase.sineInOut,
+					});
+				}
 
-			case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
+				FlxTween.tween(video, {alpha: 0}, 1 + entries.length * .1, {
+					ease: FlxEase.sineInOut,
+					onComplete: t ->
 
-			case 'gamejolt login': FlxG.switchState(() -> new GamejoltLoginState());
+					{
+						transOut = null;
+						FlxG.switchState(() -> new LevelSelectMenuState());
+					}
+				});
 
-			case 'gamejolt logout':
+			case 'options': FlxG.switchState(() -> new OptionsMenuState());
+
+			case 'gj login': FlxG.switchState(() -> new GamejoltLoginState());
+
+			case 'gj logout':
 				FlxG.sound.play('gamejolt/gamejolt_logout'.makePath(audio));
 				GamejoltAPI.logout(() ->
 				{

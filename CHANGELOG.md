@@ -1,5 +1,9 @@
 # Unreleased
 
+## Added
+
+- **NEW** (kinda) MAIN MENU!
+
 ## Fixed
 
 - Leaving Gameplay sends you to the level select

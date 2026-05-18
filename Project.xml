@@ -21,6 +21,7 @@
 
 	<set name="BUILD_DIR" value="export/release" />
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/indev" if="indev" />
 
 	<source path="source" />
 
@@ -32,6 +33,11 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
+
+	<haxelib name="hxvlc" if="cpp desktop || cpp mobile" unless="hl" />
+
+	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
@@ -61,4 +67,5 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
+	<haxedef name="HXVLC_VERBOSE" value="1" />
 </project>
