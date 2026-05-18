@@ -1,12 +1,11 @@
-package;
 
+import enboch.ui.MainMenuState;
+import enboch.utilShitsie.controls.Controls;
+import enboch.utilShitsie.EnboState;
 import flixel.util.FlxStringUtil;
-import ui.MainMenuState;
-import utilShitsie.controls.Controls;
 import flixel.tweens.FlxTween;
 import flixel.sound.FlxSound;
 import flixel.FlxSprite;
-import utilShitsie.EnboState;
 import flixel.FlxG;
 import flixel.text.FlxText;
 
