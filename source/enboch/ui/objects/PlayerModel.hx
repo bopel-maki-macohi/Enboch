@@ -1,8 +1,8 @@
 package enboch.ui.objects;
 
-import flixel3d.FlxModel;
+import flixel3d.Flx3DModel;
 
-class PlayerModel extends FlxModel
+class PlayerModel extends Flx3DModel
 {
 	override public function new()
 	{
