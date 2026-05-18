@@ -1,23 +1,22 @@
 package enboch.utilShitsie;
 
-import flixel.util.FlxColor;
-import openfl.display.Sprite;
-import openfl.display.Bitmap;
+import enboch.utilShitsie.controls.Controls;
+import flixel.FlxBasic;
+import flixel.FlxG;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
-import enboch.utilShitsie.controls.Controls;
-import flixel.util.FlxTimer;
+import flixel.util.FlxColor;
 import flixel.util.FlxSignal;
+import openfl.display.Bitmap;
+import openfl.display.BitmapData;
+import openfl.display.PNGEncoderOptions;
+import openfl.display.Sprite;
+import openfl.utils.ByteArray;
+
+using StringTools;
 #if sys
 import sys.io.File;
 #end
-import openfl.display.PNGEncoderOptions;
-import openfl.display.BitmapData;
-import openfl.utils.ByteArray;
-import flixel.FlxG;
-import flixel.FlxBasic;
-
-using StringTools;
 
 class ScreenshotPlugin extends FlxBasic
 {

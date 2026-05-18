@@ -1,9 +1,9 @@
 package enboch.game;
 
-import flixel.math.FlxMath;
-import flixel.util.FlxStringUtil;
 import enboch.utilShitsie.Define;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
+import flixel.util.FlxStringUtil;
 
 class DebugGameText extends FlxText
 {

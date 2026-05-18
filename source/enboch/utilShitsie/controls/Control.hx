@@ -25,7 +25,7 @@ class Control
 
 	public function loadFromSave():Control
 	{
-		if (!Paycheck.game.keybinds.exists(this.id))
+		if (!Paycheck.game.keybinds.exists(this.id) || Paycheck.game.keybinds.get(this.id).length < 1)
 		{
 			Paycheck.game.keybinds.set(this.id, keyList);
 			return this;
@@ -34,8 +34,10 @@ class Control
 		keys = [];
 
 		for (key in Paycheck.game.keybinds.get(this.id))
-			keys.push(FlxKey.fromString(key));
+			if (key != null)
+				keys.push(FlxKey.fromString(key));
 
+		trace('Loaded Key Save for ${this.id}');
 		return this;
 	}
 

@@ -1,14 +1,14 @@
 package enboch.ui;
 
-import flixel.util.FlxTimer;
-import enboch.utilShitsie.api.GamejoltAPI;
-import flixel.addons.ui.FlxUIButton;
-import enboch.utilShitsie.controls.Controls;
-import flixel.util.FlxColor;
-import flixel.text.FlxText;
-import flixel.FlxG;
-import flixel.addons.ui.FlxUIInputText;
 import enboch.utilShitsie.EnboState;
+import enboch.utilShitsie.api.GamejoltAPI;
+import enboch.utilShitsie.controls.Controls;
+import flixel.FlxG;
+import flixel.addons.ui.FlxUIButton;
+import flixel.addons.ui.FlxUIInputText;
+import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.util.FlxTimer;
 
 class GamejoltLoginState extends EnboState
 {

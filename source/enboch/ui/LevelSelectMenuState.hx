@@ -1,20 +1,17 @@
 package enboch.ui;
 
-import flixel.tweens.FlxEase;
-import flixel.util.FlxTimer;
-import flixel.tweens.FlxTween;
-import flixel.util.FlxStringUtil;
-import flixel.addons.transition.FlxTransitionableState;
-import enboch.utilShitsie.Define;
-import lime.app.Application;
-import enboch.utilShitsie.api.GamejoltAPI;
+import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.controls.Controls;
-import flixel.util.FlxColor;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
-import enboch.utilShitsie.EnboState;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxStringUtil;
+import flixel.util.FlxTimer;
+import lime.app.Application;
 
 class LevelSelectMenuState extends EnboState
 {
@@ -69,7 +66,7 @@ class LevelSelectMenuState extends EnboState
 		add(swagShitMoneyMoney);
 
 		swagShitMoneyMoney.screenCenter(X);
-		
+
 		changeSelect(0);
 	}
 

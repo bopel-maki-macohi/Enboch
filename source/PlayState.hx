@@ -1,17 +1,16 @@
-import enboch.ui.LevelSelectMenuState;
-import enboch.game.PlayStateConstants.*;
 import enboch.game.*;
-import enboch.utilShitsie.api.trophies.Trophy;
+import enboch.game.PlayStateConstants.*;
 import enboch.shaderHell.ThresholdShader;
+import enboch.ui.LevelSelectMenuState;
 import enboch.utilShitsie.*;
-import enboch.utilShitsie.api.trophies.Trophies;
+import enboch.utilShitsie.api.trophies.Trophy;
 import enboch.utilShitsie.controls.Controls;
+import flixel.FlxG;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
-import flixel.FlxG;
 
-@:build(macroShit.RNGListField.generateList([
+@:build(enboch.macroShit.RNGListField.generateList([
 	'stateChangeChance',
 	'deathWaitSeconds',
 	'stateJumpChance',
