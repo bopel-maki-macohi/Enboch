@@ -18,6 +18,7 @@ class AssetLibrary
 		// Define.web doesnt work here for some reason?
 		audio => ['audio', #if web 'mp3' #else 'ogg' #end],
 		video => ['video', 'mp4'],
+		model => ['models', 'obj'],
 	];
 
 	public static function addPathType(type:String, folder:String, extension:String)
@@ -71,4 +72,5 @@ enum abstract AssetLibraryPathType(String) from String to String
 	var image = 'image';
 	var audio = 'audio';
 	var video = 'video';
+	var model = 'model';
 }
