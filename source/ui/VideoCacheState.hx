@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.text.FlxText;
 import utilShitsie.video.Video;
 #if sys
 import sys.thread.Thread;
@@ -38,15 +39,32 @@ class VideoCacheState extends EnboState
 			{
 				new Video({
 					filePath: file,
-					onPlay: onFilePlay,
+					onPlay: function()
+					{
+						onFilePlay(file);
+					},
 				});
 			});
 			#end
 		}
+
+		add(cachin);
 	}
 
-	function onFilePlay()
+	var cachin:FlxText = new FlxText(0, 0, 0, 'Caching shit', 16);
+
+	override function update(elapsed:Float)
 	{
+		super.update(elapsed);
+
+		cachin.text = 'Cachin shit\n\n${cached} / ${totalFiles}';
+		cachin.screenCenter();
+	}
+
+	function onFilePlay(file)
+	{
+		trace('Cached $file');
+
 		cached++;
 
 		if (cached >= totalFiles)
