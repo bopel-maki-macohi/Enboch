@@ -36,8 +36,6 @@
 
 	<haxelib name="hxvlc" if="cpp desktop || cpp mobile" unless="hl" />
 
-	<haxelib name="flixel3d" />
-
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="FLX_NO_HEALTH" />

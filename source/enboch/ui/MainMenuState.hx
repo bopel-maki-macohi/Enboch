@@ -1,7 +1,6 @@
 package enboch.ui;
 
 import enboch.ui.objects.MainMenuButton;
-import enboch.ui.objects.PlayerModel;
 import enboch.utilShitsie.Define;
 import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.api.GamejoltAPI;
@@ -51,8 +50,6 @@ class MainMenuState extends EnboState
 
 	var video:Video;
 
-	var player:PlayerModel;
-
 	override function create()
 	{
 		transIn = null;
@@ -65,15 +62,6 @@ class MainMenuState extends EnboState
 		});
 		add(video);
 		video.scrollFactor.set();
-
-		player = new PlayerModel();
-		player.angularVelocity3D.z = 30;
-		player.screenCenter();
-
-		add(Scene3D);
-		Scene3D.scrollFactor.set();
-
-		Scene3D.add(player);
 
 		#if web
 		FlxG.camera.bgColor.alpha = 0;

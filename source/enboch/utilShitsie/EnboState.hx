@@ -8,7 +8,6 @@ import flixel.addons.ui.FlxUIState;
 import flixel.graphics.FlxGraphic;
 import flixel.math.FlxPoint;
 import flixel.util.FlxColor;
-import flixel3d.Flx3DScene;
 
 class EnboState extends FlxUIState
 {
@@ -33,8 +32,6 @@ class EnboState extends FlxUIState
 			if (basic != null)
 				add(basic);
 	}
-
-	public var Scene3D:Flx3DScene = new Flx3DScene(0, 0, FlxG.width, FlxG.height);
 
 	override function create()
 	{
