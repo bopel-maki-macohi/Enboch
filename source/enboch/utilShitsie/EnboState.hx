@@ -1,6 +1,7 @@
 package enboch.utilShitsie;
 
 import flixel.FlxBasic;
+import flixel.FlxG;
 import flixel.addons.transition.FlxTransitionSprite;
 import flixel.addons.transition.TransitionData;
 import flixel.addons.ui.FlxUIState;
@@ -33,7 +34,7 @@ class EnboState extends FlxUIState
 				add(basic);
 	}
 
-	public var Scene3D:Flx3DScene = new Flx3DScene();
+	public var Scene3D:Flx3DScene = new Flx3DScene(0, 0, FlxG.width, FlxG.height);
 
 	override function create()
 	{

@@ -59,9 +59,6 @@ class MainMenuState extends EnboState
 
 		super.create();
 
-		add(Scene3D);
-		Scene3D.scrollFactor.set();
-
 		video = new Video({
 			filePath: 'menuBG',
 			shouldLoop: true,
@@ -72,7 +69,13 @@ class MainMenuState extends EnboState
 		player = new PlayerModel();
 		player.angularVelocity3D.z = 30;
 		player.screenCenter();
+
+		add(Scene3D);
+		Scene3D.scrollFactor.set();
+
 		Scene3D.add(player);
+
+		Scene3D.camera.bgColor.alpha = 0;
 
 		#if web
 		FlxG.camera.bgColor.alpha = 0;
