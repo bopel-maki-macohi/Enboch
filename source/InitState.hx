@@ -17,7 +17,7 @@ class InitState extends FlxGame
 {
 	public static function getInitalState():InitialState
 	{
-		if (Define.hxCodec && !VideoCacheState.initalized)
+		if ((Define.hxCodec || Define.FORCE_VCS) && !VideoCacheState.initalized)
 			return VideoCacheState;
 
 		if (Define.DIE)
