@@ -38,8 +38,6 @@
 
 	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
 
-	<haxelib name="away3d" />
-
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<haxedef name="FLX_NO_HEALTH" />

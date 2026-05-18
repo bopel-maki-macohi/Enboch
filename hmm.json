@@ -1,11 +1,6 @@
 {
   "dependencies": [
     {
-      "name": "away3d",
-      "type": "haxelib",
-      "version": null
-    },
-    {
       "name": "flixel",
       "type": "haxelib",
       "version": "6.1.2"
