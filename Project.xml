@@ -37,7 +37,7 @@
 	<section if="cpp">
 
 		<haxelib name="hxvlc" unless="hl" />
-		<haxeflag name="--macro" value="include('hxvlc')" />
+		<haxeflag name="--macro" value="include('hxvlc')" unless="hl" />
 
 	</section>
 

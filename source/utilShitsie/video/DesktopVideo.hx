@@ -41,7 +41,7 @@ class DesktopVideo extends FlxVideoSprite
 
 		if (video != null)
 		{
-			if (load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]) && play())
+			if (load(settings.filePath.makePath(video), ['input-repeat=1' + ((!settings.shouldLoop) ? '1' : '65545')]) && play())
 			{
 				if (settings.onPlay != null)
 					settings.onPlay();
