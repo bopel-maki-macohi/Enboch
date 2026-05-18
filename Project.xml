@@ -21,6 +21,7 @@
 
 	<set name="BUILD_DIR" value="export/release" />
 	<set name="BUILD_DIR" value="export/debug" if="debug" />
+	<set name="BUILD_DIR" value="export/indev" if="indev" />
 
 	<source path="source" />
 
