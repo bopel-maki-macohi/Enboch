@@ -1,6 +1,4 @@
-package;
-
-import macroShit.GitShit;
+import enboch.macroShit.GitShit;
 import flixel.FlxGame;
 import openfl.display.Sprite;
 

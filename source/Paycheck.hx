@@ -1,9 +1,8 @@
-import haxe.ds.Map;
-import utilShitsie.Define;
-import utilShitsie.DebugString;
+import enboch.utilShitsie.Define;
+import enboch.utilShitsie.DebugString;
+import enboch.utilShitsie.api.GamejoltAPI;
+import enboch.utilShitsie.controls.Controls;
 import flixel.util.FlxStringUtil;
-import utilShitsie.api.GamejoltAPI;
-import utilShitsie.controls.Controls;
 import flixel.FlxG;
 
 using StringTools;

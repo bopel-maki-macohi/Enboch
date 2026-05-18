@@ -1,12 +1,11 @@
-import ui.VideoCacheState;
-import utilShitsie.api.trophies.Trophies;
-import utilShitsie.EnboState;
+import enboch.ui.*;
+import enboch.ui.debug.*;
+import enboch.utilShitsie.api.trophies.Trophies;
+import enboch.utilShitsie.*;
+import enboch.utilShitsie.api.GamejoltAPI;
 import flixel.addons.transition.FlxTransitionableState;
-import utilShitsie.Define;
 import flixel.system.frontEnds.LogFrontEnd;
 import flixel.FlxG;
-import utilShitsie.ScreenshotPlugin;
-import utilShitsie.api.GamejoltAPI;
 import flixel.util.typeLimit.NextState.InitialState;
 import flixel.FlxGame;
 import openfl.events.Event;
@@ -24,7 +23,7 @@ class InitState extends FlxGame
 			return DeadState;
 
 		if (Define.TROPHY_TESTING)
-			return ui.debug.TrophyTesting;
+			return TrophyTesting;
 
 		if (Define.GAME != null)
 		{
@@ -34,12 +33,12 @@ class InitState extends FlxGame
 		}
 
 		if (Define.PATH_FUNCTION_TESTING)
-			return ui.debug.PathFunctionTesting;
+			return PathFunctionTesting;
 
 		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
-			return ui.GamejoltLoginState;
+			return GamejoltLoginState;
 
-		return ui.MainMenuState;
+		return MainMenuState;
 	}
 
 	override public function new()

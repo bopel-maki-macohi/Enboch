@@ -3,4 +3,4 @@
 import js.Browser.document;
 #end
 #end
-using utilShitsie.AssetLibrary;
+using enboch.utilShitsie.AssetLibrary;
