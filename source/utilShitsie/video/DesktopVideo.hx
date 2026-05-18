@@ -68,12 +68,14 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 			if (settings.onPlayError != null)
 				settings.onPlayError('NULL_VIDEO');
+			trace('NULL_VIDEO');
 		}
 		#else
 		finishVideo();
 
 		if (settings.onPlayError != null)
 			settings.onPlayError('NOT_HXVLC');
+		trace('NOT_HXVLC');
 		#end
 	}
 
