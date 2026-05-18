@@ -46,7 +46,7 @@ class VideoCacheState extends EnboState
 					onFilePlay(file);
 				},
 			});
-			add(vid);
+			// add(vid);
 
 			trace(file);
 		}
