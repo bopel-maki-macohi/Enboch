@@ -1,13 +1,12 @@
-
 import enboch.ui.MainMenuState;
-import enboch.utilShitsie.controls.Controls;
 import enboch.utilShitsie.EnboState;
-import flixel.util.FlxStringUtil;
-import flixel.tweens.FlxTween;
-import flixel.sound.FlxSound;
-import flixel.FlxSprite;
+import enboch.utilShitsie.controls.Controls;
 import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxStringUtil;
 
 class DeadState extends EnboState
 {

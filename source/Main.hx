@@ -1,5 +1,4 @@
 import enboch.macroShit.GitShit;
-import flixel.FlxGame;
 import openfl.display.Sprite;
 
 class Main extends Sprite
@@ -11,6 +10,8 @@ class Main extends Sprite
 	{
 		super();
 
+		Paycheck.load();
+		
 		trace('Git Branch: $gitBranch');
 		trace('Git Commit: $gitCommit');
 

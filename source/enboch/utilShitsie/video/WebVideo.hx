@@ -1,12 +1,12 @@
 package enboch.utilShitsie.video;
 
+import flixel.FlxBasic;
+import flixel.FlxG;
 import flixel.math.FlxPoint;
 import openfl.events.NetStatusEvent;
+import openfl.media.Video;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
-import flixel.FlxG;
-import openfl.media.Video;
-import flixel.FlxBasic;
 
 class WebVideo extends FlxBasic
 {

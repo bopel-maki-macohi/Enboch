@@ -1,12 +1,9 @@
 package enboch.ui;
 
-import flixel.text.FlxText;
-import enboch.utilShitsie.video.Video;
-#if sys
-import sys.thread.Thread;
-#end
-import flixel.FlxG;
 import enboch.utilShitsie.EnboState;
+import enboch.utilShitsie.video.Video;
+import flixel.FlxG;
+import flixel.text.FlxText;
 
 using haxe.io.Path;
 

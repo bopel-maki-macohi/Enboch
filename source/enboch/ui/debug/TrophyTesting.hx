@@ -1,11 +1,11 @@
 package enboch.ui.debug;
 
-import flixel.util.FlxColor;
-import flixel.FlxG;
+import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.api.trophies.Trophies;
 // import enboch.utilShitsie.api.trophies.TrophyToastHolder;
 import enboch.utilShitsie.controls.Controls;
-import enboch.utilShitsie.EnboState;
+import flixel.FlxG;
+import flixel.util.FlxColor;
 
 class TrophyTesting extends EnboState
 {

@@ -1,22 +1,19 @@
 package enboch.ui;
 
-import flixel.math.FlxMath;
-import flixel.tweens.FlxEase;
-import flixel.tweens.FlxTween;
-import utilShitsie.video.*;
 import enboch.ui.objects.MainMenuButton;
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.transition.TransitionData;
 import enboch.utilShitsie.Define;
-import lime.app.Application;
+import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.api.GamejoltAPI;
 import enboch.utilShitsie.controls.Controls;
-import flixel.util.FlxColor;
+import enboch.utilShitsie.video.*;
 import flixel.FlxG;
 import flixel.FlxObject;
-import flixel.text.FlxText;
+import flixel.addons.transition.TransitionData;
 import flixel.group.FlxSpriteGroup;
-import enboch.utilShitsie.EnboState;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import lime.app.Application;
 
 using StringTools;
 

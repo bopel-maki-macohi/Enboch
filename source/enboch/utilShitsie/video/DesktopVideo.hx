@@ -1,11 +1,11 @@
 package enboch.utilShitsie.video;
 
 import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 #if hxvlc
 import hxvlc.flixel.FlxVideoSprite;
 #end
-import flixel.FlxSprite;
-import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 
 class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 {

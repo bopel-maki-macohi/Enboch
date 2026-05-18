@@ -1,10 +1,10 @@
 package enboch.game;
 
-import flixel.util.FlxSignal;
 import enboch.utilShitsie.GraphicUtil;
 import flixel.FlxG;
-import flixel.graphics.FlxGraphic;
 import flixel.FlxSprite;
+import flixel.graphics.FlxGraphic;
+import flixel.util.FlxSignal;
 
 enum GamePhaseSpriteType
 {

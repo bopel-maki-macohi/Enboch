@@ -1,10 +1,9 @@
 package enboch.utilShitsie.api;
 
-import enboch.utilShitsie.api.trophies.Trophies;
-import flixel.util.FlxTimer;
-import flixel.FlxG;
 import enboch.macroShit.SecretDataFile;
+import flixel.FlxG;
 import flixel.addons.api.FlxGameJolt as API;
+import flixel.util.FlxTimer;
 
 using StringTools;
 
