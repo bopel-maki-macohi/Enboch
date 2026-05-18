@@ -36,11 +36,6 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		{
 			video.bitmap.onEndReached.add(finishVideo);
 
-			add(video);
-
-			video.play(settings.filePath, settings.shouldLoop);
-			looping = settings.shouldLoop;
-
 			// Resize videos bigger or smaller than the screen.
 			video.bitmap.onTextureSetup.add(() ->
 			{
@@ -50,6 +45,12 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 				video.y = 0;
 				// video.scale.set(0.5, 0.5);
 			});
+
+			var loaded = video.play(settings.filePath.makePath(AssetLibraryPathType.video), settings.shouldLoop);
+			looping = settings.shouldLoop;
+
+			if (loaded > -1)
+				add(video);
 
 			//   onVideoStarted.dispatch();
 		}
