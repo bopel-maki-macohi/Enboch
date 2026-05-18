@@ -72,7 +72,7 @@ class ScreenshotPlugin extends FlxBasic
 
 		var flashSprite:Sprite = new Sprite();
 		var flashBitmap = new Bitmap(new BitmapData(FlxG.width * 2, FlxG.height * 2, true,
-			Paycheck.game.settings?.flashing ? FlxColor.WHITE : FlxColor.TRANSPARENT));
+			Paycheck.game.settings?.screenshotFlash ? FlxColor.WHITE : FlxColor.TRANSPARENT));
 
 		flashSprite.mouseEnabled = false;
 		flashSprite.addChild(flashBitmap);

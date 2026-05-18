@@ -23,7 +23,7 @@ typedef PaycheckData =
 
 typedef PaycheckSettingsData =
 {
-	?flashing:Null<Bool>,
+	?screenshotFlash:Null<Bool>,
 }
 
 class Paycheck
@@ -39,7 +39,7 @@ class Paycheck
 		gj_username: null,
 		gj_usertoken: null,
 		settings: {
-			flashing: true,
+			screenshotFlash: true,
 		}
 	};
 
@@ -68,7 +68,7 @@ class Paycheck
 		trace(stringGameData());
 
 		game.settings ??= {};
-		game.settings.flashing ??= true;
+		game.settings.screenshotFlash ??= true;
 
 		totalPay = game.totalPay;
 
