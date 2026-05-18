@@ -199,11 +199,11 @@ class MainMenuState extends EnboState
 					}
 				});
 
-			case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
+			case 'options': FlxG.switchState(() -> new OptionsMenuState());
 
-			case 'gamejolt login': FlxG.switchState(() -> new GamejoltLoginState());
+			case 'gj login': FlxG.switchState(() -> new GamejoltLoginState());
 
-			case 'gamejolt logout':
+			case 'gj logout':
 				FlxG.sound.play('gamejolt/gamejolt_logout'.makePath(audio));
 				GamejoltAPI.logout(() ->
 				{
