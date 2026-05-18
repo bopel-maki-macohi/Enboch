@@ -1,8 +1,8 @@
 package utilShitsie.video;
 
 import flixel.FlxG;
-#if hxCodec
-import hxcodec.flixel.FlxVideoSprite;
+#if hxvlc
+import hxvlc.flixel.FlxVideoSprite;
 #end
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
@@ -11,17 +11,12 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 {
 	override function set_alpha(Value:Float):Float
 	{
-		#if hxCodec
-		if (video != null)
-			video.alpha = Value;
-		#end
-
 		return super.set_alpha(Value);
 	}
 
-	public var looping:Bool;
+	public var looping:Bool = false;
 
-	#if hxCodec
+	#if hxvlc
 	var video:FlxVideoSprite;
 	#end
 
@@ -29,67 +24,69 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	{
 		super();
 
-		#if hxCodec
+		this.looping = settings.shouldLoop;
+
+		#if hxvlc
 		video = new FlxVideoSprite();
+
+		video.active = false;
+
+		video.bitmap.onEndReached.add(finishVideo);
+
+		video.bitmap.onFormatSetup.add(function():Void
+		{
+			if (video.bitmap != null && video.bitmap.bitmapData != null)
+			{
+				final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
+
+				video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
+				video.updateHitbox();
+				video.screenCenter();
+			}
+		});
+
+		video.bitmap.onEncounteredError.add(function(msg:String):Void
+		{
+			trace('Video error: $msg');
+			finishVideo();
+		});
 
 		if (video != null)
 		{
-			video.bitmap.onEndReached.add(finishVideo);
+			add(video);
 
-			// Resize videos bigger or smaller than the screen.
-			video.bitmap.onTextureSetup.add(() ->
-			{
-				video.setGraphicSize(FlxG.width, FlxG.height);
-				video.updateHitbox();
-				video.x = 0;
-				video.y = 0;
-				// video.scale.set(0.5, 0.5);
-			});
+			video.load(settings.filePath, ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]);
+			video.play();
 
-			video.bitmap.onEncounteredError.add(function()
-			{
-				trace('Video Error');
-
-				finishVideo();
-			});
-
-			video.bitmap.onPlaying.add(function()
-			{
-				add(video);
-
-				if (settings.onPlay != null)
-					settings.onPlay();
-			});
-
-			video.play(settings.filePath.makePath(AssetLibraryPathType.video), settings.shouldLoop);
-			looping = settings.shouldLoop;
-
-			//   onVideoStarted.dispatch();
+			if (settings.onPlay != null)
+				settings.onPlay();
 		}
 		else
 		{
-			trace('ALERT: Video is null! Could not play video!');
+			trace('ALERT: Video is null! Could not play cutscene!');
 			finishVideo();
+
+			if (settings.onPlayError != null)
+				settings.onPlayError('NULL_VIDEO');
 		}
 		#else
 		finishVideo();
+
+		if (settings.onPlayError != null)
+			settings.onPlayError('NOT_HXVLC');
 		#end
 	}
 
 	function finishVideo()
 	{
-		#if hxCodec
+		#if hxvlc
 		if (looping)
 		{
-			video.bitmap.time = 0;
+			video.play();
 			return;
 		}
 
-		video.stop();
 		remove(video);
-
-		video.destroy();
-		video = null;
 		#end
 	}
 }

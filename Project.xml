@@ -35,7 +35,7 @@
 
 	<section if="cpp">
 
-		<haxelib name="hxCodec" if="desktop || android" unless="hl" />
+		<haxelib name="hxvlc" if="desktop || mobile" unless="hl" />
 
 	</section>
 
@@ -67,5 +67,10 @@
 
 	<haxedef name="lime_disable_assets_version" />
 
-	<haxedef name="HXC_LIBVLC_LOGGING" if="debug" />
+
+	<section if="debug">
+		<haxedef name="HXVLC_VERBOSE" value="4" />
+		<haxedef name="HXVLC_SHOW_LOG_TYPE" />
+		<haxedef name="HXVLC_LOGGING" />
+	</section>
 </project>

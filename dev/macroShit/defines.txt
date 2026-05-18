@@ -13,7 +13,7 @@ android
 hl
 neko
 
-hxCodec
+hxvlc
 
 DIE
 TROPHY_TESTING
