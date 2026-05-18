@@ -1,3 +1,4 @@
+import ui.VideoCacheState;
 import utilShitsie.api.trophies.Trophies;
 import utilShitsie.EnboState;
 import flixel.addons.transition.FlxTransitionableState;
@@ -14,8 +15,11 @@ using StringTools;
 
 class InitState extends FlxGame
 {
-	function getInitalState():InitialState
+	public static function getInitalState():InitialState
 	{
+		if (Define.hxCodec && !VideoCacheState.initalized)
+			return VideoCacheState;
+
 		if (Define.DIE)
 			return DeadState;
 

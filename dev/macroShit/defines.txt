@@ -13,6 +13,8 @@ android
 hl
 neko
 
+hxCodec
+
 DIE
 TROPHY_TESTING
 GJ_LOGIN
