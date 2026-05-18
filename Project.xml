@@ -34,12 +34,12 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
 
-	<section if="cpp">
+	<haxelib name="hxvlc" if="cpp desktop || cpp mobile" unless="hl" />
 
-		<haxelib name="hxvlc" unless="hl" />
-		<haxeflag name="--macro" value="include('hxvlc')" unless="hl" />
+	<echo value="HXVLC" if="hxvlc"/>
 
-	</section>
+	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
