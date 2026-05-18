@@ -36,8 +36,6 @@
 
 	<haxelib name="hxvlc" if="cpp desktop || cpp mobile" unless="hl" />
 
-	<echo value="HXVLC" if="hxvlc"/>
-
 	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
 
 
