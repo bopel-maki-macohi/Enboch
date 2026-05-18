@@ -73,8 +73,16 @@ class WebVideo extends FlxBasic
 
 	function onNetStatus(event:NetStatusEvent)
 	{
-		if (event.info.code == 'NetStream.Play.Complete')
-			finishVideo();
+		trace(event.info.code);
+
+		switch (event.info.code)
+		{
+			case 'NetStream.Play.Start': //
+				if (settings.onPlay != null)
+					settings.onPlay();
+
+			case 'NetStream.Play.Complete': finishVideo();
+		}
 	}
 
 	public function finishVideo()

@@ -9,11 +9,12 @@ typedef Video = WebVideo;
 #else
 class Video extends FlxSprite
 {
-	public var looping:Bool = false;
-
-	public function new(a)
+	public function new(a:VideoSettings)
 	{
 		super();
+
+		if (a.onPlay != null)
+			a.onPlay();
 	}
 }
 #end

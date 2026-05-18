@@ -56,6 +56,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 			video.bitmap.onPlaying.add(function()
 			{
 				add(video);
+
+				if (settings.onPlay != null)
+					settings.onPlay();
 			});
 
 			video.play(settings.filePath.makePath(AssetLibraryPathType.video), settings.shouldLoop);
