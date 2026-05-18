@@ -80,6 +80,18 @@ class MainMenuState extends EnboState
 
 		add(textGrp = new FlxTypedSpriteGroup<MainMenuButton>());
 
+		var logo = new MainMenuButton('logo');
+		logo.ID = -2;
+
+		logo.screenCenter(X);
+		var oldX = logo.x;
+		logo.x = -logo.width * 2;
+		FlxTween.tween(logo, {x: oldX}, 1, {
+			ease: FlxEase.sineInOut,
+		});
+
+		textGrp.add(logo);
+
 		for (i => entry in entries)
 		{
 			if (entry == '' || entry == null)
