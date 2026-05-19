@@ -3,8 +3,6 @@ package enboch.util.video;
 import enboch.data.VideoSettings;
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.math.FlxMath;
-import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.events.NetStatusEvent;
 import openfl.media.SoundTransform;
@@ -75,59 +73,38 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function startVideo()
 	{
-		if (netStream == null)
-			return;
-
 		VideoManager.onVideoStart.dispatch();
-		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+
+		if (netStream != null)
+			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
-		if (netStream == null)
-			return;
-
 		VideoManager.onVideoRestart.dispatch();
-		netStream.seek(0);
-	}
 
-	public function rewindVideo()
-	{
-		if (netStream == null)
-			return;
-
-		VideoManager.onVideoRewind.dispatch();
-
-		// Theres a catch in this function to cap it to the video duration
-		netStream.seek(FlxMath.MAX_VALUE_INT);
-
-		FlxTween.cancelTweensOf(netStream);
-		FlxTween.tween(netStream, {time: 0}, netStream.time);
+		if (netStream != null)
+			netStream.seek(0);
 	}
 
 	public function pauseVideo()
 	{
-		if (netStream == null)
-			return;
-
 		VideoManager.onVideoPaused.dispatch();
-		netStream.pause();
+
+		if (netStream != null)
+			netStream.pause();
 	}
 
 	public function resumeVideo()
 	{
-		if (netStream == null)
-			return;
-
 		VideoManager.onVideoResume.dispatch();
-		netStream.resume();
+
+		if (netStream != null)
+			netStream.resume();
 	}
 
 	public function finishVideo()
 	{
-		if (netStream == null)
-			return;
-
 		if (settings.shouldLoop)
 			return;
 
@@ -138,8 +115,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		netStream.dispose();
 
-		if (video != null && FlxG.game.contains(video))
-			FlxG.game.removeChild(video);
+		if (video != null)
+			FlxG.stage.removeChild(video);
 	}
 
 	var videoAvailable:Bool = false;

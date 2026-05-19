@@ -10,7 +10,6 @@ class VideoManager
 	public static var onVideoPaused:FlxSignal = new FlxSignal();
 	public static var onVideoResume:FlxSignal = new FlxSignal();
 	public static var onVideoRestart:FlxSignal = new FlxSignal();
-	public static var onVideoRewind:FlxSignal = new FlxSignal();
 
 	public static var onVideoFinished:FlxSignal = new FlxSignal();
 	public static var onVideoLooped:FlxSignal = new FlxSignal();

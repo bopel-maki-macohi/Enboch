@@ -4,7 +4,6 @@ import enboch.data.VideoSettings;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
-import flixel.tweens.FlxTween;
 #if hxvlc
 import hxvlc.flixel.FlxVideoSprite;
 #end
@@ -136,17 +135,6 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		video.bitmap.time = 0;
 		video.resume();
-	}
-
-	public function rewindVideo()
-	{
-		if (video == null)
-			return;
-
-		video.bitmap.time = video.bitmap.duration;
-
-		FlxTween.cancelTweensOf(video.bitmap);
-		FlxTween.tween(video.bitmap, {time: 0}, (cast(video.bitmap.time, Int) / 1000));
 	}
 
 	public function finishVideo()

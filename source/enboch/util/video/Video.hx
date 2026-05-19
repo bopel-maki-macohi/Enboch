@@ -26,6 +26,7 @@ class Video extends FlxSprite implements IVideo<FlxSprite>
 			a.onPlay();
 
 		visible = false;
+
 	}
 
 	public function startVideo() {}
@@ -35,8 +36,6 @@ class Video extends FlxSprite implements IVideo<FlxSprite>
 	public function resumeVideo() {}
 
 	public function restartVideo() {}
-
-	public function rewindVideo() {}
 
 	public function finishVideo() {}
 }

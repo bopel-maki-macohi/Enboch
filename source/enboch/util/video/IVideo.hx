@@ -13,7 +13,6 @@ interface IVideo<T>
 	public function pauseVideo():Void;
 	public function resumeVideo():Void;
 	public function restartVideo():Void;
-	public function rewindVideo():Void;
 
 	public function finishVideo():Void;
 }
