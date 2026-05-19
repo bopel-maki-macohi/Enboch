@@ -1,3 +1,5 @@
+package enboch.game;
+
 import enboch.game.*;
 import enboch.game.PlayStateConstants.*;
 import enboch.ui.LevelSelectMenuState;

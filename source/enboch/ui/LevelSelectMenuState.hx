@@ -1,5 +1,6 @@
 package enboch.ui;
 
+import enboch.game.PlayState;
 import enboch.util.EnboState;
 import enboch.util.controls.Controls;
 import flixel.FlxG;
@@ -11,7 +12,6 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxStringUtil;
 import flixel.util.FlxTimer;
-import lime.app.Application;
 
 class LevelSelectMenuState extends EnboState
 {
