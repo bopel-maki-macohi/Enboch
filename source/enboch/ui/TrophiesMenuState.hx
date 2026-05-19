@@ -61,14 +61,6 @@ class TrophiesMenuState extends EnboState
 	{
 		super.create();
 
-		for (video in videos)
-		{
-			if (Paycheck.game.trophies.contains(getTrophyID(video.ID)))
-				video.video.bitmap.shader = null;
-			else
-				video.video.bitmap.shader = new GrayscaleShader();
-		}
-
 		addMultiple(cast videos);
 
 		trophyTitle = new FlxText(0, 0, 0, '', 32);
