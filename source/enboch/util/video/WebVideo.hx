@@ -68,14 +68,6 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 				netStream.dispose();
 	}
 
-	public function setTime(time:Int)
-	{
-		if (netStream == null)
-			return;
-
-		netStream.seek(time);
-	}
-
 	public function startVideo()
 	{
 		if (netStream == null)
