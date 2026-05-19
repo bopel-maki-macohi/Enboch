@@ -49,9 +49,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		if (video != null)
 		{
-			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), [
-				'input-repeat=${((settings.shouldLoop) ? Std.string(FlxMath.MAX_VALUE_INT) : '0')}'
-			]))
+			if (loadVideo())
 			{
 				if (!settings.instaStart)
 					return;
@@ -83,6 +81,15 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 	}
 
 	#if hxvlc
+	function loadVideo()
+	{
+		var opts:Array<String> = [];
+
+		opts.push('input-repeat=${((settings.shouldLoop) ? Std.string(FlxMath.MAX_VALUE_INT) : '0')}');
+
+		return video.load(settings.filePath.makePath(AssetLibraryPathType.video), opts);
+	}
+
 	function videoFormatSetup()
 	{
 		if (video.bitmap != null && video.bitmap.bitmapData != null)
@@ -141,7 +148,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		VideoManager.onVideoRestart.dispatch();
 
 		video.pause();
-		video.bitmap.time = 0;
+		video.bitmap.position = 0;
 		video.resume();
 	}
 
@@ -164,14 +171,16 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 	override function destroy()
 	{
-		if (!settings.persist)
-			if (video != null)
-			{
-				remove(video);
+		if (settings.persist)
+			return;
 
-				video.stop();
-				video.destroy();
-			}
+		if (video != null)
+		{
+			remove(video);
+
+			video.stop();
+			video.destroy();
+		}
 
 		super.destroy();
 	}
