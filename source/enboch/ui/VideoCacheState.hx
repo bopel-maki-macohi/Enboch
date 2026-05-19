@@ -44,6 +44,7 @@ class VideoCacheState extends EnboState
 			});
 			vid.alpha = 1 / totalFiles;
 			add(vid);
+			vid.screenCenter();
 		}
 
 		cachin.alignment = CENTER;
