@@ -24,7 +24,8 @@ typedef PaycheckData =
 typedef PaycheckSettingsData =
 {
 	?screenshotFlash:Null<Bool>,
-	?menuBG:Null<Bool>,
+	?menuBGVideo:Null<Bool>,
+	?characterPulse:Null<Bool>,
 }
 
 class Paycheck
@@ -39,9 +40,7 @@ class Paycheck
 		trophies: [],
 		gj_username: null,
 		gj_usertoken: null,
-		settings: {
-			screenshotFlash: true,
-		}
+		settings: {}
 	};
 
 	public static function stringGameData()
@@ -75,7 +74,8 @@ class Paycheck
 
 		game.settings ??= {};
 		game.settings.screenshotFlash ??= true;
-		game.settings.menuBG ??= true;
+		game.settings.menuBGVideo ??= true;
+		game.settings.characterPulse ??= true;
 
 		totalPay = game.totalPay;
 

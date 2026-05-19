@@ -123,7 +123,7 @@ class PlayState extends EnboState
 			((Define.DEBUG_TEXT) ? new DebugGameText(this) : null),
 		]);
 
-		charSpr.shader = charSprShader = new ThresholdShader(1);
+		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
 
 		charSpr.onStateChange.add(function()
 		{
@@ -202,6 +202,9 @@ class PlayState extends EnboState
 
 	function characterPulse()
 	{
+		if (!Paycheck.game.settings.characterPulse)
+			return;
+
 		if (charSprShaderTween != null)
 			charSprShaderTween.cancel();
 

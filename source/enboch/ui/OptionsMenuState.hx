@@ -23,7 +23,11 @@ class OptionsMenuState extends EnboState
 		},
 		'menuBGVideo' => function()
 		{
-			Paycheck.game.settings.menuBG = !Paycheck.game.settings.menuBG;
+			Paycheck.game.settings.menuBGVideo = !Paycheck.game.settings.menuBGVideo;
+		},
+		'characterPulse' => function()
+		{
+			Paycheck.game.settings.characterPulse = !Paycheck.game.settings.characterPulse;
 		},
 	];
 
@@ -34,7 +38,11 @@ class OptionsMenuState extends EnboState
 		},
 		'menuBGVideo' => function()
 		{
-			return 'Menu BG Video (${(Paycheck.game.settings.menuBG) ? 'On' : 'Off'})';
+			return 'Menu BG Video (${(Paycheck.game.settings.menuBGVideo) ? 'On' : 'Off'})';
+		},
+		'characterPulse' => function()
+		{
+			return 'Character Pulse (${(Paycheck.game.settings.characterPulse) ? 'Enabled' : 'Disabled'})';
 		},
 	];
 

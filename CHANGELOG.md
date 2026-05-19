@@ -3,6 +3,7 @@
 ## Added
 
 - OPTIONS MENU!
+  - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
   - Added Toggle for the Screenshot Flash
 - **NEW** (kinda) MAIN MENU!

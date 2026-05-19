@@ -60,10 +60,10 @@ class MainMenuState extends EnboState
 			filePath: 'menuBG',
 			shouldLoop: true,
 
-			actuallyLoad: Paycheck.game.settings.menuBG,
+			actuallyLoad: Paycheck.game.settings.menuBGVideo,
 		});
 
-		if (Paycheck.game.settings.menuBG)
+		if (Paycheck.game.settings.menuBGVideo)
 			add(video);
 
 		video.scrollFactor.set();
