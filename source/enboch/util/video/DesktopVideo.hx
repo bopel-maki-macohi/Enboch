@@ -106,6 +106,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 			return;
 		}
 
+		if (!settings.killOnEnd)
+			return;
+
 		video.stop();
 		remove(video);
 		video.destroy();

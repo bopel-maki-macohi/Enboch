@@ -115,6 +115,9 @@ class WebVideo extends FlxBasic
 		if (settings.shouldLoop)
 			return;
 
+		if (!settings.killOnEnd)
+			return;
+
 		netStream.dispose();
 
 		if (video != null)
