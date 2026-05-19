@@ -1,5 +1,6 @@
 package enboch.util.video;
 
+import enboch.data.VideoSettings;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.math.FlxPoint;

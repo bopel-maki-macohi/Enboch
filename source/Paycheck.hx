@@ -1,31 +1,10 @@
+import enboch.data.PaycheckData;
 import enboch.util.DebugString;
 import enboch.util.api.GamejoltAPI;
 import enboch.util.controls.Controls;
 import flixel.FlxG;
 
 using StringTools;
-
-typedef PaycheckData =
-{
-	totalPay:Int,
-	keybinds:Map<String, Array<String>>,
-
-	firstTime:Bool,
-
-	trophies:Array<Int>,
-
-	gj_username:String,
-	gj_usertoken:String,
-
-	settings:PaycheckSettingsData,
-}
-
-typedef PaycheckSettingsData =
-{
-	?screenshotFlash:Null<Bool>,
-	?menuBGVideo:Null<Bool>,
-	?characterPulse:Null<Bool>,
-}
 
 class Paycheck
 {

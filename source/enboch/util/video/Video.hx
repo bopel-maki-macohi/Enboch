@@ -9,7 +9,7 @@ class Video extends flixel.FlxSprite
 {
 	public var video:flixel.FlxSprite;
 
-	public function new(a:VideoSettings)
+	public function new(a:enboch.data.VideoSettings)
 	{
 		super();
 

@@ -1,4 +1,4 @@
-package enboch.util.video;
+package enboch.data;
 
 typedef VideoSettings =
 {

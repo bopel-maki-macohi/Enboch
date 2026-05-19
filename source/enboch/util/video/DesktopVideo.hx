@@ -1,5 +1,6 @@
 package enboch.util.video;
 
+import enboch.data.VideoSettings;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
