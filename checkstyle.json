@@ -1,0 +1,13 @@
+{
+    "defaultSeverity": "INFO",
+    "checks": [
+        {
+            "type": "CodeSimilarity",
+            "props": {
+                "thresholdSimilar": 120,
+                "thresholdIdentical": 60,
+                "severity": "WARNING"
+            }
+        }
+    ]
+}
