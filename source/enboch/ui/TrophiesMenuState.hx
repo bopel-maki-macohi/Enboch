@@ -44,6 +44,13 @@ class TrophiesMenuState extends EnboState
 
 	function changeSelection(amount:Int)
 	{
+		currentSelection += amount;
+
+		if (currentSelection < 0)
+			currentSelection = videos.length - 1;
+		if (currentSelection > videos.length - 1)
+			currentSelection = 0;
+
 		for (video in videos)
 		{
 			if (currentSelection == video.ID)
