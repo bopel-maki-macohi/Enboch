@@ -29,7 +29,7 @@ class VideoCacheState extends EnboState
 			{
 				totalFiles++;
 				toCache.push(file.withoutExtension().replace(''.makePath(video).withoutExtension(), ''));
-				trace(file);
+				// trace(file);
 			}
 		}
 
