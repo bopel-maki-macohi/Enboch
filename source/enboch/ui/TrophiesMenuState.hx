@@ -61,6 +61,14 @@ class TrophiesMenuState extends EnboState
 	{
 		super.create();
 
+		for (video in videos)
+		{
+			if (Paycheck.game.trophies.contains(getTrophyID(video.ID)))
+				video.video.bitmap.shader = null;
+			else
+				video.video.bitmap.shader = new GrayscaleShader();
+		}
+
 		addMultiple(cast videos);
 
 		trophyTitle = new FlxText(0, 0, 0, '', 32);
@@ -110,8 +118,6 @@ class TrophiesMenuState extends EnboState
 	var currentSelection:Int = 0;
 	var canDoShit:Bool = true;
 
-	var grayscaleShader:GrayscaleShader = new GrayscaleShader();
-
 	function changeSelection(amount:Int)
 	{
 		currentSelection += amount;
@@ -122,8 +128,10 @@ class TrophiesMenuState extends EnboState
 			currentSelection = 0;
 
 		trophyTitle.text = entry_relations.get(entries[currentSelection])[1];
+
 		if (!Paycheck.game.trophies.contains(currentSelection))
 			trophyTitle.text += ' (Unachieved)';
+
 		trophyDescription.text = entry_relations.get(entries[currentSelection])[2];
 
 		for (video in videos)
@@ -135,11 +143,6 @@ class TrophiesMenuState extends EnboState
 					video.restartVideo();
 				else
 					video.pauseVideo();
-
-				if (Paycheck.game.trophies.contains(getTrophyID(video.ID)))
-					video.shader = null;
-				else
-					video.shader = grayscaleShader;
 			}
 		}
 	}
