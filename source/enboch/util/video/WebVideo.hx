@@ -43,6 +43,8 @@ class WebVideo extends FlxBasic
 	{
 		super();
 
+		VideoManager.initSettings(settings);
+
 		this.settings = settings;
 
 		if (!settings.actuallyLoad)

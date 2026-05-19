@@ -20,6 +20,8 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	{
 		super();
 
+		VideoManager.initSettings(settings);
+
 		this.settings = settings;
 
 		if (!settings.actuallyLoad)
@@ -60,8 +62,27 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 		if (video != null)
 		{
-			if (settings.instaStart != false)
-				startVideoFirstTime();
+			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]))
+			{
+				if (!settings.instaStart)
+					return;
+
+				if (video.play())
+				{
+					if (settings.onPlay != null)
+						settings.onPlay();
+
+					trace('PLAYING');
+				}
+			}
+			else
+			{
+				if (settings.onPlayError != null)
+					settings.onPlayError('COULDNT_PLAY');
+				trace('COULDNT_PLAY');
+
+				finishVideo();
+			}
 		}
 		else
 		{
@@ -82,35 +103,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 	public function startVideo()
 	{
-		if (!loadedVideo)
-			startVideoFirstTime();
-		else
-			video.play();
-	}
-
-	var loadedVideo:Bool = false;
-
-	function startVideoFirstTime()
-	{
-		loadedVideo = true;
-
-		if (settings.filePath != null
-			&& video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((settings.shouldLoop == false) ? '1' : '65545')])
-			&& video.play())
-		{
-			if (settings.onPlay != null)
-				settings.onPlay();
-
-			trace('PLAYING');
-		}
-		else
-		{
-			if (settings.onPlayError != null)
-				settings.onPlayError('COULDNT_PLAY');
-			trace('COULDNT_PLAY');
-
-			finishVideo();
-		}
+		video.play();
 	}
 
 	public function finishVideo()

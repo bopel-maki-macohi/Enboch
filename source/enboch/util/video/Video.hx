@@ -17,12 +17,14 @@ class Video extends flixel.FlxSprite
 
 		trace('NOT HXVLC OR WEB');
 
+		VideoManager.initSettings(a);
+		settings = a;
+
 		if (a.onPlay != null)
 			a.onPlay();
 
 		visible = false;
 
-		settings = a;
 	}
 
 	public function startVideo() {}
