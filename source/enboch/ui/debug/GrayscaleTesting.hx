@@ -7,7 +7,7 @@ import flixel.tweens.FlxTween;
 
 class GrayscaleTesting extends EnboState
 {
-	var sprite:FlxSprite = new FlxSprite(0, 0, 'characters/drowned/char-phrase0');
+	var sprite:FlxSprite = new FlxSprite(0, 0, 'characters/drowned/char-phrase0'.makePath(image));
 
 	var shader:GrayscaleShader = new GrayscaleShader(0);
 
