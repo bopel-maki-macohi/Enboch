@@ -22,6 +22,7 @@ class TrophiesMenuState extends EnboState
 				videos.push(new Video({
 					filePath: 'trophies_$entry',
 					killOnEnd: false,
+                    instaStart: false,
 				}));
 			}
 		}
@@ -32,5 +33,6 @@ class TrophiesMenuState extends EnboState
 		super.create();
 
 		add(videos[0]);
+        videos[0].startVideo();
 	}
 }

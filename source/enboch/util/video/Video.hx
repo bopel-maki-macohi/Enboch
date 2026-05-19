@@ -20,5 +20,9 @@ class Video extends flixel.FlxSprite
 
 		visible = false;
 	}
+
+	public function playVideo() {}
+
+	public function finishVideo() {}
 }
 #end

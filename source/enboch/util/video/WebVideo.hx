@@ -72,7 +72,8 @@ class WebVideo extends FlxBasic
 		netStream.client = {onMetaData: onMeta};
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 
-		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+		if (settings.instaStart != false)
+			playVideo();
 
 		if (settings.shouldLoop)
 		{
@@ -83,6 +84,11 @@ class WebVideo extends FlxBasic
 			}
 			#end
 		}
+	}
+
+	public function playVideo()
+	{
+		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	function onMeta(data:Dynamic)
