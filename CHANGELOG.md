@@ -6,7 +6,9 @@
   - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
   - Added Toggle for the Screenshot Flash
+
 - **NEW** (kinda) MAIN MENU!
+  - Added "Clear Save" selection
 
 ## Changed
 
@@ -14,6 +16,7 @@
 
 ## Fixed
 
+- The save is now flushed on leaving
 - Leaving Gameplay sends you to the level select
 
 # 0.2.2 - 5/17/2026

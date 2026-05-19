@@ -25,6 +25,7 @@ class MainMenuState extends EnboState
 		'Levels',
 		'Options',
 		'',
+		'Clear Save',
 		((GamejoltAPI.authenticated) ? 'GJ Logout' : 'GJ Login'),
 	];
 
@@ -228,6 +229,8 @@ class MainMenuState extends EnboState
 						}
 					}
 				});
+
+			case 'clear save': Paycheck.clear();
 
 			case 'gj login': FlxG.switchState(() -> new GamejoltLoginState());
 

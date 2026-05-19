@@ -33,7 +33,9 @@ class Paycheck
 	public static var totalPay:Int = 0;
 	public static var earned:Int = 0;
 
-	public static var game:PaycheckData = {
+	public static var game:PaycheckData = null;
+
+	public static final defaultGameData:PaycheckData = {
 		totalPay: 0,
 		keybinds: [],
 		firstTime: true,
@@ -60,6 +62,9 @@ class Paycheck
 	{
 		FlxG.save.bind('EndlessRobotWatcher', 'Maki');
 
+		if (game == null)
+			game = defaultGameData;
+
 		if (FlxG.save.data.game == null)
 			FlxG.save.data.game = game;
 		else
@@ -85,6 +90,17 @@ class Paycheck
 		}, false, 1000);
 	}
 
+	public static function clear()
+	{
+		save();
+		FlxG.save.erase();
+	
+		game = null;
+		load();
+
+		FlxG.resetGame();
+	}
+
 	public static function save()
 	{
 		var keybinds:Map<String, Array<String>> = [];
@@ -106,6 +122,8 @@ class Paycheck
 		};
 
 		FlxG.save.data.game = game;
+		FlxG.save.flush();
+
 		trace(stringGameData());
 	}
 
