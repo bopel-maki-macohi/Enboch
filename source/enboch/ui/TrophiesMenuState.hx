@@ -1,11 +1,14 @@
 package enboch.ui;
 
 import enboch.util.EnboState;
+import enboch.util.controls.Controls;
 import enboch.util.video.Video;
+import flixel.FlxG;
+import flixel.math.FlxMath;
 
 class TrophiesMenuState extends EnboState
 {
-	var entries:Array<String> = ['drowned'];
+	var entries:Array<String> = ['drowned', 'drowned'];
 
 	public static var videos:Array<Video> = null;
 
@@ -40,7 +43,30 @@ class TrophiesMenuState extends EnboState
 		changeSelection(0);
 	}
 
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		for (video in videos)
+		{
+			video.alpha = FlxMath.lerp(video.alpha, (currentSelection == video.ID) ? 1 : 0, 0.1);
+			video.screenCenter();
+		}
+
+		if (Controls.ui_left.justPressed && canDoShit)
+			changeSelection(-1);
+		if (Controls.ui_right.justPressed && canDoShit)
+			changeSelection(1);
+		
+		if (Controls.leave.justPressed && canDoShit)
+		{
+			canDoShit = false;
+			FlxG.switchState(() -> new MainMenuState());
+		}
+	}
+
 	var currentSelection:Int = 0;
+	var canDoShit:Bool = true;
 
 	function changeSelection(amount:Int)
 	{
