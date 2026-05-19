@@ -53,8 +53,8 @@ class TrophiesMenuState extends EnboState
 
 		addMultiple(cast videos);
 
-		trophyTitle = new FlxText();
-		trophyDescription = new FlxText();
+		trophyTitle = new FlxText(0, 0, 0, '', 32);
+		trophyDescription = new FlxText(0, 0, 0, '', 16);
 
 		addMultiple([trophyTitle, trophyDescription]);
 
@@ -64,7 +64,7 @@ class TrophiesMenuState extends EnboState
 	public var trophyID(get, never):Int;
 
 	function get_trophyID():Int
-		return Std.parseInt(entry_relations.get(entries[currentSelection])[1] ?? '0');
+		return Std.parseInt(entry_relations.get(entries[currentSelection])[0] ?? '0');
 
 	var trophyTitle:FlxText;
 	var trophyDescription:FlxText;
@@ -89,6 +89,12 @@ class TrophiesMenuState extends EnboState
 			canDoShit = false;
 			FlxG.switchState(() -> new MainMenuState());
 		}
+
+		trophyTitle.screenCenter();
+
+		trophyDescription.screenCenter();
+		trophyDescription.y = FlxG.height - trophyDescription.height;
+		trophyTitle.y = trophyDescription.y - trophyTitle.height;
 	}
 
 	var currentSelection:Int = 0;
@@ -102,6 +108,9 @@ class TrophiesMenuState extends EnboState
 			currentSelection = videos.length - 1;
 		if (currentSelection > videos.length - 1)
 			currentSelection = 0;
+
+		trophyTitle.text = entry_relations.get(entries[currentSelection])[1];
+		trophyDescription.text = entry_relations.get(entries[currentSelection])[2];
 
 		for (video in videos)
 		{
