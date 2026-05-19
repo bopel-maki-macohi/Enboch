@@ -70,17 +70,30 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 		}
 	}
 
+	override function destroy()
+	{
+		super.destroy();
+
+		if (netStream != null)
+			netStream.dispose();
+
+		if (video != null && FlxG.game.contains(video))
+			FlxG.game.removeChild(video);
+	}
+
 	public function startVideo()
 	{
-		if (netStream == null) return;
-		
+		if (netStream == null)
+			return;
+
 		VideoManager.onVideoStart.dispatch();
 		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
-		if (netStream == null) return;
+		if (netStream == null)
+			return;
 
 		VideoManager.onVideoRestart.dispatch();
 		netStream.seek(0);
@@ -88,7 +101,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function pauseVideo()
 	{
-		if (netStream == null) return;
+		if (netStream == null)
+			return;
 
 		VideoManager.onVideoPaused.dispatch();
 		netStream.pause();
@@ -96,7 +110,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function resumeVideo()
 	{
-		if (netStream == null) return;
+		if (netStream == null)
+			return;
 
 		VideoManager.onVideoResume.dispatch();
 		netStream.resume();
@@ -104,6 +119,9 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function finishVideo()
 	{
+		if (netStream == null)
+			return;
+
 		if (settings.shouldLoop)
 			return;
 
@@ -114,8 +132,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		netStream.dispose();
 
-		if (video != null)
-			FlxG.stage.removeChild(video);
+		if (video != null && FlxG.game.contains(video))
+			FlxG.game.removeChild(video);
 	}
 
 	var videoAvailable:Bool = false;
