@@ -130,7 +130,7 @@ class OptionsMenuState extends EnboState
 				});
 			}
 
-			FlxTimer.wait((1 + [for (key in entries.keys()) key].length * .1), () ->
+			FlxTimer.wait((.1 + [for (key in entries.keys()) key].length * .1), () ->
 			{
 				transOut = null;
 				FlxG.switchState(() -> new MainMenuState());

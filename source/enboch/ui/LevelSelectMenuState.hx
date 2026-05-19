@@ -27,6 +27,8 @@ class LevelSelectMenuState extends EnboState
 
 	override function create()
 	{
+		transIn = null;
+
 		super.create();
 
 		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
@@ -65,6 +67,11 @@ class LevelSelectMenuState extends EnboState
 		add(swagShitMoneyMoney);
 
 		swagShitMoneyMoney.screenCenter(X);
+		swagShitMoneyMoney.alpha = 0;
+
+		FlxTween.tween(swagShitMoneyMoney, {alpha: 1}, (1 + entries.length * .1), {
+			ease: FlxEase.sineInOut,
+		});
 
 		changeSelect(0);
 	}
@@ -103,9 +110,13 @@ class LevelSelectMenuState extends EnboState
 				});
 			}
 
-			FlxTimer.wait((1 + entries.length * .1), () ->
-			{
-				FlxG.switchState(() -> new MainMenuState());
+			FlxTween.tween(swagShitMoneyMoney, {alpha: 0}, (1 + entries.length * .1), {
+				ease: FlxEase.sineInOut,
+				onComplete: t ->
+				{
+					transOut = null;
+					FlxG.switchState(() -> new MainMenuState());
+				}
 			});
 		}
 

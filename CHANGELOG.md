@@ -8,6 +8,7 @@
   - Added Toggle for the Screenshot Flash
 
 - **NEW** (kinda) MAIN MENU!
+  - Main Menu to Level Select transitions are faster now
   - Added "Clear Save" selection
 
 ## Changed

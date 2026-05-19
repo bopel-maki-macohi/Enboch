@@ -222,9 +222,11 @@ class MainMenuState extends EnboState
 						switch (selection.toLowerCase())
 						{
 							case 'options':
+								transOut = null;
 								FlxG.switchState(() -> new OptionsMenuState());
 
 							default:
+								transOut = null;
 								FlxG.switchState(() -> new LevelSelectMenuState());
 						}
 					}
