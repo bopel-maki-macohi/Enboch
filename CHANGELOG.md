@@ -2,6 +2,7 @@
 
 ## Added
 
+- OPTIONS MENU!
 - **NEW** (kinda) MAIN MENU!
 
 ## Fixed
