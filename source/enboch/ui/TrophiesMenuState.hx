@@ -49,7 +49,7 @@ class TrophiesMenuState extends EnboState
 		{
 			if (currentSelection == video.ID)
 			{
-				videos[currentSelection].startVideo();
+				videos[currentSelection].restartVideo();
 			}
 		}
 	}
