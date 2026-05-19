@@ -15,6 +15,8 @@ class Video extends flixel.FlxSprite
 
 		if (a.onPlay != null)
 			a.onPlay();
+
+		visible = false;
 	}
 }
 #end

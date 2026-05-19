@@ -9,12 +9,7 @@ import hxvlc.flixel.FlxVideoSprite;
 
 class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 {
-	override function set_alpha(Value:Float):Float
-	{
-		return super.set_alpha(Value);
-	}
-
-	public var looping:Bool = false;
+	public var settings:VideoSettings;
 
 	#if hxvlc
 	var video:FlxVideoSprite;
@@ -24,7 +19,16 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	{
 		super();
 
-		this.looping = settings.shouldLoop;
+		this.settings = settings;
+
+		if (!settings.actuallyLoad)
+		{
+			if (settings.onPlay != null)
+				settings.onPlay();
+
+			finishVideo();
+			return;
+		}
 
 		#if hxvlc
 		video = new FlxVideoSprite(0, 0);
@@ -92,7 +96,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	function finishVideo()
 	{
 		#if hxvlc
-		if (looping)
+		if (settings.shouldLoop)
 		{
 			video.play();
 			return;

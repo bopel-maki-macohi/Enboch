@@ -3,7 +3,6 @@ import enboch.ui.debug.*;
 import enboch.utilShitsie.*;
 import enboch.utilShitsie.api.GamejoltAPI;
 import enboch.utilShitsie.api.trophies.Trophies;
-import enboch.utilShitsie.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.addons.transition.FlxTransitionableState;
@@ -89,9 +88,6 @@ class InitState extends FlxGame
 			27 => Trophies.DAYCYCLE_TWENTY_SEVEN,
 			28 => null,
 		];
-
-		for (control in Controls.keys)
-			control.loadFromSave();
 
 		GamejoltAPI.init(authed ->
 		{

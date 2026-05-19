@@ -34,8 +34,20 @@ class WebVideo extends FlxBasic
 	{
 		super();
 
+		this.settings = settings;
+
 		vid = new Video();
 		vid.x = vid.y = 0;
+
+		if (!settings.actuallyLoad)
+		{
+			if (settings.onPlay != null)
+				settings.onPlay();
+
+			finishVideo();
+			return;
+		}
+
 		if (settings?.web_back ?? true)
 		{
 			trace('Dont forget `FlxG.camera.bgColor.alpha`');
@@ -62,8 +74,6 @@ class WebVideo extends FlxBasic
 			}
 			#end
 		}
-
-		this.settings = settings;
 	}
 
 	function onMeta(data:Dynamic)

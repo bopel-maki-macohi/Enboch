@@ -17,16 +17,24 @@ class OptionsMenuState extends EnboState
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
 	var entries:Map<String, Void->Void> = [
-		'Screenshot Flash' => function()
+		'screenshotFlash' => function()
 		{
 			Paycheck.game.settings.screenshotFlash = !Paycheck.game.settings.screenshotFlash;
+		},
+		'menuBGVideo' => function()
+		{
+			Paycheck.game.settings.menuBG = !Paycheck.game.settings.menuBG;
 		},
 	];
 
 	var entryTexts:Map<String, Void->String> = [
-		'Screenshot Flash' => function()
+		'screenshotFlash' => function()
 		{
 			return 'Screenshot Flash (${(Paycheck.game.settings.screenshotFlash) ? 'On' : 'Off'})';
+		},
+		'menuBGVideo' => function()
+		{
+			return 'Menu BG Video (${(Paycheck.game.settings.menuBG) ? 'On' : 'Off'})';
 		},
 	];
 

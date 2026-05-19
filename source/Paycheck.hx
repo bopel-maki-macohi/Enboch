@@ -24,6 +24,7 @@ typedef PaycheckData =
 typedef PaycheckSettingsData =
 {
 	?screenshotFlash:Null<Bool>,
+	?menuBG:Null<Bool>,
 }
 
 class Paycheck
@@ -33,7 +34,7 @@ class Paycheck
 
 	public static var game:PaycheckData = {
 		totalPay: 0,
-		keybinds: ['accept' => ['ENTER'], 'screenshot' => ['F3'],],
+		keybinds: [],
 		firstTime: true,
 		trophies: [],
 		gj_username: null,
@@ -67,8 +68,14 @@ class Paycheck
 
 		trace(stringGameData());
 
+		game.keybinds ??= [];
+
+		for (control in Controls.keys)
+			control.loadFromSave();
+
 		game.settings ??= {};
 		game.settings.screenshotFlash ??= true;
+		game.settings.menuBG ??= true;
 
 		totalPay = game.totalPay;
 

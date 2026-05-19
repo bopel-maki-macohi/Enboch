@@ -59,8 +59,13 @@ class MainMenuState extends EnboState
 		video = new Video({
 			filePath: 'menuBG',
 			shouldLoop: true,
+
+			actuallyLoad: Paycheck.game.settings.menuBG,
 		});
-		add(video);
+
+		if (Paycheck.game.settings.menuBG)
+			add(video);
+
 		video.scrollFactor.set();
 
 		#if web
