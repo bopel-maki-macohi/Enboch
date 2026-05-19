@@ -1,49 +1,37 @@
 package enboch.util.video;
 
 import enboch.data.VideoSettings;
-import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.math.FlxPoint;
+import flixel.FlxSprite;
+import flixel.util.FlxColor;
 import openfl.events.NetStatusEvent;
+import openfl.media.SoundTransform;
 import openfl.media.Video;
 import openfl.net.NetConnection;
 import openfl.net.NetStream;
 
-class WebVideo extends FlxBasic
+class WebVideo extends FlxSprite implements IVideo<Video>
 {
 	public var video:Video;
+	public var settings:VideoSettings;
 
 	var netStream:NetStream;
 
-	public var alpha(get, set):Float;
-
-	var _alpha:Float = 1.0;
-
-	function get_alpha():Float
+	override function set_alpha(alpha:Float):Float
 	{
-		if (video == null)
-			return _alpha;
+		if (video != null)
+			video.alpha = alpha;
 
-		return video.alpha;
+		return this.alpha;
 	}
-
-	function set_alpha(alpha:Float):Float
-	{
-		if (video == null)
-			return _alpha = alpha;
-
-		return video.alpha = alpha;
-	}
-
-	public var scrollFactor:FlxPoint = new FlxPoint();
-
-	var settings:VideoSettings;
 
 	public function new(settings:VideoSettings)
 	{
 		super();
 
 		this.settings = settings;
+
+		makeGraphic(2, 2, FlxColor.TRANSPARENT);
 
 		if (!settings.actuallyLoad)
 		{
@@ -56,14 +44,9 @@ class WebVideo extends FlxBasic
 
 		video = new Video();
 		video.x = video.y = 0;
+		video.alpha = 0;
 
-		if (settings?.web_back ?? true)
-		{
-			trace('Dont forget `FlxG.camera.bgColor.alpha`');
-			FlxG.stage.addChildAt(video, 0);
-		}
-		else
-			FlxG.stage.addChild(video);
+		FlxG.game.addChild(video);
 
 		var netConnection:NetConnection = new NetConnection();
 		netConnection.connect(null);
@@ -85,6 +68,65 @@ class WebVideo extends FlxBasic
 		}
 	}
 
+	public function startVideo()
+	{
+		if (netStream != null)
+			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+	}
+
+	public function restartVideo()
+	{
+		if (netStream != null)
+			netStream.seek(0);
+	}
+
+	public function pauseVideo()
+	{
+		if (netStream != null)
+			netStream.pause();
+	}
+
+	public function resumeVideo()
+	{
+		if (netStream != null)
+			netStream.resume();
+	}
+
+	public function finishVideo()
+	{
+		if (settings.shouldLoop)
+			return;
+
+		if (!settings.killOnEnd)
+			return;
+
+		netStream.dispose();
+
+		if (video != null)
+			FlxG.stage.removeChild(video);
+	}
+
+	var videoAvailable:Bool = false;
+	var frameTimer:Float = 0;
+
+	static final FRAME_RATE:Float = 60;
+
+	public override function update(elapsed:Float):Void
+	{
+		super.update(elapsed);
+
+		if (frameTimer >= (1 / FRAME_RATE))
+		{
+			frameTimer = 0;
+			// TODO: We just draw the video buffer to the sprite 60 times a second.
+			// Can we copy the video buffer instead somehow?
+			pixels.draw(video);
+		}
+
+		if (videoAvailable)
+			frameTimer += elapsed;
+	}
+
 	function onMeta(data:Dynamic)
 	{
 		if (video == null)
@@ -92,8 +134,20 @@ class WebVideo extends FlxBasic
 
 		video.attachNetStream(netStream);
 
+		videoAvailable = true;
+
 		video.width = FlxG.width;
 		video.height = FlxG.height;
+
+		FlxG.sound.onVolumeChange.add(onVolumeChanged);
+		onVolumeChanged(FlxG.sound.muted ? 0 : FlxG.sound.volume);
+
+		makeGraphic(Std.int(video.width), Std.int(video.height), FlxColor.TRANSPARENT);
+	}
+
+	function onVolumeChanged(volume:Float):Void
+	{
+		netStream.soundTransform = new SoundTransform(volume);
 	}
 
 	function onNetStatus(event:NetStatusEvent)
@@ -108,16 +162,5 @@ class WebVideo extends FlxBasic
 
 			case 'NetStream.Play.Complete': finishVideo();
 		}
-	}
-
-	public function finishVideo()
-	{
-		if (settings.shouldLoop)
-			return;
-
-		netStream.dispose();
-
-		if (video != null)
-			FlxG.stage.removeChild(video);
 	}
 }

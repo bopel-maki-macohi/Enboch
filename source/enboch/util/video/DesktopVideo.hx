@@ -94,7 +94,18 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		#end
 	}
 
-	function finishVideo()
+	public function startVideo()
+	{
+		video.play();
+	}
+
+	public function restartVideo()
+	{
+		video.bitmap.time = 0;
+		video.resume();
+	}
+
+	public function finishVideo()
 	{
 		#if hxvlc
 		if (video == null)
@@ -102,7 +113,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 		if (settings.shouldLoop)
 		{
-			video.play();
+			restartVideo();
 			return;
 		}
 
