@@ -223,7 +223,7 @@ class MainMenuState extends EnboState
 						transOut = null;
 						switch (selection.toLowerCase())
 						{
-							case 'trophies': FlxG.switchState(() -> new OptionsMenuState());
+							case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
 
 							case 'options': FlxG.switchState(() -> new OptionsMenuState());
 
