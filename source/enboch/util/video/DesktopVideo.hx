@@ -25,8 +25,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		if (!settings.actuallyLoad)
 		{
-			if (settings.onPlay != null)
-				settings.onPlay();
+			VideoManager.onVideoPlay.dispatch(this);
 
 			finishVideo();
 			return;
@@ -61,21 +60,17 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		if (video != null)
 		{
-			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '0' : '65545')]))
+			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')]))
 			{
 				if (!settings.instaStart)
 					return;
 
 				if (video.play())
-				{
-					if (settings.onPlay != null)
-						settings.onPlay();
-				}
+					VideoManager.onVideoPlay.dispatch(this);
 			}
 			else
 			{
-				if (settings.onPlayError != null)
-					settings.onPlayError('COULDNT_PLAY');
+				VideoManager.onVideoPlayError.dispatch(this, 'COULDNT_PLAY');
 				trace('COULDNT_PLAY');
 
 				finishVideo();
@@ -83,15 +78,13 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		}
 		else
 		{
-			if (settings.onPlayError != null)
-				settings.onPlayError('NULL_VIDEO');
+			VideoManager.onVideoPlayError.dispatch(this, 'NULL_VIDEO');
 			trace('NULL_VIDEO');
 
 			finishVideo();
 		}
 		#else
-		if (settings.onPlayError != null)
-			settings.onPlayError('NOT_HXVLC');
+		VideoManager.onVideoPlayError.dispatch(this, 'NOT_HXVLC');
 		trace('NOT_HXVLC');
 
 		finishVideo();

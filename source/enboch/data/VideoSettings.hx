@@ -9,8 +9,5 @@ typedef VideoSettings =
 	?killOnEnd:Bool,
 	?instaStart:Bool,
 
-	?onPlay:Void->Void,
-	?onPlayError:String->Void,
-
 	?web_back:Bool,
 }
