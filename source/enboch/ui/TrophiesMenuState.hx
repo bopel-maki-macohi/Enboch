@@ -123,10 +123,14 @@ class TrophiesMenuState extends EnboState
 
 		for (video in videos)
 		{
-			if (currentSelection == video.ID)
-				video.restartVideo();
+			if (web) {}
 			else
-				video.pauseVideo();
+			{
+				if (currentSelection == video.ID)
+					video.restartVideo();
+				else
+					video.pauseVideo();
+			}
 		}
 	}
 }
