@@ -16,6 +16,8 @@
 
 ## Changed
 
+- Sized down level select menu text
+
 - There are different base payments per character
   - Guardian: $100
   - Skeleton: $75
