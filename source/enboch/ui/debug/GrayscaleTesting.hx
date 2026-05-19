@@ -9,7 +9,7 @@ class GrayscaleTesting extends EnboState
 {
 	var sprite:FlxSprite = new FlxSprite(0, 0, 'characters/drowned/char-phase0'.makePath(image));
 
-	var shader:GrayscaleShader = new GrayscaleShader(0);
+	var shader:GrayscaleShader = new GrayscaleShader();
 
 	override function create()
 	{
@@ -18,7 +18,5 @@ class GrayscaleTesting extends EnboState
 		sprite.screenCenter();
 		add(sprite);
 		sprite.shader = shader;
-
-		FlxTween.tween(shader, {brightnessThreshold: 1}, 1, {type: PINGPONG});
 	}
 }
