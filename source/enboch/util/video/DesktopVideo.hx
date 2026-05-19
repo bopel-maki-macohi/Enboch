@@ -53,6 +53,12 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		video.screenCenter();
 		add(video);
 
+		video.bitmap.onOpening.add(function():Void
+		{
+			if (video.bitmap != null)
+				video.bitmap.rate = settings.playbackRate;
+		});
+
 		video.bitmap.onEncounteredError.add(function(msg:String):Void
 		{
 			trace('Video error: $msg');

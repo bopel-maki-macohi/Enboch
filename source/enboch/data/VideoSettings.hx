@@ -9,4 +9,6 @@ typedef VideoSettings =
 	?killOnEnd:Bool,
 	?instaStart:Bool,
 	?persist:Bool,
+
+	?playbackRate:Float,
 }

@@ -27,5 +27,7 @@ class VideoManager
 		settings.killOnEnd ??= true;
 		settings.shouldLoop ??= false;
 		settings.persist ??= false;
+
+		settings.playbackRate ??= 1.0;
 	}
 }

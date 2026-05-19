@@ -62,6 +62,8 @@ class MainMenuState extends EnboState
 			shouldLoop: true,
 
 			actuallyLoad: Paycheck.game.settings.menuBGVideo,
+
+			playbackRate: 0.5,
 		});
 
 		if (video.video != null)

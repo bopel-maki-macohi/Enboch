@@ -57,6 +57,13 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 			}
 			#end
 		}
+
+		#if (js && html5)
+		@:privateAccess {
+			if (netStream?.__video != null)
+				netStream.__video.playbackRate = settings.playbackRate;
+		}
+		#end
 	}
 
 	override function destroy()
