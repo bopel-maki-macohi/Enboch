@@ -23,12 +23,12 @@ class VideoCacheState extends EnboState
 
 		var toCache:Array<String> = [];
 
-		for (file in ''.makePath(video).withoutExtension().readDirectory())
+		for (file in ''.makePath(video).withoutExtension().readDirectoryRecursive())
 		{
 			if (file.extension() == 'mp4')
 			{
 				totalFiles++;
-				toCache.push(file.withoutDirectory().withoutExtension());
+				toCache.push(file.withoutExtension().replace(''.makePath(video).withoutExtension(), ''));
 				trace(file);
 			}
 		}

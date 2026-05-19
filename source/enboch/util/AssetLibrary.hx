@@ -50,6 +50,29 @@ class AssetLibrary
 		return limeFuck.length > 0;
 	}
 
+	public static function readDirectoryRecursive(directory:String):Array<String>
+	{
+		if (!pathExists(directory))
+			return [];
+
+		#if sys
+		var f = [];
+
+		for (file in readDirectory(directory))
+		{
+			if (FileSystem.isDirectory(file))
+				for (sf in readDirectoryRecursive(file))
+					f.push(sf);
+			else
+				f.push(file);
+		}
+
+		return f;
+		#end
+
+		return readDirectory(directory);
+	}
+
 	public static function readDirectory(directory:String):Array<String>
 	{
 		if (!pathExists(directory))

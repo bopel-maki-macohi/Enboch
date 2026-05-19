@@ -9,4 +9,5 @@ import sys.FileSystem;
 import sys.io.File;
 #end
 
+using StringTools;
 using enboch.util.AssetLibrary;
