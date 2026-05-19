@@ -17,7 +17,7 @@ class LevelSelectMenuState extends EnboState
 {
 	public var textGrp:FlxTypedSpriteGroup<FlxText>;
 
-	var entries:Array<String> = ['Drowned', 'Skeleton', 'Guardian', 'Husk', 'Phantom'];
+	var entries:Array<String> = 'ui/levelselect/entries'.makePath(text).readFile().splitTextBy();
 
 	var camFollow:FlxObject;
 
