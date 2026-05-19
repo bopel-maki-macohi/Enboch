@@ -90,10 +90,14 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		return video.load(settings.filePath.makePath(AssetLibraryPathType.video), opts);
 	}
 
+	var videoScaledUp:Bool = false;
+
 	function videoFormatSetup()
 	{
 		if (video.bitmap != null && video.bitmap.bitmapData != null)
 		{
+			videoScaledUp = true;
+
 			final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
 
 			video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
@@ -106,9 +110,6 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 	{
 		if (video == null)
 			return false;
-
-		if (!video.bitmap.onFormatSetup.has(videoFormatSetup))
-			video.bitmap.onFormatSetup.add(videoFormatSetup);
 
 		return video.play();
 	}
@@ -185,4 +186,15 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		super.destroy();
 	}
 	#end
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		#if hxvlc
+		if (video != null)
+			if (!videoScaledUp)
+				videoFormatSetup();
+		#end
+	}
 }
