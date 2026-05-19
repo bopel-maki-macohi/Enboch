@@ -27,6 +27,7 @@ class VideoCacheState extends EnboState
 			{
 				totalFiles++;
 				toCache.push(file.withoutDirectory().withoutExtension());
+				trace(file);
 			}
 		}
 
@@ -37,7 +38,6 @@ class VideoCacheState extends EnboState
 				filePath: file,
 				onPlay: function()
 				{
-					add(vid);
 					onFilePlay(file);
 				},
 				onPlayError: function(e)
@@ -47,8 +47,7 @@ class VideoCacheState extends EnboState
 				},
 			});
 			vid.alpha = 1 / totalFiles;
-
-			trace(file);
+			add(vid);
 		}
 
 		cachin.alignment = CENTER;
