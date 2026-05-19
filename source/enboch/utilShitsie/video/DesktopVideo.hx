@@ -12,7 +12,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	public var settings:VideoSettings;
 
 	#if hxvlc
-	var video:FlxVideoSprite;
+	public var video:FlxVideoSprite;
 	#end
 
 	public function new(settings:VideoSettings)

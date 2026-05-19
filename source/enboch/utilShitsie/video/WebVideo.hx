@@ -10,20 +10,28 @@ import openfl.net.NetStream;
 
 class WebVideo extends FlxBasic
 {
-	var vid:Video;
+	public var video:Video;
 
 	var netStream:NetStream;
 
 	public var alpha(get, set):Float;
 
+	var _alpha:Float = 1.0;
+
 	function get_alpha():Float
 	{
-		return vid.alpha;
+		if (video == null)
+			return _alpha;
+
+		return video.alpha;
 	}
 
 	function set_alpha(alpha:Float):Float
 	{
-		return vid.alpha = alpha;
+		if (video == null)
+			return _alpha = alpha;
+
+		return video.alpha = alpha;
 	}
 
 	public var scrollFactor:FlxPoint = new FlxPoint();
@@ -36,9 +44,6 @@ class WebVideo extends FlxBasic
 
 		this.settings = settings;
 
-		vid = new Video();
-		vid.x = vid.y = 0;
-
 		if (!settings.actuallyLoad)
 		{
 			if (settings.onPlay != null)
@@ -48,13 +53,16 @@ class WebVideo extends FlxBasic
 			return;
 		}
 
+		video = new Video();
+		video.x = video.y = 0;
+
 		if (settings?.web_back ?? true)
 		{
 			trace('Dont forget `FlxG.camera.bgColor.alpha`');
-			FlxG.stage.addChildAt(vid, 0);
+			FlxG.stage.addChildAt(video, 0);
 		}
 		else
-			FlxG.stage.addChild(vid);
+			FlxG.stage.addChild(video);
 
 		var netConnection:NetConnection = new NetConnection();
 		netConnection.connect(null);
@@ -63,7 +71,7 @@ class WebVideo extends FlxBasic
 		netStream.client = {onMetaData: onMeta};
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 
-		netStream.play(settings.filePath.makePath(video));
+		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 
 		if (settings.shouldLoop)
 		{
@@ -78,10 +86,13 @@ class WebVideo extends FlxBasic
 
 	function onMeta(data:Dynamic)
 	{
-		vid.attachNetStream(netStream);
+		if (video == null)
+			return;
 
-		vid.width = FlxG.width;
-		vid.height = FlxG.height;
+		video.attachNetStream(netStream);
+
+		video.width = FlxG.width;
+		video.height = FlxG.height;
 	}
 
 	function onNetStatus(event:NetStatusEvent)
@@ -104,6 +115,8 @@ class WebVideo extends FlxBasic
 			return;
 
 		netStream.dispose();
-		FlxG.stage.removeChild(vid);
+		
+		if (video != null)
+			FlxG.stage.removeChild(video);
 	}
 }

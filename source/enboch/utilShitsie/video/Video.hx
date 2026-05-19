@@ -7,6 +7,8 @@ typedef Video = WebVideo;
 #else
 class Video extends flixel.FlxSprite
 {
+	public var video:flixel.FlxSprite;
+
 	public function new(a:VideoSettings)
 	{
 		super();
