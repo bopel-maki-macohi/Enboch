@@ -122,6 +122,8 @@ class TrophiesMenuState extends EnboState
 			currentSelection = 0;
 
 		trophyTitle.text = entry_relations.get(entries[currentSelection])[1];
+		if (!Paycheck.game.trophies.contains(currentSelection))
+			trophyTitle.text += ' (Unachieved)';
 		trophyDescription.text = entry_relations.get(entries[currentSelection])[2];
 
 		for (video in videos)
