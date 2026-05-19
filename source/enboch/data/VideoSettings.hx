@@ -8,8 +8,5 @@ typedef VideoSettings =
 	?actuallyLoad:Bool,
 	?killOnEnd:Bool,
 
-	?onPlay:Void->Void,
-	?onPlayError:String->Void,
-
 	?web_back:Bool,
 }

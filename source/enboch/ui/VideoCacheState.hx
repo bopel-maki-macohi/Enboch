@@ -1,7 +1,9 @@
 package enboch.ui;
 
 import enboch.util.EnboState;
+import enboch.util.video.IVideo;
 import enboch.util.video.Video;
+import enboch.util.video.VideoManager;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.util.FlxTimer;
@@ -31,20 +33,14 @@ class VideoCacheState extends EnboState
 			}
 		}
 
+		VideoManager.onVideoPlay.add(v -> onFilePlay(v.settings.filePath));
+		VideoManager.onVideoPlayError.add((v, e) -> onFilePlayError);
+
 		for (file in toCache)
 		{
 			var vid:Video = null;
 			vid = new Video({
 				filePath: file,
-				onPlay: function()
-				{
-					onFilePlay(file);
-				},
-				onPlayError: function(e)
-				{
-					trace('$file : $e');
-					onFilePlay(file);
-				},
 			});
 			vid.alpha = 1 / totalFiles;
 			add(vid);
@@ -56,12 +52,24 @@ class VideoCacheState extends EnboState
 
 	var cachin:FlxText = new FlxText(0, 0, 0, 'Caching shit', 16);
 
+	var errorsStr:String = 'None';
+
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
 
-		cachin.text = 'Cachin shit\n\n${cached} / ${totalFiles}';
+		cachin.text = 'Cachin shit\n\n${cached} / ${totalFiles}\n\nErrors:\n${errorsStr}';
 		cachin.screenCenter();
+	}
+
+	function onFilePlayError(video:IVideo<Any>, error:String)
+	{
+		trace('Error with video "${video.settings.filePath}" : $error');
+		onFilePlay(video.settings.filePath);
+
+		if (errorsStr == 'None') errorsStr = '';
+
+		errorsStr += '- "${video.settings.filePath}" : $error\n';
 	}
 
 	function onFilePlay(file)

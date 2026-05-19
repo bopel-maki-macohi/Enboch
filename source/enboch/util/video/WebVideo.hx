@@ -35,8 +35,7 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		if (!settings.actuallyLoad)
 		{
-			if (settings.onPlay != null)
-				settings.onPlay();
+			VideoManager.onVideoPlay.dispatch(this);
 
 			finishVideo();
 			return;
@@ -167,8 +166,7 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 		switch (event.info.code)
 		{
 			case 'NetStream.Play.Start': //
-				if (settings.onPlay != null)
-					settings.onPlay();
+				VideoManager.onVideoPlay.dispatch(this);
 
 			case 'NetStream.Play.Complete': finishVideo();
 		}
