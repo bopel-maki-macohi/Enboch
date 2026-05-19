@@ -61,7 +61,7 @@ class MainMenuState extends EnboState
 			actuallyLoad: Paycheck.game.settings.menuBGVideo,
 		});
 
-		if (Paycheck.game.settings.menuBGVideo)
+		if (video.video != null)
 			add(video);
 
 		video.scrollFactor.set();
