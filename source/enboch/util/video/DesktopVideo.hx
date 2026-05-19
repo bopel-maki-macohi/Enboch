@@ -71,8 +71,6 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 				{
 					if (settings.onPlay != null)
 						settings.onPlay();
-
-					trace('PLAYING');
 				}
 			}
 			else
