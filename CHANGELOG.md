@@ -13,6 +13,11 @@
 
 ## Changed
 
+- There are different base payments per character
+  - Guardian: $100
+  - Skeleton: $75
+  - Drowned: $50
+
 - The UI Transitions are black now 
 
 ## Fixed

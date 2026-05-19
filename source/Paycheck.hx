@@ -107,9 +107,9 @@ class Paycheck
 		trace(stringGameData());
 	}
 
-	public static function getPayed(percentage:Float = 1)
+	public static function getPayed(basePay:Int, percentage:Float = 1)
 	{
-		var paycheck = Math.round(100 * percentage);
+		var paycheck = Math.round(basePay * percentage);
 
 		earned += paycheck;
 		totalPay += paycheck;
