@@ -20,7 +20,7 @@ class Main extends Sprite
 		trace('Git Commit: $gitCommit');
 		trace('Build Time: $buildTime');
 
-		if (debug)
+		if (debug || indev)
 			Application.current.window.title += ' ($buildTime)';
 
 		addChild(new InitState());

@@ -67,7 +67,8 @@ class VideoCacheState extends EnboState
 		trace('Error with video "${video.settings.filePath}" : $error');
 		onFilePlay(video.settings.filePath);
 
-		if (errorsStr == 'None') errorsStr = '';
+		if (errorsStr == 'None')
+			errorsStr = '';
 
 		errorsStr += '- "${video.settings.filePath}" : $error\n';
 	}
@@ -85,6 +86,9 @@ class VideoCacheState extends EnboState
 	function onDone()
 	{
 		initalized = true;
+
+		VideoManager.onVideoPlay.remove(v -> onFilePlay(v.settings.filePath));
+		VideoManager.onVideoPlayError.remove((v, e) -> onFilePlayError);
 
 		FlxTimer.wait(1, () ->
 		{
