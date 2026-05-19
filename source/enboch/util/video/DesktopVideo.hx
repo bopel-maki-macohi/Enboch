@@ -150,6 +150,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		if (settings.killOnEnd)
 		{
 			remove(video);
+
 			video.stop();
 			video.destroy();
 		}
@@ -157,14 +158,15 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 	override function destroy()
 	{
+		if (video != null)
+		{
+			remove(video);
+
+			video.stop();
+			video.destroy();
+		}
+
 		super.destroy();
-
-		if (video == null)
-			return;
-
-		remove(video);
-		video.stop();
-		video.destroy();
 	}
 	#end
 }
