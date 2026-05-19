@@ -1,6 +1,6 @@
 package enboch.game;
 
-class StateManager
+class GameStateManager
 {
 	public static function parseMovementCode(code:String, state:Int, jump:Bool):Int
 	{

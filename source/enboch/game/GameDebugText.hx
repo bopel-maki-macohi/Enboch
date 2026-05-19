@@ -4,7 +4,7 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxStringUtil;
 
-class DebugGameText extends FlxText
+class GameDebugText extends FlxText
 {
 	var game:PlayState;
 
