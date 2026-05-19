@@ -19,6 +19,7 @@ class AssetLibrary
 		audio => ['audio', #if web 'mp3' #else 'ogg' #end],
 		video => ['video', 'mp4'],
 		model => ['models', 'obj'],
+		text => [null, 'txt'],
 	];
 
 	public static function addPathType(type:String, folder:String, extension:String)
@@ -87,7 +88,24 @@ class AssetLibrary
 
 		return Assets.list().filter(p -> return p.startsWith('${Path.removeTrailingSlashes(directory)}/'));
 	}
+
+	public static function readFile(file:String):String
+	{
+		if (!pathExists(file))
+			return '';
+
+		#if sys
+		return File.getContent(file);
+		#end
+
+		return Assets.getText(file);
+	}
 	#end
+
+	public static function splitTextBy(text:String, splitter:String = '\n'):Array<String>
+	{
+		return [for (thing in text.split(splitter)) if (thing.trim().length > 0) thing.trim()];
+	}
 }
 
 enum abstract AssetLibraryPathType(String) from String to String
@@ -96,4 +114,5 @@ enum abstract AssetLibraryPathType(String) from String to String
 	var audio = 'audio';
 	var video = 'video';
 	var model = 'model';
+	var text = 'text';
 }

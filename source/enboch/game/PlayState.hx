@@ -196,7 +196,7 @@ class PlayState extends EnboState
 			if (payPercentage == 1 && config_trophy_fullpay != null)
 				config_trophy_fullpay.unlock();
 
-			Paycheck.getPayed(payPercentage);
+			Paycheck.getPayed(GameConfigSetter.getBasePay(character), payPercentage);
 		}
 	}
 
