@@ -145,11 +145,11 @@ class MainMenuState extends EnboState
 			}
 		}
 
-		if (Controls.ui_up.justPressed)
+		if (Controls.ui_up.justPressed && canSelect)
 			changeSelect(-1);
-		if (Controls.ui_down.justPressed)
+		if (Controls.ui_down.justPressed && canSelect)
 			changeSelect(1);
-		if (Controls.accept.justPressed)
+		if (Controls.accept.justPressed && canSelect)
 			selectThingy();
 	}
 
