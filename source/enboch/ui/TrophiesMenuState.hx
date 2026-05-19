@@ -17,13 +17,16 @@ class TrophiesMenuState extends EnboState
 		{
 			videos = [];
 
-			for (entry in entries)
+			for (i => entry in entries)
 			{
-				videos.push(new Video({
+				var vid:Video = new Video({
 					filePath: 'trophies_$entry',
 					killOnEnd: false,
-                    instaStart: false,
-				}));
+					instaStart: false,
+				});
+				vid.ID = i;
+
+				videos.push(vid);
 			}
 		}
 	}
@@ -32,7 +35,22 @@ class TrophiesMenuState extends EnboState
 	{
 		super.create();
 
-		add(videos[0]);
-        videos[0].startVideo();
+		for (video in videos)
+			add(video);
+
+		changeSelection(0);
+	}
+
+	var currentSelection:Int = 0;
+
+	function changeSelection(amount:Int)
+	{
+		for (video in videos)
+		{
+			if (currentSelection == video.ID)
+			{
+				videos[currentSelection].startVideo();
+			}
+		}
 	}
 }
