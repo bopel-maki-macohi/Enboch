@@ -85,8 +85,6 @@ class PlayState extends EnboState
 		for (i in 0...config_states - 1)
 			stateChangeChances.push([]);
 
-		var existingNumbers:Array<Int> = [];
-
 		for (i in 0...config_rng_maxNumber + 1)
 		{
 			if (i % getNumberRelativeToConfigStates(3) == 0)
