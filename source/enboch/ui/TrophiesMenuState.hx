@@ -28,6 +28,7 @@ class TrophiesMenuState extends EnboState
 				var vid:Video = new Video({
 					filePath: 'trophies/$entry',
 					killOnEnd: false,
+					persist: true,
 				});
 				vid.ID = i;
 				vid.alpha = 0;
