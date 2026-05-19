@@ -13,9 +13,10 @@ class Build
 
 		var aP:String = (date.getHours() >= 12) ? 'pm' : 'am';
 
-		time = '${date.getHours() % 12}:${date.getMinutes()}:'
+		time = '${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()} //'
+			+ ' ${date.getHours() % 12}:${date.getMinutes()}:'
 			+ '${date.getSeconds()}'.lpad('0', 2)
-			+ ' $aP (${date.getMonth() + 1}/${date.getDate() + 1}/${date.getFullYear()})';
+			+ ' $aP';
 		Context.info('Build Time: ${time}', Context.currentPos());
 
 		return macro $v{time};
