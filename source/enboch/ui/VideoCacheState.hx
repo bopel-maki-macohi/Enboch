@@ -1,7 +1,7 @@
 package enboch.ui;
 
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.video.Video;
+import enboch.util.EnboState;
+import enboch.util.video.Video;
 import flixel.FlxG;
 import flixel.text.FlxText;
 import flixel.util.FlxTimer;

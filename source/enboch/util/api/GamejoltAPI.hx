@@ -1,6 +1,6 @@
-package enboch.utilShitsie.api;
+package enboch.util.api;
 
-import enboch.macroShit.SecretDataFile;
+import enboch.util.macro.SecretDataFile;
 import flixel.FlxG;
 import flixel.addons.api.FlxGameJolt as API;
 import flixel.util.FlxTimer;

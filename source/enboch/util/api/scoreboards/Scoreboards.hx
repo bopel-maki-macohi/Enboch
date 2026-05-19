@@ -1,4 +1,4 @@
-package enboch.utilShitsie.api.scoreboards;
+package enboch.util.api.scoreboards;
 
 class Scoreboards
 {

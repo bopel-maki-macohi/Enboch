@@ -1,4 +1,4 @@
-package enboch.utilShitsie.api.trophies;
+package enboch.util.api.trophies;
 
 class Trophy
 {

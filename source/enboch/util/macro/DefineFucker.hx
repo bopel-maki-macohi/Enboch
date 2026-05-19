@@ -1,4 +1,4 @@
-package enboch.macroShit;
+package enboch.util.macro;
 
 import haxe.macro.Context;
 import haxe.macro.Expr.Field;

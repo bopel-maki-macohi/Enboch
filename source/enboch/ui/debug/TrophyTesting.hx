@@ -1,9 +1,9 @@
 package enboch.ui.debug;
 
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.api.trophies.Trophies;
-// import enboch.utilShitsie.api.trophies.TrophyToastHolder;
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.EnboState;
+import enboch.util.api.trophies.Trophies;
+// import enboch.util.api.trophies.TrophyToastHolder;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 

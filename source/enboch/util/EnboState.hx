@@ -1,4 +1,4 @@
-package enboch.utilShitsie;
+package enboch.util;
 
 import flixel.FlxBasic;
 import flixel.FlxG;

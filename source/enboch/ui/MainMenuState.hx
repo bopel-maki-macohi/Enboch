@@ -1,10 +1,10 @@
 package enboch.ui;
 
 import enboch.ui.objects.MainMenuButton;
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.api.GamejoltAPI;
-import enboch.utilShitsie.controls.Controls;
-import enboch.utilShitsie.video.*;
+import enboch.util.EnboState;
+import enboch.util.api.GamejoltAPI;
+import enboch.util.controls.Controls;
+import enboch.util.video.*;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.addons.transition.TransitionData;

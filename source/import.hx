@@ -2,11 +2,11 @@
 #if js
 import js.Browser.document;
 #end
-import enboch.utilShitsie.Define.*;
+import enboch.util.Define.*;
 #end
 #if sys
 import sys.FileSystem;
 import sys.io.File;
 #end
 
-using enboch.utilShitsie.AssetLibrary;
+using enboch.util.AssetLibrary;

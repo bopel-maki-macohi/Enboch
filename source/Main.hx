@@ -1,4 +1,4 @@
-import enboch.macroShit.GitShit;
+import enboch.util.macro.GitShit;
 import openfl.display.Sprite;
 
 class Main extends Sprite

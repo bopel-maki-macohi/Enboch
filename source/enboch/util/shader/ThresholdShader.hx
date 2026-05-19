@@ -1,4 +1,4 @@
-package enboch.shaderHell;
+package enboch.util.shader;
 
 import flixel.system.FlxAssets;
 

@@ -1,6 +1,6 @@
 package enboch.ui.debug;
 
-import enboch.utilShitsie.EnboState;
+import enboch.util.EnboState;
 
 class PathFunctionTesting extends EnboState
 {

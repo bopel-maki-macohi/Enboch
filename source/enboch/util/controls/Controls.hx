@@ -1,4 +1,4 @@
-package enboch.utilShitsie.controls;
+package enboch.util.controls;
 
 class Controls
 {

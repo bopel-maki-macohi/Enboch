@@ -1,6 +1,6 @@
-import enboch.utilShitsie.DebugString;
-import enboch.utilShitsie.api.GamejoltAPI;
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.DebugString;
+import enboch.util.api.GamejoltAPI;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 
 using StringTools;

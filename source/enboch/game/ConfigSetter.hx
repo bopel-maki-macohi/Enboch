@@ -1,6 +1,6 @@
 package enboch.game;
 
-import enboch.utilShitsie.api.trophies.Trophies;
+import enboch.util.api.trophies.Trophies;
 
 class ConfigSetter
 {

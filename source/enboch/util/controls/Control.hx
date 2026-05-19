@@ -1,4 +1,4 @@
-package enboch.utilShitsie.controls;
+package enboch.util.controls;
 
 import flixel.FlxG;
 import flixel.input.keyboard.FlxKey;

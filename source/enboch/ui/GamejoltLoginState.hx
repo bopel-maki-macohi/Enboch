@@ -1,8 +1,8 @@
 package enboch.ui;
 
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.api.GamejoltAPI;
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.EnboState;
+import enboch.util.api.GamejoltAPI;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.addons.ui.FlxUIButton;
 import flixel.addons.ui.FlxUIInputText;

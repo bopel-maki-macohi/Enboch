@@ -1,6 +1,6 @@
 package enboch.game;
 
-import enboch.utilShitsie.GraphicUtil;
+import enboch.util.GraphicUtil;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.FlxGraphic;

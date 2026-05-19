@@ -1,8 +1,8 @@
 import enboch.ui.*;
 import enboch.ui.debug.*;
-import enboch.utilShitsie.*;
-import enboch.utilShitsie.api.GamejoltAPI;
-import enboch.utilShitsie.api.trophies.Trophies;
+import enboch.util.*;
+import enboch.util.api.GamejoltAPI;
+import enboch.util.api.trophies.Trophies;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.addons.transition.FlxTransitionableState;

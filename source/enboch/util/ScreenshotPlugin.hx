@@ -1,6 +1,6 @@
-package enboch.utilShitsie;
+package enboch.util;
 
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.controls.Controls;
 import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.tweens.FlxEase;

@@ -1,6 +1,6 @@
 import enboch.ui.MainMenuState;
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.EnboState;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.sound.FlxSound;

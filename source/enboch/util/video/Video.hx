@@ -1,4 +1,4 @@
-package enboch.utilShitsie.video;
+package enboch.util.video;
 
 #if hxvlc
 typedef Video = DesktopVideo;

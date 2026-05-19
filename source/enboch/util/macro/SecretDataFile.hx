@@ -1,4 +1,4 @@
-package enboch.macroShit;
+package enboch.util.macro;
 
 import haxe.io.Path;
 import haxe.macro.Context;

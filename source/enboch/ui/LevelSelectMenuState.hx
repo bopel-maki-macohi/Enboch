@@ -1,7 +1,7 @@
 package enboch.ui;
 
-import enboch.utilShitsie.EnboState;
-import enboch.utilShitsie.controls.Controls;
+import enboch.util.EnboState;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.group.FlxSpriteGroup;
