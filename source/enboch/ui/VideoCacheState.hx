@@ -33,8 +33,8 @@ class VideoCacheState extends EnboState
 			}
 		}
 
-		VideoManager.onVideoPlay.add(v -> onFilePlay(v.settings.filePath));
-		VideoManager.onVideoPlayError.add((v, e) -> onFilePlayError);
+		VideoManager.onVideoPlay.add(onFilePlay);
+		VideoManager.onVideoPlayError.add(onFilePlayError);
 
 		for (file in toCache)
 		{
@@ -65,7 +65,7 @@ class VideoCacheState extends EnboState
 	function onFilePlayError(video:IVideo<Any>, error:String)
 	{
 		trace('Error with video "${video.settings.filePath}" : $error');
-		onFilePlay(video.settings.filePath);
+		onFilePlay(video);
 
 		if (errorsStr == 'None')
 			errorsStr = '';
@@ -73,9 +73,9 @@ class VideoCacheState extends EnboState
 		errorsStr += '- "${video.settings.filePath}" : $error\n';
 	}
 
-	function onFilePlay(file)
+	function onFilePlay(video:IVideo<Any>)
 	{
-		trace('Cached $file');
+		trace('Cached ${video.settings.filePath}');
 
 		cached++;
 
@@ -87,8 +87,8 @@ class VideoCacheState extends EnboState
 	{
 		initalized = true;
 
-		VideoManager.onVideoPlay.remove(v -> onFilePlay(v.settings.filePath));
-		VideoManager.onVideoPlayError.remove((v, e) -> onFilePlayError);
+		VideoManager.onVideoPlay.remove(onFilePlay);
+		VideoManager.onVideoPlayError.remove(onFilePlayError);
 
 		FlxTimer.wait(1, () ->
 		{
