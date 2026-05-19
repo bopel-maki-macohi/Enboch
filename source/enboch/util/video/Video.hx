@@ -22,9 +22,6 @@ class Video extends FlxSprite implements IVideo<FlxSprite>
 		VideoManager.initSettings(a);
 		this.settings = a;
 
-		if (a.onPlay != null)
-			a.onPlay();
-
 		visible = false;
 
 	}
