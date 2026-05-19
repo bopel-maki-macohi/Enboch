@@ -53,6 +53,8 @@ class MainMenuState extends EnboState
 
 	override function create()
 	{
+		transIn = null;
+
 		super.create();
 
 		video = new Video({
