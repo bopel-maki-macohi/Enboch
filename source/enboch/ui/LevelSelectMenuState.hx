@@ -93,7 +93,7 @@ class LevelSelectMenuState extends EnboState
 		if (Controls.ui_down.justPressed)
 			changeSelect(1);
 
-		if (Controls.leave.justPressed)
+		if (Controls.leave.justPressed && canSelect)
 		{
 			canSelect = false;
 			for (thing in textGrp)
