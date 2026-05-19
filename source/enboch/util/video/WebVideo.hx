@@ -74,8 +74,9 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 	{
 		super.destroy();
 
-		if (netStream != null)
-			netStream.dispose();
+		if (!settings.persist)
+			if (netStream != null)
+				netStream.dispose();
 
 		if (video != null && FlxG.game.contains(video))
 			FlxG.game.removeChild(video);
@@ -122,15 +123,13 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 		if (netStream == null)
 			return;
 
-		if (settings.shouldLoop)
-			return;
-
 		if (!settings.killOnEnd)
 			return;
 
 		VideoManager.onVideoFinished.dispatch();
 
-		netStream.dispose();
+		if (!settings.persist)
+			netStream.dispose();
 
 		if (video != null && FlxG.game.contains(video))
 			FlxG.game.removeChild(video);

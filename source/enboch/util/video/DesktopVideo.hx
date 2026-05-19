@@ -4,6 +4,7 @@ import enboch.data.VideoSettings;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
+import flixel.math.FlxMath;
 #if hxvlc
 import hxvlc.flixel.FlxVideoSprite;
 #end
@@ -60,7 +61,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		if (video != null)
 		{
-			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=0']))
+			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), [
+				'input-repeat=${((settings.shouldLoop) ? Std.string(FlxMath.MAX_VALUE_INT) : '0')}'
+			]))
 			{
 				if (!settings.instaStart)
 					return;
@@ -126,6 +129,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		VideoManager.onVideoRestart.dispatch();
 
+		video.pause();
 		video.bitmap.time = 0;
 		video.resume();
 	}
@@ -135,36 +139,28 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		if (video == null)
 			return;
 
-		if (settings.shouldLoop)
-		{
-			VideoManager.onVideoLooped.dispatch();
-
-			// keeping this means it can loop more then only 65545 times hehehe
-			video.bitmap.time = 0;
-			video.resume();
-			return;
-		}
-
 		VideoManager.onVideoFinished.dispatch();
 
-		if (settings.killOnEnd)
-		{
-			remove(video);
+		if (!settings.persist)
+			if (settings.killOnEnd)
+			{
+				remove(video);
 
-			video.stop();
-			video.destroy();
-		}
+				video.stop();
+				video.destroy();
+			}
 	}
 
 	override function destroy()
 	{
-		if (video != null)
-		{
-			remove(video);
+		if (!settings.persist)
+			if (video != null)
+			{
+				remove(video);
 
-			video.stop();
-			video.destroy();
-		}
+				video.stop();
+				video.destroy();
+			}
 
 		super.destroy();
 	}

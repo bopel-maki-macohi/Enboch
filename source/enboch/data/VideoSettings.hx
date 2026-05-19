@@ -8,6 +8,5 @@ typedef VideoSettings =
 	?actuallyLoad:Bool,
 	?killOnEnd:Bool,
 	?instaStart:Bool,
-
-	?web_back:Bool,
+	?persist:Bool,
 }

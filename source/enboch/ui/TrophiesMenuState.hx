@@ -27,6 +27,7 @@ class TrophiesMenuState extends EnboState
 					killOnEnd: false,
 				});
 				vid.ID = i;
+				vid.alpha = 0;
 
 				videos.push(vid);
 			}

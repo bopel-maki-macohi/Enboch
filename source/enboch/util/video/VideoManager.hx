@@ -26,7 +26,6 @@ class VideoManager
 		settings.instaStart ??= true;
 		settings.killOnEnd ??= true;
 		settings.shouldLoop ??= false;
-
-		settings.web_back ??= false;
+		settings.persist ??= false;
 	}
 }
