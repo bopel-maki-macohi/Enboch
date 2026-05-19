@@ -21,7 +21,7 @@ class Main extends Sprite
 		trace('Build Time: $buildTime');
 
 		if (debug)
-			Application.current.window.title += ' (Build Time: $buildTime)';
+			Application.current.window.title += ' ($buildTime)';
 
 		addChild(new InitState());
 	}
