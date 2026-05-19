@@ -3,6 +3,8 @@ package enboch.util.video;
 import enboch.data.VideoSettings;
 import flixel.FlxG;
 import flixel.FlxSprite;
+import flixel.math.FlxMath;
+import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import openfl.events.NetStatusEvent;
 import openfl.media.SoundTransform;
@@ -73,38 +75,59 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function startVideo()
 	{
-		VideoManager.onVideoStart.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+		VideoManager.onVideoStart.dispatch();
+		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
-		VideoManager.onVideoRestart.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.seek(0);
+		VideoManager.onVideoRestart.dispatch();
+		netStream.seek(0);
+	}
+
+	public function rewindVideo()
+	{
+		if (netStream == null)
+			return;
+
+		VideoManager.onVideoRewind.dispatch();
+
+		// Theres a catch in this function to cap it to the video duration
+		netStream.seek(FlxMath.MAX_VALUE_INT);
+
+		FlxTween.cancelTweensOf(netStream);
+		FlxTween.tween(netStream, {time: 0}, netStream.time);
 	}
 
 	public function pauseVideo()
 	{
-		VideoManager.onVideoPaused.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.pause();
+		VideoManager.onVideoPaused.dispatch();
+		netStream.pause();
 	}
 
 	public function resumeVideo()
 	{
-		VideoManager.onVideoResume.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.resume();
+		VideoManager.onVideoResume.dispatch();
+		netStream.resume();
 	}
 
 	public function finishVideo()
 	{
+		if (netStream == null)
+			return;
+
 		if (settings.shouldLoop)
 			return;
 
@@ -115,8 +138,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		netStream.dispose();
 
-		if (video != null)
-			FlxG.stage.removeChild(video);
+		if (video != null && FlxG.game.contains(video))
+			FlxG.game.removeChild(video);
 	}
 
 	var videoAvailable:Bool = false;
