@@ -19,14 +19,32 @@ class TrophiesMenuState extends EnboState
 	{
 		super();
 
+		for (entry in entries)
+		{
+			if (!'ui/trophies/$entry'.makePath(text).pathExists())
+				return;
+
+			var file:Array<String> = 'ui/trophies/$entry'.makePath(text).readFile().splitTextBy();
+
+			entry_relations.set(entry, file);
+		}
+
 		if (videos == null)
 		{
 			videos = [];
 
 			for (i => entry in entries)
 			{
+				var file = entry;
+
+				if (entry_relations.exists(entry))
+					file = entry_relations.get(entry)[3] ?? file;
+
+				if (!'trophies/$file'.makePath(video).pathExists())
+					continue;
+
 				var vid:Video = new Video({
-					filePath: 'trophies/$entry',
+					filePath: 'trophies/$file',
 					killOnEnd: false,
 					persist: true,
 				});
@@ -41,16 +59,6 @@ class TrophiesMenuState extends EnboState
 	override function create()
 	{
 		super.create();
-
-		for (entry in entries)
-		{
-			if (!'ui/trophies/$entry'.makePath(text).pathExists())
-				return;
-
-			var file:Array<String> = 'ui/trophies/$entry'.makePath(text).readFile().splitTextBy();
-
-			entry_relations.set(entry, file);
-		}
 
 		addMultiple(cast videos);
 
