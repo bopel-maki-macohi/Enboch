@@ -96,6 +96,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	function finishVideo()
 	{
 		#if hxvlc
+		if (video == null)
+			return;
+
 		if (settings.shouldLoop)
 		{
 			video.play();
