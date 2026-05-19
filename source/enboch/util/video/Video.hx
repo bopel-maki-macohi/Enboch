@@ -7,6 +7,8 @@ typedef Video = WebVideo;
 #else
 class Video extends flixel.FlxSprite
 {
+	public var settings:enboch.data.VideoSettings;
+
 	public var video:flixel.FlxSprite;
 
 	public function new(a:enboch.data.VideoSettings)
@@ -19,9 +21,11 @@ class Video extends flixel.FlxSprite
 			a.onPlay();
 
 		visible = false;
+
+		settings = a;
 	}
 
-	public function playVideo() {}
+	public function startVideo() {}
 
 	public function finishVideo() {}
 }

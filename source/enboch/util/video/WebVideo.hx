@@ -73,7 +73,7 @@ class WebVideo extends FlxBasic
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 
 		if (settings.instaStart != false)
-			playVideo();
+			startVideo();
 
 		if (settings.shouldLoop)
 		{
@@ -86,7 +86,7 @@ class WebVideo extends FlxBasic
 		}
 	}
 
-	public function playVideo()
+	public function startVideo()
 	{
 		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}

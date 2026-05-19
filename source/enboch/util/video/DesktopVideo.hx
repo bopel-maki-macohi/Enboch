@@ -60,22 +60,8 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 		if (video != null)
 		{
-			if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')])
-				&& video.play())
-			{
-				if (settings.onPlay != null)
-					settings.onPlay();
-
-				trace('PLAYING');
-			}
-			else
-			{
-				if (settings.onPlayError != null)
-					settings.onPlayError('COULDNT_PLAY');
-				trace('COULDNT_PLAY');
-
-				finishVideo();
-			}
+			if (settings.instaStart != false)
+				startVideoFirstTime();
 		}
 		else
 		{
@@ -94,7 +80,39 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		#end
 	}
 
-	function finishVideo()
+	public function startVideo()
+	{
+		if (!loadedVideo)
+			startVideoFirstTime();
+		else
+			video.play();
+	}
+
+	var loadedVideo:Bool = false;
+
+	function startVideoFirstTime()
+	{
+		loadedVideo = true;
+
+		if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')])
+			&& video.play())
+		{
+			if (settings.onPlay != null)
+				settings.onPlay();
+
+			trace('PLAYING');
+		}
+		else
+		{
+			if (settings.onPlayError != null)
+				settings.onPlayError('COULDNT_PLAY');
+			trace('COULDNT_PLAY');
+
+			finishVideo();
+		}
+	}
+
+	public function finishVideo()
 	{
 		#if hxvlc
 		if (video == null)
@@ -102,7 +120,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 
 		if (settings.shouldLoop)
 		{
-			video.play();
+			startVideo();
 			return;
 		}
 
