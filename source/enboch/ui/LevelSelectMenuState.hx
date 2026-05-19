@@ -27,7 +27,6 @@ class LevelSelectMenuState extends EnboState
 
 	override function create()
 	{
-		transIn = null;
 		super.create();
 
 		add(textGrp = new FlxTypedSpriteGroup<FlxText>());
@@ -106,7 +105,6 @@ class LevelSelectMenuState extends EnboState
 
 			FlxTimer.wait((1 + entries.length * .1), () ->
 			{
-				transOut = null;
 				FlxG.switchState(() -> new MainMenuState());
 			});
 		}

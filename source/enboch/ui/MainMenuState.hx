@@ -52,8 +52,6 @@ class MainMenuState extends EnboState
 
 	override function create()
 	{
-		transIn = null;
-
 		super.create();
 
 		video = new Video({
@@ -217,7 +215,6 @@ class MainMenuState extends EnboState
 					onComplete: t ->
 
 					{
-						transOut = null;
 						switch (selection.toLowerCase())
 						{
 							case 'options':
