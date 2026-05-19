@@ -17,14 +17,6 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	var netStream:NetStream;
 
-	override function set_alpha(alpha:Float):Float
-	{
-		if (video != null)
-			video.alpha = alpha;
-
-		return this.alpha;
-	}
-
 	public function new(settings:VideoSettings)
 	{
 		super();
@@ -45,9 +37,6 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		video = new Video();
 		video.x = video.y = 0;
-		video.alpha = 0;
-
-		FlxG.game.addChild(video);
 
 		var netConnection:NetConnection = new NetConnection();
 		netConnection.connect(null);
@@ -77,9 +66,14 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 		if (!settings.persist)
 			if (netStream != null)
 				netStream.dispose();
+	}
 
-		if (video != null && FlxG.game.contains(video))
-			FlxG.game.removeChild(video);
+	public function setTime(time:Int)
+	{
+		if (netStream == null)
+			return;
+
+		netStream.seek(time);
 	}
 
 	public function startVideo()
@@ -130,9 +124,6 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		if (!settings.persist)
 			netStream.dispose();
-
-		if (video != null && FlxG.game.contains(video))
-			FlxG.game.removeChild(video);
 	}
 
 	var videoAvailable:Bool = false;
