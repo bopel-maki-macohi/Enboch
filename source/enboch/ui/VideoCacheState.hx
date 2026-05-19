@@ -4,6 +4,7 @@ import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.video.Video;
 import flixel.FlxG;
 import flixel.text.FlxText;
+import flixel.util.FlxTimer;
 
 using haxe.io.Path;
 
@@ -31,10 +32,12 @@ class VideoCacheState extends EnboState
 
 		for (file in toCache)
 		{
-			var vid = new Video({
+			var vid:Video = null;
+			vid = new Video({
 				filePath: file,
 				onPlay: function()
 				{
+					add(vid);
 					onFilePlay(file);
 				},
 				onPlayError: function(e)
@@ -43,11 +46,12 @@ class VideoCacheState extends EnboState
 					onFilePlay(file);
 				},
 			});
-			// add(vid);
+			vid.alpha = 1 / totalFiles;
 
 			trace(file);
 		}
 
+		cachin.alignment = CENTER;
 		add(cachin);
 	}
 
@@ -75,6 +79,9 @@ class VideoCacheState extends EnboState
 	{
 		initalized = true;
 
-		FlxG.switchState(InitState.getInitalState().toNextState());
+		FlxTimer.wait(1, () ->
+		{
+			FlxG.switchState(InitState.getInitalState().toNextState());
+		});
 	}
 }
