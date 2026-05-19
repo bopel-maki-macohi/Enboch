@@ -1,5 +1,4 @@
 import enboch.utilShitsie.DebugString;
-import enboch.utilShitsie.Define;
 import enboch.utilShitsie.api.GamejoltAPI;
 import enboch.utilShitsie.controls.Controls;
 import flixel.FlxG;
@@ -49,7 +48,7 @@ class Paycheck
 	{
 		var nonoes:Array<String> = [];
 
-		if (!Define.debug)
+		if (!debug)
 		{
 			nonoes.push('gj_username');
 			nonoes.push('gj_usertoken');

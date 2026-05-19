@@ -15,26 +15,26 @@ class InitState extends FlxGame
 {
 	public static function getInitalState():InitialState
 	{
-		if ((Define.hxvlc || Define.FORCE_VCS) && !VideoCacheState.initalized)
+		if ((hxvlc || FORCE_VCS) && !VideoCacheState.initalized)
 			return VideoCacheState;
 
-		if (Define.DIE)
+		if (DIE)
 			return DeadState;
 
-		if (Define.TROPHY_TESTING)
+		if (TROPHY_TESTING)
 			return TrophyTesting;
 
-		if (Define.GAME != null)
+		if (GAME != null)
 		{
-			PlayState.character = Define.GAME;
+			PlayState.character = GAME;
 
 			return PlayState;
 		}
 
-		if (Define.PATH_FUNCTION_TESTING)
+		if (PATH_FUNCTION_TESTING)
 			return PathFunctionTesting;
 
-		if (Paycheck.game.firstTime || Define.GJ_LOGIN)
+		if (Paycheck.game.firstTime || GJ_LOGIN)
 			return GamejoltLoginState;
 
 		return MainMenuState;
@@ -72,7 +72,7 @@ class InitState extends FlxGame
 
 		ScreenshotPlugin.init();
 
-		if (!Define.debug)
+		if (!debug)
 		{
 			@:privateAccess
 			FlxG.log._standardTraceFunction = (v, ?i) -> {};

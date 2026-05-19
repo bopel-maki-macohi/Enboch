@@ -1,6 +1,5 @@
 package enboch.game;
 
-import enboch.utilShitsie.Define;
 import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxStringUtil;
@@ -19,7 +18,7 @@ class DebugGameText extends FlxText
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		if (Define.BOTPLAY)
+		if (BOTPLAY)
 		{
 			text = 'BOTPLAY\n';
 		}

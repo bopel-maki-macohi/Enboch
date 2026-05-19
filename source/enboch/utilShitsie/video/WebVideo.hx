@@ -115,7 +115,7 @@ class WebVideo extends FlxBasic
 			return;
 
 		netStream.dispose();
-		
+
 		if (video != null)
 			FlxG.stage.removeChild(video);
 	}

@@ -120,7 +120,7 @@ class PlayState extends EnboState
 			charSpr = new GamePhaseSprite(character, char),
 			itemSpr = new GamePhaseSprite(character, item),
 
-			((Define.DEBUG_TEXT) ? new DebugGameText(this) : null),
+			((DEBUG_TEXT) ? new DebugGameText(this) : null),
 		]);
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
@@ -228,10 +228,10 @@ class PlayState extends EnboState
 
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
-		if (Define.BOTPLAY)
+		if (BOTPLAY)
 			payPercentage = 0.0;
 
-		if ((Define.BOTPLAY && charSpr.state > 0) || FlxG.mouse.justPressed)
+		if ((BOTPLAY && charSpr.state > 0) || FlxG.mouse.justPressed)
 			useItem();
 
 		if (Controls.leave.justPressed && charSpr.state < config_states - 1)
@@ -240,7 +240,7 @@ class PlayState extends EnboState
 
 	function useItem()
 	{
-		if (!Define.BOTPLAY)
+		if (!BOTPLAY)
 			itemSpam++;
 
 		if (charSpr.state >= config_states - 1 || charSpr.state <= 0)

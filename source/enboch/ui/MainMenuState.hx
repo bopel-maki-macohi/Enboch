@@ -1,7 +1,6 @@
 package enboch.ui;
 
 import enboch.ui.objects.MainMenuButton;
-import enboch.utilShitsie.Define;
 import enboch.utilShitsie.EnboState;
 import enboch.utilShitsie.api.GamejoltAPI;
 import enboch.utilShitsie.controls.Controls;
@@ -34,11 +33,11 @@ class MainMenuState extends EnboState
 	var curSelect:Int = 0;
 
 	var version:FlxText = new FlxText(0, 0, 0,
-		'ENBOCH v${Application.current.meta.get('version')}' + ((!Define.debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
+		'ENBOCH v${Application.current.meta.get('version')}' + ((!debug) ? '' : ' (${Main.gitBranch}:${Main.gitCommit})'), 16);
 
 	override public function new(?TransIn:TransitionData, ?TransOut:TransitionData)
 	{
-		if (Define.debug)
+		if (debug)
 		{
 			if (TransIn == null)
 				TransIn = EnboState.DEFAULT_TRANSITION;

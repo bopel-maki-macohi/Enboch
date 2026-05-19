@@ -6,7 +6,7 @@ typedef VideoSettings =
 
 	?shouldLoop:Bool,
 	?actuallyLoad:Bool,
-	
+
 	?onPlay:Void->Void,
 	?onPlayError:String->Void,
 

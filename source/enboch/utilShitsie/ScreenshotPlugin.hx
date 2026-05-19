@@ -14,6 +14,7 @@ import openfl.display.Sprite;
 import openfl.utils.ByteArray;
 
 using StringTools;
+
 #if sys
 import sys.io.File;
 #end
@@ -22,7 +23,7 @@ class ScreenshotPlugin extends FlxBasic
 {
 	public static function init()
 	{
-		if (Define.web)
+		if (web)
 			return;
 
 		FlxG.plugins.addPlugin(new ScreenshotPlugin());

@@ -11,7 +11,7 @@ class Main extends Sprite
 		super();
 
 		Paycheck.load();
-		
+
 		trace('Git Branch: $gitBranch');
 		trace('Git Commit: $gitCommit');
 
