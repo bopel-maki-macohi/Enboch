@@ -3,12 +3,15 @@ package enboch.ui;
 import enboch.util.EnboState;
 import enboch.util.controls.Controls;
 import enboch.util.video.Video;
+import flixel.FlxBasic;
 import flixel.FlxG;
 import flixel.math.FlxMath;
+import flixel.text.FlxText;
 
 class TrophiesMenuState extends EnboState
 {
-	var entries:Array<String> = ['drowned', 'drowned'];
+	var entries:Array<String> = 'ui/trophies/_entries'.makePath(text).readFile().splitTextBy();
+	var entry_relations:Map<String, Array<String>> = [];
 
 	public static var videos:Array<Video> = null;
 
@@ -38,11 +41,33 @@ class TrophiesMenuState extends EnboState
 	{
 		super.create();
 
-		for (video in videos)
-			add(video);
+		for (entry in entries)
+		{
+			if (!'ui/trophies/$entry'.makePath(text).pathExists())
+				return;
+
+			var file:Array<String> = 'ui/trophies/$entry'.makePath(text).readFile().splitTextBy();
+
+			entry_relations.set(entry, file);
+		}
+
+		addMultiple(cast videos);
+
+		trophyTitle = new FlxText();
+		trophyDescription = new FlxText();
+
+		addMultiple([trophyTitle, trophyDescription]);
 
 		changeSelection(0);
 	}
+
+	public var trophyID(get, never):Int;
+
+	function get_trophyID():Int
+		return Std.parseInt(entry_relations.get(entries[currentSelection])[1] ?? '0');
+
+	var trophyTitle:FlxText;
+	var trophyDescription:FlxText;
 
 	override function update(elapsed:Float)
 	{
@@ -58,7 +83,7 @@ class TrophiesMenuState extends EnboState
 			changeSelection(-1);
 		if (Controls.ui_right.justPressed && canDoShit)
 			changeSelection(1);
-		
+
 		if (Controls.leave.justPressed && canDoShit)
 		{
 			canDoShit = false;
