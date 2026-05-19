@@ -22,7 +22,7 @@ class MainMenuState extends EnboState
 
 	var entries:Array<String> = [
 		'Levels',
-		'Trophies',
+		#if !web 'Trophies', #end
 		'Options',
 		'',
 		'Clear Save',

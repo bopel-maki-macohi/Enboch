@@ -5,6 +5,9 @@
 - Base Payment display to Level Select
   - Each level text shows the base payment
 
+- [DESKTOP] TROPHIES MENU!
+  - Desktop only cause of video playing issues, but either way the save shit is weird so it'd kinda be pointless
+
 - OPTIONS MENU!
   - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
