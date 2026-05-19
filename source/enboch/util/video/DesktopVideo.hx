@@ -53,22 +53,10 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 				'input-repeat=${((settings.shouldLoop) ? Std.string(FlxMath.MAX_VALUE_INT) : '0')}'
 			]))
 			{
-				video.bitmap.onFormatSetup.add(function():Void
-				{
-					if (video.bitmap != null && video.bitmap.bitmapData != null)
-					{
-						final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
-
-						video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
-						video.updateHitbox();
-						video.screenCenter();
-					}
-				});
-
 				if (!settings.instaStart)
 					return;
 
-				if (video.play())
+				if (playVideo())
 					VideoManager.onVideoPlay.dispatch(this);
 			}
 			else
@@ -95,13 +83,36 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 	}
 
 	#if hxvlc
+	function videoFormatSetup()
+	{
+		if (video.bitmap != null && video.bitmap.bitmapData != null)
+		{
+			final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
+
+			video.setGraphicSize(video.bitmap.bitmapData.width * scale, video.bitmap.bitmapData.height * scale);
+			video.updateHitbox();
+			video.screenCenter();
+		}
+	}
+
+	function playVideo():Bool
+	{
+		if (video == null)
+			return false;
+
+		if (!video.bitmap.onFormatSetup.has(videoFormatSetup))
+			video.bitmap.onFormatSetup.add(videoFormatSetup);
+
+		return video.play();
+	}
+
 	public function startVideo()
 	{
 		if (video == null)
 			return;
 
 		VideoManager.onVideoStart.dispatch();
-		video.play();
+		playVideo();
 	}
 
 	public function pauseVideo()
