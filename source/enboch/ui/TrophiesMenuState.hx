@@ -22,7 +22,6 @@ class TrophiesMenuState extends EnboState
 				var vid:Video = new Video({
 					filePath: 'trophies_$entry',
 					killOnEnd: false,
-					instaStart: false,
 				});
 				vid.ID = i;
 
@@ -48,9 +47,9 @@ class TrophiesMenuState extends EnboState
 		for (video in videos)
 		{
 			if (currentSelection == video.ID)
-			{
-				videos[currentSelection].restartVideo();
-			}
+				video.restartVideo();
+			else
+				video.pauseVideo();
 		}
 	}
 }
