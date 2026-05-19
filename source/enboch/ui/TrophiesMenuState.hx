@@ -2,6 +2,7 @@ package enboch.ui;
 
 import enboch.util.EnboState;
 import enboch.util.controls.Controls;
+import enboch.util.shader.GrayscaleShader;
 import enboch.util.video.Video;
 import flixel.FlxBasic;
 import flixel.FlxG;
@@ -70,10 +71,10 @@ class TrophiesMenuState extends EnboState
 		changeSelection(0);
 	}
 
-	public var trophyID(get, never):Int;
-
-	function get_trophyID():Int
-		return Std.parseInt(entry_relations.get(entries[currentSelection])[0] ?? '0');
+	public function getTrophyID(selection:Int):Null<Int>
+	{
+		return Std.parseInt(entry_relations.get(entries[selection])[0] ?? null);
+	}
 
 	var trophyTitle:FlxText;
 	var trophyDescription:FlxText;
@@ -109,6 +110,8 @@ class TrophiesMenuState extends EnboState
 	var currentSelection:Int = 0;
 	var canDoShit:Bool = true;
 
+	var grayscaleShader:GrayscaleShader = new GrayscaleShader();
+
 	function changeSelection(amount:Int)
 	{
 		currentSelection += amount;
@@ -130,6 +133,11 @@ class TrophiesMenuState extends EnboState
 					video.restartVideo();
 				else
 					video.pauseVideo();
+
+				if (Paycheck.game.trophies.contains(getTrophyID(video.ID)))
+					video.shader = null;
+				else
+					video.shader = grayscaleShader;
 			}
 		}
 	}
