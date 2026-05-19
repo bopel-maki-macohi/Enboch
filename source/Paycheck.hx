@@ -84,24 +84,26 @@ class Paycheck
 
 		totalPay = game.totalPay;
 
-		FlxG.stage.application.onExit.add(i ->
-		{
-			save();
-		}, false, 1000);
+		FlxG.stage.application.onExit.remove(save);
+		FlxG.stage.application.onExit.add(save, false, 1000);
 	}
 
 	public static function clear()
 	{
 		save();
 		FlxG.save.erase();
-	
+
+		var trophies:Array<Int> = game.trophies;
+
 		game = null;
 		load();
+
+		game.trophies = trophies;
 
 		FlxG.resetGame();
 	}
 
-	public static function save()
+	public static function save(?i:Int)
 	{
 		var keybinds:Map<String, Array<String>> = [];
 
