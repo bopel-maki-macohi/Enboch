@@ -8,6 +8,10 @@
   - Added Toggle for the Screenshot Flash
 - **NEW** (kinda) MAIN MENU!
 
+## Changed
+
+- The UI Transitions are black now 
+
 ## Fixed
 
 - Leaving Gameplay sends you to the level select

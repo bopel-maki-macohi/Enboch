@@ -19,7 +19,7 @@ class EnboState extends FlxUIState
 		transGraphic.persist = true;
 		transGraphic.destroyOnNoUse = false;
 
-		return new TransitionData(TILES, FlxColor.WHITE, .5, FlxPoint.get(0, -1), {
+		return new TransitionData(TILES, FlxColor.BLACK, .5, FlxPoint.get(0, -1), {
 			asset: transGraphic,
 			width: 32,
 			height: 32
