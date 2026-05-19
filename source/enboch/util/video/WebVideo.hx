@@ -73,34 +73,34 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function startVideo()
 	{
+		if (netStream == null) return;
+		
 		VideoManager.onVideoStart.dispatch();
-
-		if (netStream != null)
-			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
-		VideoManager.onVideoRestart.dispatch();
+		if (netStream == null) return;
 
-		if (netStream != null)
-			netStream.seek(0);
+		VideoManager.onVideoRestart.dispatch();
+		netStream.seek(0);
 	}
 
 	public function pauseVideo()
 	{
-		VideoManager.onVideoPaused.dispatch();
+		if (netStream == null) return;
 
-		if (netStream != null)
-			netStream.pause();
+		VideoManager.onVideoPaused.dispatch();
+		netStream.pause();
 	}
 
 	public function resumeVideo()
 	{
-		VideoManager.onVideoResume.dispatch();
+		if (netStream == null) return;
 
-		if (netStream != null)
-			netStream.resume();
+		VideoManager.onVideoResume.dispatch();
+		netStream.resume();
 	}
 
 	public function finishVideo()
