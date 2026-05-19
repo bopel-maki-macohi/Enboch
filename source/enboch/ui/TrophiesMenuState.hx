@@ -1,3 +1,5 @@
+package enboch.ui;
+
 import enboch.util.EnboState;
 import enboch.util.video.Video;
 
