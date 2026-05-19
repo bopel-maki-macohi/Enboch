@@ -1,3 +1,5 @@
+package enboch.game;
+
 import enboch.ui.MainMenuState;
 import enboch.util.EnboState;
 import enboch.util.controls.Controls;

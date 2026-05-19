@@ -5,20 +5,22 @@ typedef Video = DesktopVideo;
 #elseif web
 typedef Video = WebVideo;
 #else
-class Video extends flixel.FlxSprite
+import enboch.data.VideoSettings;
+import flixel.FlxSprite;
+
+class Video extends FlxSprite implements IVideo<FlxSprite>
 {
-	public var settings:enboch.data.VideoSettings;
+	public var video:FlxSprite;
+	public var settings:VideoSettings;
 
-	public var video:flixel.FlxSprite;
-
-	public function new(a:enboch.data.VideoSettings)
+	public function new(a:VideoSettings)
 	{
 		super();
 
 		trace('NOT HXVLC OR WEB');
 
 		VideoManager.initSettings(a);
-		settings = a;
+		this.settings = a;
 
 		if (a.onPlay != null)
 			a.onPlay();
@@ -28,6 +30,12 @@ class Video extends flixel.FlxSprite
 	}
 
 	public function startVideo() {}
+
+	public function pauseVideo() {}
+
+	public function resumeVideo() {}
+
+	public function restartVideo() {}
 
 	public function finishVideo() {}
 }

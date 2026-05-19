@@ -8,13 +8,12 @@ import flixel.group.FlxSpriteGroup.FlxTypedSpriteGroup;
 import hxvlc.flixel.FlxVideoSprite;
 #end
 
-class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
+class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements IVideo<FlxVideoSprite> #end
 {
-	public var settings:VideoSettings;
-
 	#if hxvlc
 	public var video:FlxVideoSprite;
 	#end
+	public var settings:VideoSettings;
 
 	public function new(settings:VideoSettings)
 	{
@@ -99,29 +98,51 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 		#end
 	}
 
+	#if hxvlc
 	public function startVideo()
 	{
-		video.play();
+		if (video != null)
+			video.play();
+	}
+
+	public function pauseVideo()
+	{
+		if (video != null)
+			video.pause();
+	}
+
+	public function resumeVideo()
+	{
+		if (video != null)
+			video.resume();
+	}
+
+	public function restartVideo()
+	{
+		if (video != null)
+		{
+			video.bitmap.time = 0;
+			video.resume();
+		}
 	}
 
 	public function finishVideo()
 	{
-		#if hxvlc
 		if (video == null)
 			return;
 
 		if (settings.shouldLoop)
 		{
-			startVideo();
+			restartVideo();
 			return;
 		}
 
-		if (!settings.killOnEnd)
-			return;
-
-		video.stop();
-		remove(video);
-		video.destroy();
-		#end
+		if (settings.killOnEnd)
+		{
+			video.stop();
+			remove(video);
+			video.destroy();
+		}
 	}
+	#end
 }

@@ -1,3 +1,5 @@
+package enboch.game;
+
 import enboch.game.*;
 import enboch.game.PlayStateConstants.*;
 import enboch.ui.LevelSelectMenuState;
@@ -80,12 +82,10 @@ class PlayState extends EnboState
 	{
 		super();
 
-		ConfigSetter.setConfig(this, character);
+		GameConfigSetter.setConfig(this, character);
 
 		for (i in 0...config_states - 1)
 			stateChangeChances.push([]);
-
-		var existingNumbers:Array<Int> = [];
 
 		for (i in 0...config_rng_maxNumber + 1)
 		{
@@ -120,7 +120,7 @@ class PlayState extends EnboState
 			charSpr = new GamePhaseSprite(character, char),
 			itemSpr = new GamePhaseSprite(character, item),
 
-			((DEBUG_TEXT) ? new DebugGameText(this) : null),
+			((DEBUG_TEXT) ? new GameDebugText(this) : null),
 		]);
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
@@ -180,7 +180,7 @@ class PlayState extends EnboState
 				if (!thing.contains(rng_stateChangeChance))
 					continue;
 
-				charSpr.state = StateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state,
+				charSpr.state = GameStateManager.parseMovementCode('${config_states}${i}${charSpr.state}', charSpr.state,
 					(rng_stateJumpChance >= jumpChanceNumber));
 			}
 		}
@@ -248,7 +248,7 @@ class PlayState extends EnboState
 
 		itemSpam = 0;
 
-		var lowerChance:Bool = StateManager.parseLowerItemUseChance(config_states, charSpr.state);
+		var lowerChance:Bool = GameStateManager.parseLowerItemUseChance(config_states, charSpr.state);
 
 		if (rng_itemUseChance < getNumberRelativeToRNGListMaxOutput(getNumberRelativeToConfigStates(5))
 			&& lowerChance

@@ -2,7 +2,7 @@ package enboch.game;
 
 import enboch.util.api.trophies.Trophies;
 
-class ConfigSetter
+class GameConfigSetter
 {
 	public static function setConfig(game:PlayState, character:String)
 	{
