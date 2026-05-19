@@ -33,6 +33,20 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		}
 
 		#if hxvlc
+		initVid();
+
+		attemptVidLoad();
+		#else
+		VideoManager.onVideoPlayError.dispatch(this, 'NOT_HXVLC');
+		trace('NOT_HXVLC');
+
+		finishVideo();
+		#end
+	}
+
+	#if hxvlc
+	function initVid()
+	{
 		video = new FlxVideoSprite(0, 0);
 		video.makeGraphic(FlxG.width, FlxG.height, 0x00000000);
 		video.updateHitbox();
@@ -46,25 +60,12 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		});
 
 		video.bitmap.onEndReached.add(finishVideo);
+	}
 
+	function attemptVidLoad()
+	{
 		if (video != null)
-		{
-			if (loadVideo())
-			{
-				if (!settings.instaStart)
-					return;
-
-				if (playVideo())
-					VideoManager.onVideoPlay.dispatch(this);
-			}
-			else
-			{
-				VideoManager.onVideoPlayError.dispatch(this, 'COULDNT_PLAY');
-				trace('COULDNT_PLAY');
-
-				finishVideo();
-			}
-		}
+			performVidLoad();
 		else
 		{
 			VideoManager.onVideoPlayError.dispatch(this, 'NULL_VIDEO');
@@ -72,15 +73,27 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 			finishVideo();
 		}
-		#else
-		VideoManager.onVideoPlayError.dispatch(this, 'NOT_HXVLC');
-		trace('NOT_HXVLC');
-
-		finishVideo();
-		#end
 	}
 
-	#if hxvlc
+	function performVidLoad()
+	{
+		if (loadVideo())
+		{
+			if (!settings.instaStart)
+				return;
+
+			if (playVideo())
+				VideoManager.onVideoPlay.dispatch(this);
+		}
+		else
+		{
+			VideoManager.onVideoPlayError.dispatch(this, 'COULDNT_PLAY');
+			trace('COULDNT_PLAY');
+
+			finishVideo();
+		}
+	}
+
 	function loadVideo()
 	{
 		var opts:Array<String> = [];
@@ -137,7 +150,7 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		if (video == null)
 			return;
 
-		VideoManager.onVideoRestart.dispatch();
+		VideoManager.onVideoResume.dispatch();
 		video.resume();
 	}
 
@@ -148,9 +161,9 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		VideoManager.onVideoRestart.dispatch();
 
-		video.pause();
-		video.bitmap.position = 0;
-		video.resume();
+		removeVideo();
+		initVid();
+		attemptVidLoad();
 	}
 
 	public function finishVideo()
@@ -175,15 +188,20 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		if (settings.persist)
 			return;
 
-		if (video != null)
-		{
-			remove(video);
-
-			video.stop();
-			video.destroy();
-		}
+		removeVideo();
 
 		super.destroy();
+	}
+
+	function removeVideo()
+	{
+		if (video == null)
+			return;
+
+		remove(video);
+
+		video.stop();
+		video.destroy();
 	}
 	#end
 
