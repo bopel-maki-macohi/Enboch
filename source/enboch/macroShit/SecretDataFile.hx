@@ -14,13 +14,13 @@ class SecretDataFile
 			file = file + '.secret';
 
 		#if sys
-		if (!sys.FileSystem.exists(file))
+		if (!FileSystem.exists(file))
 		{
 			Context.error('Missing Secret Data File Path: $file', Context.currentPos());
 			return macro $v{fileContent};
 		}
 
-		fileContent = sys.io.File.getContent(file);
+		fileContent = File.getContent(file);
 		#end
 
 		return macro $v{fileContent};

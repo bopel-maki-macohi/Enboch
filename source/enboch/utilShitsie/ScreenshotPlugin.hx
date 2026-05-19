@@ -15,10 +15,6 @@ import openfl.utils.ByteArray;
 
 using StringTools;
 
-#if sys
-import sys.io.File;
-#end
-
 class ScreenshotPlugin extends FlxBasic
 {
 	public static function init()
@@ -52,8 +48,8 @@ class ScreenshotPlugin extends FlxBasic
 			var date = Date.now().toString().replace('/', '_').replace(':', '-');
 
 			#if sys
-			if (!sys.FileSystem.exists('content/screenshots'))
-				sys.FileSystem.createDirectory('content/screenshots');
+			if (!FileSystem.exists('content/screenshots'))
+				FileSystem.createDirectory('content/screenshots');
 
 			File.saveBytes('content/screenshots/$date.png', screenshot);
 			showFancyPreview(data);

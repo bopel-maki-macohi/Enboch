@@ -17,7 +17,7 @@ class DefineFucker
 
 		#if sys
 		defines = [
-			for (s in sys.io.File.getContent('dev/macroShit/defines.txt').split('\n'))
+			for (s in File.getContent('dev/macroShit/defines.txt').split('\n'))
 				if (s.trim().length > 0) s.trim()
 		];
 		#end

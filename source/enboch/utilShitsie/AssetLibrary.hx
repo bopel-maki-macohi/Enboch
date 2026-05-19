@@ -43,7 +43,7 @@ class AssetLibrary
 	public static function pathExists(path:String):Bool
 	{
 		#if sys
-		return sys.FileSystem.exists(path);
+		return FileSystem.exists(path);
 		#end
 
 		var limeFuck = Assets.list().filter(p -> return p.startsWith('$path'));
@@ -57,7 +57,7 @@ class AssetLibrary
 
 		#if sys
 		return [
-			for (file in sys.FileSystem.readDirectory(Path.removeTrailingSlashes(directory)))
+			for (file in FileSystem.readDirectory(Path.removeTrailingSlashes(directory)))
 				'${Path.removeTrailingSlashes(directory)}/$file'
 		];
 		#end
