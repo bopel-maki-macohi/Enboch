@@ -101,29 +101,40 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 	#if hxvlc
 	public function startVideo()
 	{
-		if (video != null)
-			video.play();
+		if (video == null)
+			return;
+
+		VideoManager.onVideoStart.dispatch();
+		video.play();
 	}
 
 	public function pauseVideo()
 	{
-		if (video != null)
-			video.pause();
+		if (video == null)
+			return;
+
+		VideoManager.onVideoPaused.dispatch();
+		video.pause();
 	}
 
 	public function resumeVideo()
 	{
-		if (video != null)
-			video.resume();
+		if (video == null)
+			return;
+
+		VideoManager.onVideoRestart.dispatch();
+		video.resume();
 	}
 
 	public function restartVideo()
 	{
-		if (video != null)
-		{
-			video.bitmap.time = 0;
-			video.resume();
-		}
+		if (video == null)
+			return;
+
+		VideoManager.onVideoRestart.dispatch();
+
+		video.bitmap.time = 0;
+		video.resume();
 	}
 
 	public function finishVideo()
@@ -133,9 +144,14 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 
 		if (settings.shouldLoop)
 		{
-			restartVideo();
+			VideoManager.onVideoLooped.dispatch();
+
+			video.bitmap.time = 0;
+			video.resume();
 			return;
 		}
+
+		VideoManager.onVideoFinished.dispatch();
 
 		if (settings.killOnEnd)
 		{

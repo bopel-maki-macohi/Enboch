@@ -73,24 +73,32 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	public function startVideo()
 	{
+		VideoManager.onVideoStart.dispatch();
+
 		if (netStream != null)
 			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
+		VideoManager.onVideoRestart.dispatch();
+
 		if (netStream != null)
 			netStream.seek(0);
 	}
 
 	public function pauseVideo()
 	{
+		VideoManager.onVideoPaused.dispatch();
+
 		if (netStream != null)
 			netStream.pause();
 	}
 
 	public function resumeVideo()
 	{
+		VideoManager.onVideoResume.dispatch();
+
 		if (netStream != null)
 			netStream.resume();
 	}
@@ -102,6 +110,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		if (!settings.killOnEnd)
 			return;
+
+		VideoManager.onVideoFinished.dispatch();
 
 		netStream.dispose();
 
