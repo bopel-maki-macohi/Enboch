@@ -125,8 +125,7 @@ class MainMenuState extends EnboState
 		add(version);
 		version.alpha = 0;
 
-		if (video.video != null)
-			version.blend = SUBTRACT;
+		version.setBorderStyle(OUTLINE);
 
 		FlxTween.tween(version, {alpha: 1}, 1, {
 			ease: FlxEase.sineInOut,
