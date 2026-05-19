@@ -902,6 +902,10 @@ class FlxText extends FlxSprite
 				borderWidth += Math.abs(borderSize) * 2;
 				borderHeight += Math.abs(borderSize) * 2;
 
+			case BG(color, padding):
+				borderWidth += Math.abs(padding);
+				borderHeight += Math.abs(padding);
+
 			case NONE:
 		}
 
@@ -1102,6 +1106,8 @@ class FlxText extends FlxSprite
 
 			case OUTLINE_FAST | OUTLINE if (borderSize < 0): _graphicOffset.set(-borderSize, -borderSize);
 
+			case BG(color, padding): _graphicOffset.set(-padding, -padding);
+
 			case NONE | OUTLINE_FAST | OUTLINE: _graphicOffset.set(0, 0);
 		}
 		_matrix.translate(_graphicOffset.x, _graphicOffset.y);
@@ -1197,6 +1203,9 @@ class FlxText extends FlxSprite
 
 					_matrix.translate(curDelta, -curDelta); // return to center
 				}
+
+			case BG(color, padding):
+                applyFormats(_formatAdjusted, true);
 
 			case NONE:
 		}
@@ -1371,6 +1380,11 @@ class FlxTextFormatMarkerPair
 enum FlxTextBorderStyle
 {
 	NONE;
+
+	/**
+	 * Colored BG
+	 */
+	BG(color:FlxColor, padding:Int);
 
 	/**
 	 * A simple shadow to the lower-right
