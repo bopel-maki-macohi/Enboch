@@ -94,7 +94,8 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite>
 	{
 		loadedVideo = true;
 
-		if (video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((!settings.shouldLoop) ? '1' : '65545')])
+		if (settings.filePath != null
+			&& video.load(settings.filePath.makePath(AssetLibraryPathType.video), ['input-repeat=' + ((settings.shouldLoop == false) ? '1' : '65545')])
 			&& video.play())
 		{
 			if (settings.onPlay != null)
