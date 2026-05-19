@@ -8,6 +8,51 @@
                 "thresholdIdentical": 60,
                 "severity": "WARNING"
             }
+        },
+        {
+            "props": {
+                "max": 1000,
+                "ignoreEmptyLines": true,
+                "severity": "WARNING"
+            },
+            "type": "FileLength"
+        },
+        {
+            "props": {
+                "max": 160,
+                "severity": "WARNING"
+            },
+            "type": "LineLength"
+        },
+        {
+            "props": {
+                "max": 7,
+                "ignoreOverriddenMethods": false,
+                "severity": "WARNING"
+            },
+            "type": "ParameterNumber"
+        },
+        {
+            "props": {
+                "severity": "WARNING"
+            },
+            "type": "PublicAccessor"
+        },
+        {
+            "props": {
+                "format": "^\\s*(TODO|FIXME|HACK|XXX|BUG)",
+                "severity": "INFO"
+            },
+            "type": "TODOComment"
+        },
+        {
+            "props": {
+                "severity": "WARNING"
+            },
+            "type": "UnusedLocalVar"
+        },
+        {
+            "type": "Anonymous"
         }
     ]
 }
