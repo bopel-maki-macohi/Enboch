@@ -1,5 +1,6 @@
 package enboch.ui;
 
+import enboch.game.GameConfigSetter;
 import enboch.game.PlayState;
 import enboch.util.EnboState;
 import enboch.util.controls.Controls;
@@ -45,7 +46,7 @@ class LevelSelectMenuState extends EnboState
 			if (entry == '' || entry == null)
 				continue;
 
-			var newText = new FlxText(0, 0, 0, entry, 64);
+			var newText = new FlxText(0, 0, 0, '$entry ($' + '${GameConfigSetter.getBasePay(entry.toLowerCase())}' + ')', 64);
 			newText.ID = i;
 
 			newText.screenCenter(X);

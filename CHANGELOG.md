@@ -2,6 +2,9 @@
 
 ## Added
 
+- Base Payment display to Level Select
+  - Each level text shows the base payment
+
 - OPTIONS MENU!
   - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
