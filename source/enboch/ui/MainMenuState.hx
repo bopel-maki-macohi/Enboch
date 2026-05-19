@@ -117,6 +117,11 @@ class MainMenuState extends EnboState
 		version.y = FlxG.height - version.height;
 		version.scrollFactor.set();
 		add(version);
+		version.alpha = 0;
+
+		FlxTween.tween(version, {alpha: 1}, 1, {
+			ease: FlxEase.sineInOut,
+		});
 
 		changeSelect(0);
 	}
@@ -197,6 +202,10 @@ class MainMenuState extends EnboState
 						ease: FlxEase.sineInOut,
 					});
 				}
+
+				FlxTween.tween(version, {alpha: 0}, 1, {
+					ease: FlxEase.sineInOut,
+				});
 
 				FlxTween.tween(video, {alpha: 0}, 1 + entries.length * .1, {
 					ease: FlxEase.sineInOut,
