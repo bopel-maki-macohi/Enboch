@@ -130,7 +130,8 @@ class PlayState extends EnboState
 			safetyHeart = new SafetyHeart(),
 		]);
 
-		safetyHeart.screenCenter();
+		safetyHeart.x = safetyHeart.scale.x;
+		safetyHeart.y = FlxG.height - safetyHeart.height - safetyHeart.scale.y;
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
 
@@ -239,7 +240,7 @@ class PlayState extends EnboState
 
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
-		safetyHeart.glitchShader.threshold = 1 - ((config_states - charSpr.state) / config_states);
+		safetyHeart.percent = ((config_states - charSpr.state) / config_states);
 
 		if (BOTPLAY)
 			payPercentage = 0.0;

@@ -5,23 +5,27 @@ import flixel.FlxSprite;
 
 class SafetyHeart extends FlxSprite
 {
-	public var glitchShader:ScreenGlitchShader;
+	public var percent(default, set):Float;
+
+	function set_percent(percent:Float):Float
+	{
+		if (percent > 0.6)
+			loadGraphic('ui/game/heart'.makePath(image));
+		else if (percent > 0.25)
+			loadGraphic('ui/game/heart-half'.makePath(image));
+		else
+			loadGraphic('ui/game/heart-empty'.makePath(image));
+
+		scale.y = scale.x = 8;
+		updateHitbox();
+
+		return percent;
+	}
 
 	override public function new()
 	{
-		super(0, 0, 'ui/game/heart'.makePath(image));
+		super(0, 0);
 
-		scale.set(6, 6);
-		updateHitbox();
-
-		glitchShader = new ScreenGlitchShader(0);
-		this.shader = glitchShader;
-	}
-
-	override function update(elapsed:Float)
-	{
-		super.update(elapsed);
-
-		glitchShader.update();
+		percent = 1;
 	}
 }
