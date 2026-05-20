@@ -19,6 +19,7 @@
 
 ## Changed
 
+- All shaders are now files in the game
 - Sized down level select menu text
 
 - There are different base payments per character
