@@ -1,3 +1,9 @@
+# Unreleased
+
+## Fixed
+
+- [DESKTOP] Videos scale up consistently now
+
 # 0.3.0 - 5/20/2026
 
 ## Added
