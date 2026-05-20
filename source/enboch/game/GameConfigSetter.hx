@@ -27,6 +27,9 @@ class GameConfigSetter
 				game.config_trophy_fullpay = Trophies.FULLPAY_GUARDIAN;
 
 			case 'husk':
+				game.config_states = 5;
+				game.config_cAM_ro_max_max = 4;
+
 			case 'phantom':
 		}
 	}
@@ -38,7 +41,7 @@ class GameConfigSetter
 			case 'drowned': return 50;
 			case 'skeleton': return 75;
 			case 'guardian': return 100;
-			// case 'husk': return 100;
+			case 'husk': return 200;
 			// case 'phantom': return 100;
 		}
 
