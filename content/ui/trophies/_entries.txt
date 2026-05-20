@@ -2,6 +2,7 @@ drowned
 skeleton
 guardian
 husk
+phantom
 daycycle_one
 daycycle_three
 daycycle_nine

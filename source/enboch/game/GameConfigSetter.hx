@@ -49,6 +49,8 @@ class GameConfigSetter
 					var sound = new FlxSound().loadEmbedded(s);
 					game.config_movementSounds.push(sound);
 				}
+
+				game.config_trophy_fullpay = Trophies.FULLPAY_PHANTOM;
 		}
 	}
 
