@@ -101,7 +101,7 @@ class PlayState extends EnboState
 		for (i in 0...config_states - 1)
 			stateChangeChances.push([]);
 
-		for (i in 0...config_rng_maxNumber + 1)
+		for (i in config_rng_minNumber...config_rng_maxNumber + 1)
 		{
 			if (i % getNumberRelativeToConfigStates(3) == 0)
 			{
