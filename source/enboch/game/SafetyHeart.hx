@@ -12,9 +12,16 @@ class SafetyHeart extends FlxSprite
 		super(0, 0, 'ui/game/heart'.makePath(image));
 
 		scale.set(6, 6);
-        updateHitbox();
+		updateHitbox();
 
 		glitchShader = new ScreenGlitchShader(0);
-		// this.shader = glitchShader;
+		this.shader = glitchShader;
+	}
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		glitchShader.update();
 	}
 }
