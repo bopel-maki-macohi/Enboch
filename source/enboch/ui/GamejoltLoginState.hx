@@ -89,7 +89,7 @@ class GamejoltLoginState extends EnboState
 			leaveBtn
 		]);
 
-		FlxG.mouse.visible = true;
+		mouseAllowed = true;
 	}
 
 	function authBtnClick()
@@ -129,13 +129,6 @@ class GamejoltLoginState extends EnboState
 		{
 			FlxG.switchState(() -> new MainMenuState());
 		});
-	}
-
-	override function destroy()
-	{
-		FlxG.mouse.visible = false;
-
-		super.destroy();
 	}
 
 	override function update(elapsed:Float)

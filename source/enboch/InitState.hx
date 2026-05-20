@@ -75,8 +75,6 @@ class InitState extends FlxGame
 		super(0, 0, getInitalState());
 		removeEventListener(Event.ADDED_TO_STAGE, create);
 
-		FlxG.mouse.visible = false;
-
 		ScreenshotPlugin.init();
 
 		if (!debug)

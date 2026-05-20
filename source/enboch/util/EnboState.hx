@@ -52,4 +52,13 @@ class EnboState extends FlxUIState
 	function preScreenshot() {}
 
 	function postScreenshot() {}
+
+	var mouseAllowed:Bool = false;
+
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
+
+		FlxG.mouse.visible = mouseAllowed;
+	}
 }
