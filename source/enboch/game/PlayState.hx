@@ -69,6 +69,7 @@ class PlayState extends EnboState
 	public var config_trophy_fullpay:Trophy;
 
 	public var config_states:Int = 4;
+	public var config_startingState:Int = 0;
 
 	public static var config_trophies_daycycle:Map<Int, Trophy> = [];
 
@@ -137,6 +138,8 @@ class PlayState extends EnboState
 		{
 			itemSpr.screenCenter();
 		});
+
+		charSpr.state = config_startingState;
 
 		regenRNG();
 

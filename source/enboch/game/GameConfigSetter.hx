@@ -30,6 +30,8 @@ class GameConfigSetter
 				game.config_states = 5;
 				game.config_cAM_ro_max_max = 4;
 
+				game.config_startingState = 2;
+
 			case 'phantom':
 		}
 	}
