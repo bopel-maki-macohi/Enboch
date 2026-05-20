@@ -2,6 +2,8 @@
 
 ## Added
 
+- 2 NEW LEVELS: HUSK AND PHANTOM
+
 - Payment Text : (Tries it's best) to show you how much danger you're in during gameplay
 - Safety Heart : (Tries it's best) to show you how much danger you're in during gameplay
 
