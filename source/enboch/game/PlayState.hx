@@ -1,7 +1,5 @@
 package enboch.game;
 
-import enboch.game.*;
-import enboch.game.PlayStateConstants.*;
 import enboch.ui.LevelSelectMenuState;
 import enboch.util.*;
 import enboch.util.api.trophies.Trophy;

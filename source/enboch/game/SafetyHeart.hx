@@ -9,9 +9,9 @@ class SafetyHeart extends FlxSprite
 
 	function set_percent(percent:Float):Float
 	{
-		if (percent > 0.6)
+		if (percent > SAFETY_HEART_FULL_THRESHOLD)
 			loadGraphic('ui/game/heart'.makePath(image));
-		else if (percent > 0.25)
+		else if (percent > SAFETY_HEART_HALF_THRESHOLD)
 			loadGraphic('ui/game/heart-half'.makePath(image));
 		else
 			loadGraphic('ui/game/heart-empty'.makePath(image));
