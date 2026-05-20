@@ -25,6 +25,7 @@
 
 ## Changed
 
+- The Level Select Total Money text is now prefixed: "PAYCHECK: "
 - All shaders are now files in the game
 - Sized down level select menu text
 
@@ -37,6 +38,7 @@
 
 ## Fixed
 
+- The Level Select Total Money text is now in English Style
 - A Negative Minimum RNG Output now results in the Character State Change Chances including the negatives
   - The Guardian now has more state change chances because of this fix
 
