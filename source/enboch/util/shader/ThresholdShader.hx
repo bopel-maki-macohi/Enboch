@@ -9,7 +9,7 @@ class ThresholdShader extends FlxRuntimeShader
 {
 	override public function new(threshold:Float = 1)
 	{
-		super();
+		super('threshold.frag'.makePath(shader).readFile());
 
 		this.brightnessThreshold = threshold;
 	}
