@@ -9,6 +9,7 @@ import enboch.util.shader.ThresholdShader;
 import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.math.FlxMath;
+import flixel.sound.FlxSound;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -80,6 +81,8 @@ class PlayState extends EnboState
 	public var config_states:Int = 4;
 	public var config_startingState:Int = 0;
 
+	public var config_movementSounds:Array<FlxSound> = [];
+
 	public static var config_trophies_daycycle:Map<Int, Trophy> = [];
 
 	function getNumberRelativeToRNGListMaxOutput(number:Int)
@@ -147,6 +150,17 @@ class PlayState extends EnboState
 
 		charSpr.onStateChange.add(function()
 		{
+			for (sound in config_movementSounds)
+			{
+				if (sound == null)
+				{
+					config_movementSounds.remove(sound);
+					continue;
+				}
+
+				sound.play();
+			}
+
 			itemSpr.state = charSpr.state;
 
 			charSpr.screenCenter();

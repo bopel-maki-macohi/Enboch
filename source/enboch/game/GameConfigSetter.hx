@@ -1,6 +1,9 @@
 package enboch.game;
 
 import enboch.util.api.trophies.Trophies;
+import flixel.sound.FlxSound;
+
+using haxe.io.Path;
 
 class GameConfigSetter
 {
@@ -40,6 +43,12 @@ class GameConfigSetter
 
 				game.config_cAM_ro_max_min = 1; // 2s random min
 				game.config_cAM_ro_max_max = 3; // 6s random max
+
+				for (s in 'movement/phantom'.makePath(audio).withoutExtension().readDirectoryRecursive())
+				{
+					var sound = new FlxSound().loadEmbedded(s);
+					game.config_movementSounds.push(sound);
+				}
 		}
 	}
 
@@ -51,7 +60,7 @@ class GameConfigSetter
 			case 'skeleton': return 75;
 			case 'guardian': return 100;
 			case 'husk': return 200;
-			// case 'phantom': return 100;
+			case 'phantom': return 175;
 		}
 
 		return 100;
