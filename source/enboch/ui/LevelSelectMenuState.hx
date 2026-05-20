@@ -158,6 +158,8 @@ class LevelSelectMenuState extends EnboState
 
 		if (Controls.leave.justPressed && canSelect)
 		{
+			curSelect = -1;
+
 			canSelect = false;
 			for (thing in textGrp)
 			{
