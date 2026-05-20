@@ -68,6 +68,4 @@
 
 	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
 
-	<postbuild haxe="source/building/PostBuild.hx" />
-
 </project>
