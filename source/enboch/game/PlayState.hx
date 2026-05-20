@@ -6,7 +6,9 @@ import enboch.ui.LevelSelectMenuState;
 import enboch.util.*;
 import enboch.util.api.trophies.Trophy;
 import enboch.util.controls.Controls;
+import enboch.util.shader.ScreenGlitchShader;
 import enboch.util.shader.ThresholdShader;
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -25,7 +27,7 @@ class PlayState extends EnboState
 
 	public var charSpr:GamePhaseSprite;
 
-	var itemSpr:GamePhaseSprite;
+	public var itemSpr:GamePhaseSprite;
 
 	public var rngList:Array<Int> = [];
 
@@ -53,15 +55,18 @@ class PlayState extends EnboState
 
 	public var itemSpam:Int = 0;
 
-	var charSprShader:ThresholdShader = null;
-	var charSprShaderTween:FlxTween;
+	public var charSprShader:ThresholdShader = null;
+	public var charSprShaderTween:FlxTween;
+
+	public var stateChangeChances:Array<Array<Int>> = [];
+
+	public var gameCam:FlxCamera;
+	public var screenGlitchShader:ScreenGlitchShader;
 
 	public var config_using_cAM_ro:Bool = true;
 
 	public var config_cAM_ro_max_max:Int = 10;
 	public var config_cAM_ro_max_min:Int = 0;
-
-	public var stateChangeChances:Array<Array<Int>> = [];
 
 	public var config_rng_minNumber:Int = 0;
 	public var config_rng_maxNumber:Int = 10;
@@ -114,6 +119,13 @@ class PlayState extends EnboState
 	override public function create()
 	{
 		super.create();
+
+		screenGlitchShader = new ScreenGlitchShader(0);
+
+		gameCam = new FlxCamera();
+		FlxG.cameras.add(gameCam);
+		// gameCam.filters = [new ScreenGlitchShader()];
+		gameCam.canvas.shader = screenGlitchShader;
 
 		Paycheck.earned = 0;
 
@@ -230,6 +242,8 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
+
+		screenGlitchShader.threshold = 1 - ((config_states - charSpr.state) / config_states);
 
 		if (BOTPLAY)
 			payPercentage = 0.0;
