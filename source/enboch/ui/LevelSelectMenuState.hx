@@ -49,6 +49,8 @@ class LevelSelectMenuState extends EnboState
 			spr.screenCenter();
 
 			spr.x = FlxG.width - spr.width;
+
+			spr.alpha = 0;
 		}
 	}
 
