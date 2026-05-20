@@ -117,11 +117,14 @@ class DesktopVideo extends FlxTypedSpriteGroup<FlxSprite> #if hxvlc implements I
 		{
 			videoScaledUp = true;
 
-			final scale:Float = Math.min(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
-
-			video.scale.set(scale, scale);
+			video.scale.set(FlxG.width / video.bitmap.bitmapData.width, FlxG.height / video.bitmap.bitmapData.height);
 			video.updateHitbox();
 			video.screenCenter();
+
+			// trace('${video.width}x${video.height}');
+
+			if (video.width != FlxG.width)
+				videoFormatSetup();
 		}
 	}
 
