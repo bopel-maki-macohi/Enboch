@@ -6,6 +6,7 @@ import enboch.util.EnboState;
 import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
@@ -64,6 +65,11 @@ class LevelSelectMenuState extends EnboState
 
 		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
+
+		var swagBG = new FlxSprite(swagShitMoneyMoney.x,
+			swagShitMoneyMoney.y).makeGraphic(Math.round(swagShitMoneyMoney.width), Math.round(swagShitMoneyMoney.height), FlxColor.BLACK);
+		add(swagBG);
+
 		add(swagShitMoneyMoney);
 
 		swagShitMoneyMoney.alpha = 0;
@@ -74,6 +80,10 @@ class LevelSelectMenuState extends EnboState
 
 		paydayBitch = new FlxText(0, 0, FlxG.width, 'Pay day bitch', 32);
 		paydayBitch.scrollFactor.set();
+
+		var payBG = new FlxSprite(paydayBitch.x,
+			paydayBitch.y).makeGraphic(Math.round(paydayBitch.width), Math.round(paydayBitch.height), FlxColor.BLACK);
+		add(payBG);
 		add(paydayBitch);
 
 		paydayBitch.alpha = 0;
