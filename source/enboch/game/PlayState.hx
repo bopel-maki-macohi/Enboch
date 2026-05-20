@@ -8,8 +8,10 @@ import enboch.util.shader.ScreenGlitchShader;
 import enboch.util.shader.ThresholdShader;
 import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
 import openfl.filters.ShaderFilter;
 
@@ -60,6 +62,9 @@ class PlayState extends EnboState
 	public var stateChangeChances:Array<Array<Int>> = [];
 
 	public var safetyHeart:SafetyHeart;
+	public var payText:FlxText;
+
+	public var basePay:Int = 9001;
 
 	public var config_using_cAM_ro:Bool = true;
 
@@ -87,6 +92,7 @@ class PlayState extends EnboState
 		super();
 
 		GameConfigSetter.setConfig(this, character);
+		basePay = GameConfigSetter.getBasePay(character);
 
 		for (i in 0...config_states - 1)
 			stateChangeChances.push([]);
@@ -126,10 +132,15 @@ class PlayState extends EnboState
 
 			((DEBUG_TEXT) ? new GameDebugText(this) : null),
 			safetyHeart = new SafetyHeart(),
+			payText = new FlxText(0, 0, 0, 'SWAG SHIT MONEY MONEY MOTHER FUCKER', 16),
 		]);
 
 		safetyHeart.x = safetyHeart.scale.x;
 		safetyHeart.y = FlxG.height - safetyHeart.height - safetyHeart.scale.y;
+
+		payText.setBorderStyle(OUTLINE, FlxColor.BLACK, 2);
+		payText.x = safetyHeart.x;
+		payText.y = safetyHeart.y - payText.height;
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
 
@@ -206,7 +217,7 @@ class PlayState extends EnboState
 			if (payPercentage == 1 && config_trophy_fullpay != null)
 				config_trophy_fullpay.unlock();
 
-			Paycheck.getPayed(GameConfigSetter.getBasePay(character), payPercentage);
+			Paycheck.getPayed(basePay, payPercentage);
 		}
 	}
 
@@ -239,6 +250,7 @@ class PlayState extends EnboState
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
 		safetyHeart.percent = ((config_states - charSpr.state) / config_states);
+		payText.text = 'Pay $' + '${basePay * payPercentage}';
 
 		if (BOTPLAY)
 			payPercentage = 0.0;
