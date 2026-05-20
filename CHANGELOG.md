@@ -25,6 +25,8 @@
 
 ## Changed
 
+- Every Image file has `oxipng` ran on it (2+ mb saved :D)
+
 - The Level Select Total Money text is now prefixed: "PAYCHECK: "
 - All shaders are now files in the game
 - Sized down level select menu text
