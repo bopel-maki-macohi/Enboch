@@ -87,7 +87,7 @@ class LevelSelectMenuState extends EnboState
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
 
-		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
+		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'Earned: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
 
 		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
