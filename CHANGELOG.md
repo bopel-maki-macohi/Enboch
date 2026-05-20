@@ -4,11 +4,13 @@
 
 - 2 NEW LEVELS: HUSK AND PHANTOM
 
-- Payment Text : (Tries it's best) to show you how much danger you're in during gameplay
+- Payment Text : Shows you how much you are going to get payed and when
 - Safety Heart : (Tries it's best) to show you how much danger you're in during gameplay
 
 - **NEW** (kinda) MAIN MENU!
-  - Main Menu to Level Select transitions are faster now
+  - Main Menu to Level Select transitions are faster + cleaner now
+  - Added "Trophies" selection
+  - Added "Options" selection
   - Added "Clear Save" selection
 
 - [DESKTOP] TROPHIES MENU!
