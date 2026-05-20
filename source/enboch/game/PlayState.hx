@@ -8,6 +8,7 @@ import enboch.util.shader.ScreenGlitchShader;
 import enboch.util.shader.ThresholdShader;
 import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -48,8 +49,8 @@ class PlayState extends EnboState
 	}
 
 	public var charAITmr:FlxTimer = new FlxTimer();
+	public var payTmr:FlxTimer = new FlxTimer();
 	public var deathTmr:FlxTimer = new FlxTimer();
-
 	public var daycycleTmr:FlxTimer = new FlxTimer();
 
 	public var payPercentage = 1.0;
@@ -162,6 +163,7 @@ class PlayState extends EnboState
 		regenRNG();
 
 		charAITmr.start(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max), charAIMethod, 0);
+		payTmr.start(charAITmr.time * 2, payMethod, 0);
 
 		daycycleTmr.start(TIMER_DAYCYCLE_LENGTH, t ->
 		{
@@ -210,15 +212,19 @@ class PlayState extends EnboState
 			deathTmr.start(TIMER_DEATH_DEFAULT_LENGTH + rng_deathWaitSeconds, death);
 
 		regenRNG();
-		t.reset(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max));
+	}
 
-		if (!deathTmr.active && (t.elapsedLoops % 2 == 0))
-		{
-			if (payPercentage == 1 && config_trophy_fullpay != null)
-				config_trophy_fullpay.unlock();
+	function payMethod(t:FlxTimer)
+	{
+		t.reset(charAITmr.time * 2);
 
-			Paycheck.getPayed(basePay, payPercentage);
-		}
+		if (deathTmr.active)
+			return;
+
+		if (payPercentage == 1 && config_trophy_fullpay != null)
+			config_trophy_fullpay.unlock();
+
+		Paycheck.getPayed(basePay, payPercentage);
 	}
 
 	function characterPulse()
@@ -250,7 +256,7 @@ class PlayState extends EnboState
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
 		safetyHeart.percent = ((config_states - charSpr.state) / config_states);
-		payText.text = 'Pay $' + '${basePay * payPercentage}';
+		payText.text = 'Payment: $' + '${Math.round(basePay * payPercentage)} (Payed in ${FlxMath.roundDecimal(payTmr.timeLeft, 2)}s)';
 
 		if (BOTPLAY)
 			payPercentage = 0.0;

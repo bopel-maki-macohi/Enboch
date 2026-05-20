@@ -2,6 +2,9 @@
 
 ## Added
 
+- Pay Text : (Tries it's best) to show you how much danger you're in during gameplay
+- Safety Heart : (Tries it's best) to show you how much danger you're in during gameplay
+
 - **NEW** (kinda) MAIN MENU!
   - Main Menu to Level Select transitions are faster now
   - Added "Clear Save" selection

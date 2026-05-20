@@ -38,7 +38,6 @@ class GameDebugText extends FlxText
 
 			text += 'TOTAL PAY: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}\n';
 			text += 'ITEM SPAM: ${game?.itemSpam}\n';
-			text += 'PAY: $' + '${FlxStringUtil.formatMoney(GameConfigSetter.getBasePay(PlayState.character) * game?.payPercentage, false, true)}\n\n';
 
 			text += 'DAYCYCLE TIMER PROGRESS: ${FlxMath.roundDecimal(game?.daycycleTmr?.progress * 100, 2)}%\n';
 		}
