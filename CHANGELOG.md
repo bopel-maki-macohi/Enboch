@@ -2,7 +2,7 @@
 
 ## Added
 
-- Pay Text : (Tries it's best) to show you how much danger you're in during gameplay
+- Payment Text : (Tries it's best) to show you how much danger you're in during gameplay
 - Safety Heart : (Tries it's best) to show you how much danger you're in during gameplay
 
 - **NEW** (kinda) MAIN MENU!

@@ -32,6 +32,8 @@ class GameConfigSetter
 
 				game.config_startingState = 2;
 
+				game.config_trophy_fullpay = Trophies.FULLPAY_HUSK;
+
 			case 'phantom':
 		}
 	}
