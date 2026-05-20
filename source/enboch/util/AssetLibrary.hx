@@ -18,7 +18,6 @@ class AssetLibrary
 		// web doesnt work here for some reason?
 		audio => ['audio', #if web 'mp3' #else 'ogg' #end],
 		video => ['video', 'mp4'],
-		model => ['models', 'obj'],
 		text => [null, 'txt'],
 		shader => ['shaders', null],
 	];
@@ -114,7 +113,6 @@ enum abstract AssetLibraryPathType(String) from String to String
 	var image = 'image';
 	var audio = 'audio';
 	var video = 'video';
-	var model = 'model';
 	var text = 'text';
 	var shader = 'shader';
 }
