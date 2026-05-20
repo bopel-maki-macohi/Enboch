@@ -8,6 +8,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -21,12 +22,35 @@ class LevelSelectMenuState extends EnboState
 
 	var entries:Array<String> = 'ui/levelselect/entries'.makePath(text).readFile().splitTextBy();
 
+	var images:Array<FlxSprite> = [];
+
 	var camFollow:FlxObject;
 
 	var curSelect:Int = 0;
 
 	var swagShitMoneyMoney:FlxText;
 	var paydayBitch:FlxText;
+
+	override public function new()
+	{
+		super();
+
+		for (entry in entries)
+		{
+			var spr = new FlxSprite();
+			spr.loadGraphic('characters/${entry.toLowerCase()}/death'.makePath(image));
+			images.push(spr);
+			add(spr);
+
+			spr.scrollFactor.set();
+
+			spr.scale.set(.5, .5);
+			spr.updateHitbox();
+			spr.screenCenter();
+
+			spr.x = FlxG.width - spr.width;
+		}
+	}
 
 	override function create()
 	{
@@ -65,7 +89,7 @@ class LevelSelectMenuState extends EnboState
 
 		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
-		
+
 		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
 
 		var swagBG = new FlxSprite(swagShitMoneyMoney.x,
@@ -84,8 +108,7 @@ class LevelSelectMenuState extends EnboState
 		paydayBitch = new FlxText(0, 0, FlxG.width, 'Pay day bitch', 32);
 		paydayBitch.scrollFactor.set();
 
-		var payBG = new FlxSprite(paydayBitch.x,
-			paydayBitch.y).makeGraphic(Math.round(paydayBitch.width), Math.round(paydayBitch.height), FlxColor.BLACK);
+		var payBG = new FlxSprite(paydayBitch.x, paydayBitch.y).makeGraphic(Math.round(paydayBitch.width), Math.round(paydayBitch.height), FlxColor.BLACK);
 		add(payBG);
 
 		payBG.scrollFactor.set();
@@ -105,6 +128,14 @@ class LevelSelectMenuState extends EnboState
 		super.update(elapsed);
 
 		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
+
+		for (i => sprite in images)
+		{
+			if (curSelect == i)
+				sprite.alpha = FlxMath.lerp(sprite.alpha, 1, .1);
+			else
+				sprite.alpha = FlxMath.lerp(sprite.alpha, 0, .1);
+		}
 
 		for (text in textGrp.members)
 		{
