@@ -20,6 +20,7 @@ class AssetLibrary
 		video => ['video', 'mp4'],
 		model => ['models', 'obj'],
 		text => [null, 'txt'],
+		shader => ['shaders', null],
 	];
 
 	public static function addPathType(type:String, folder:String, extension:String)
@@ -115,4 +116,5 @@ enum abstract AssetLibraryPathType(String) from String to String
 	var video = 'video';
 	var model = 'model';
 	var text = 'text';
+	var shader = 'shader';
 }

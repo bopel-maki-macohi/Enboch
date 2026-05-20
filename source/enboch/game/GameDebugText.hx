@@ -29,16 +29,15 @@ class GameDebugText extends FlxText
 
 			text += 'RNG LIST: ${game?.rngList?.join('-')}\n\n';
 
-			text += 'STATE: ${game?.charSpr?.state}\n';
+			text += 'STATE: ${game?.charSpr?.state + 1}\n';
 			text += 'STATES: ${game?.config_states}\n';
-			text += 'DEATH STATE: ${game?.config_states - 1}\n\n';
+			text += 'DEATH STATE (in code): ${game?.config_states - 1}\n\n';
 
 			text += 'MOVEMENT TIME: ${game?.charAITmr?.time}s\n';
 			text += 'MOVEMENT TIME LEFT: ${FlxMath.roundDecimal(game?.charAITmr?.timeLeft, 2)}s\n\n';
 
 			text += 'TOTAL PAY: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}\n';
 			text += 'ITEM SPAM: ${game?.itemSpam}\n';
-			text += 'PAY: $' + '${FlxStringUtil.formatMoney(100 * game?.payPercentage, false, true)}\n\n';
 
 			text += 'DAYCYCLE TIMER PROGRESS: ${FlxMath.roundDecimal(game?.daycycleTmr?.progress * 100, 2)}%\n';
 		}

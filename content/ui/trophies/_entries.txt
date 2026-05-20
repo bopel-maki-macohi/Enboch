@@ -1,6 +1,7 @@
 drowned
 skeleton
 guardian
+husk
 daycycle_one
 daycycle_three
 daycycle_nine

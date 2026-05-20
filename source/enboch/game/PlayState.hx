@@ -1,16 +1,21 @@
 package enboch.game;
 
-import enboch.game.*;
-import enboch.game.PlayStateConstants.*;
 import enboch.ui.LevelSelectMenuState;
 import enboch.util.*;
 import enboch.util.api.trophies.Trophy;
 import enboch.util.controls.Controls;
+import enboch.util.shader.ScreenGlitchShader;
 import enboch.util.shader.ThresholdShader;
+import flixel.FlxCamera;
 import flixel.FlxG;
+import flixel.math.FlxMath;
+import flixel.sound.FlxSound;
+import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import openfl.filters.ShaderFilter;
 
 @:build(enboch.util.macro.RNGListField.generateList([
 	'stateChangeChance',
@@ -25,7 +30,7 @@ class PlayState extends EnboState
 
 	public var charSpr:GamePhaseSprite;
 
-	var itemSpr:GamePhaseSprite;
+	public var itemSpr:GamePhaseSprite;
 
 	public var rngList:Array<Int> = [];
 
@@ -45,23 +50,28 @@ class PlayState extends EnboState
 	}
 
 	public var charAITmr:FlxTimer = new FlxTimer();
+	public var payTmr:FlxTimer = new FlxTimer();
 	public var deathTmr:FlxTimer = new FlxTimer();
-
 	public var daycycleTmr:FlxTimer = new FlxTimer();
 
 	public var payPercentage = 1.0;
 
 	public var itemSpam:Int = 0;
 
-	var charSprShader:ThresholdShader = null;
-	var charSprShaderTween:FlxTween;
+	public var charSprShader:ThresholdShader = null;
+	public var charSprShaderTween:FlxTween;
+
+	public var stateChangeChances:Array<Array<Int>> = [];
+
+	public var safetyHeart:SafetyHeart;
+	public var payText:FlxText;
+
+	public var basePay:Int = 9001;
 
 	public var config_using_cAM_ro:Bool = true;
 
 	public var config_cAM_ro_max_max:Int = 10;
 	public var config_cAM_ro_max_min:Int = 0;
-
-	public var stateChangeChances:Array<Array<Int>> = [];
 
 	public var config_rng_minNumber:Int = 0;
 	public var config_rng_maxNumber:Int = 10;
@@ -69,6 +79,9 @@ class PlayState extends EnboState
 	public var config_trophy_fullpay:Trophy;
 
 	public var config_states:Int = 4;
+	public var config_startingState:Int = 0;
+
+	public var config_movementSounds:Array<FlxSound> = [];
 
 	public static var config_trophies_daycycle:Map<Int, Trophy> = [];
 
@@ -83,11 +96,12 @@ class PlayState extends EnboState
 		super();
 
 		GameConfigSetter.setConfig(this, character);
+		basePay = GameConfigSetter.getBasePay(character);
 
 		for (i in 0...config_states - 1)
 			stateChangeChances.push([]);
 
-		for (i in 0...config_rng_maxNumber + 1)
+		for (i in config_rng_minNumber...config_rng_maxNumber + 1)
 		{
 			if (i % getNumberRelativeToConfigStates(3) == 0)
 			{
@@ -121,12 +135,32 @@ class PlayState extends EnboState
 			itemSpr = new GamePhaseSprite(character, item),
 
 			((DEBUG_TEXT) ? new GameDebugText(this) : null),
+			safetyHeart = new SafetyHeart(),
+			payText = new FlxText(0, 0, 0, 'SWAG SHIT MONEY MONEY MOTHER FUCKER', 16),
 		]);
+
+		safetyHeart.x = safetyHeart.scale.x;
+		safetyHeart.y = FlxG.height - safetyHeart.height - safetyHeart.scale.y;
+
+		payText.setBorderStyle(OUTLINE, FlxColor.BLACK, 2);
+		payText.x = safetyHeart.x;
+		payText.y = safetyHeart.y - payText.height;
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
 
 		charSpr.onStateChange.add(function()
 		{
+			for (sound in config_movementSounds)
+			{
+				if (sound == null)
+				{
+					config_movementSounds.remove(sound);
+					continue;
+				}
+
+				sound.play();
+			}
+
 			itemSpr.state = charSpr.state;
 
 			charSpr.screenCenter();
@@ -138,9 +172,12 @@ class PlayState extends EnboState
 			itemSpr.screenCenter();
 		});
 
+		charSpr.state = config_startingState;
+
 		regenRNG();
 
 		charAITmr.start(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max), charAIMethod, 0);
+		payTmr.start(charAITmr.time * 2, payMethod, 0);
 
 		daycycleTmr.start(TIMER_DAYCYCLE_LENGTH, t ->
 		{
@@ -189,15 +226,19 @@ class PlayState extends EnboState
 			deathTmr.start(TIMER_DEATH_DEFAULT_LENGTH + rng_deathWaitSeconds, death);
 
 		regenRNG();
-		t.reset(TIMER_CHAR_AI_DEFAULT_LENGTH + FlxG.random.int(0, rng_cAM_ro_max));
+	}
 
-		if (!deathTmr.active && (t.elapsedLoops % 2 == 0))
-		{
-			if (payPercentage == 1 && config_trophy_fullpay != null)
-				config_trophy_fullpay.unlock();
+	function payMethod(t:FlxTimer)
+	{
+		t.reset(charAITmr.time * 2);
 
-			Paycheck.getPayed(GameConfigSetter.getBasePay(character), payPercentage);
-		}
+		if (deathTmr.active)
+			return;
+
+		if (payPercentage == 1 && config_trophy_fullpay != null)
+			config_trophy_fullpay.unlock();
+
+		Paycheck.getPayed(basePay, payPercentage);
 	}
 
 	function characterPulse()
@@ -227,6 +268,9 @@ class PlayState extends EnboState
 		super.update(elapsed);
 
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
+
+		safetyHeart.percent = ((config_states - charSpr.state) / config_states);
+		payText.text = 'Payment: $' + '${Math.round(basePay * payPercentage)} (Payed in ${FlxMath.roundDecimal(payTmr.timeLeft, 2)}s)';
 
 		if (BOTPLAY)
 			payPercentage = 0.0;

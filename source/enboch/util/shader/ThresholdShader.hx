@@ -1,32 +1,15 @@
 package enboch.util.shader;
 
-import flixel.system.FlxAssets;
+import flixel.addons.display.FlxRuntimeShader;
 
 /**
  * Base: https://github.com/47rooks/parasol/blob/main/parasol/shaders/ThresholdShader.hx
  */
-class ThresholdShader extends FlxShader
+class ThresholdShader extends FlxRuntimeShader
 {
-	@:glFragmentSource('
-		#pragma header
-
-		uniform float u_brightnessThreshold;
-
-		void main()
-		{
-			vec2 st = openfl_TextureCoordv.xy;  // Note, already normalized
-
-			vec4 color = flixel_texture2D(bitmap, st);
-			if (dot(color.rgb, vec3(0.2126, 0.7152, 0.0722)) > u_brightnessThreshold) {
-				gl_FragColor = color;
-			} else {
-				gl_FragColor = vec4(0.0);
-			}
-		}
-	')
 	override public function new(threshold:Float = 1)
 	{
-		super();
+		super('threshold.frag'.makePath(shader).readFile());
 
 		this.brightnessThreshold = threshold;
 	}
@@ -34,12 +17,11 @@ class ThresholdShader extends FlxShader
 	public var brightnessThreshold(get, set):Float;
 
 	function get_brightnessThreshold():Float
-		return this.u_brightnessThreshold.value[0];
+		return getFloat('u_brightnessThreshold');
 
 	function set_brightnessThreshold(brightnessThreshold:Float):Float
 	{
-		this.u_brightnessThreshold.value = [brightnessThreshold];
-
-		return this.u_brightnessThreshold.value[0];
+		setFloat('u_brightnessThreshold', brightnessThreshold);
+		return getFloat('u_brightnessThreshold');
 	}
 }

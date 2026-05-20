@@ -2,23 +2,31 @@
 
 ## Added
 
-- Base Payment display to Level Select
-  - Each level text shows the base payment
+- 2 NEW LEVELS: HUSK AND PHANTOM
+
+- Payment Text : (Tries it's best) to show you how much danger you're in during gameplay
+- Safety Heart : (Tries it's best) to show you how much danger you're in during gameplay
+
+- **NEW** (kinda) MAIN MENU!
+  - Main Menu to Level Select transitions are faster now
+  - Added "Clear Save" selection
 
 - [DESKTOP] TROPHIES MENU!
-  - Desktop only cause of video playing issues, but either way the save shit is weird so it'd kinda be pointless
+  - Desktop only cause of video playing issues, but either way the save shit is weird so it'd kinda be pointless I'm pretty sure
 
 - OPTIONS MENU!
   - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
   - Added Toggle for the Screenshot Flash
 
-- **NEW** (kinda) MAIN MENU!
-  - Main Menu to Level Select transitions are faster now
-  - Added "Clear Save" selection
+- Reload keybind (F5) that resets the current state
+- Base Payment display to Level Select
+  - Each level text shows the base payment
 
 ## Changed
 
+- The Level Select Total Money text is now prefixed: "PAYCHECK: "
+- All shaders are now files in the game
 - Sized down level select menu text
 
 - There are different base payments per character
@@ -26,9 +34,13 @@
   - Skeleton: $75
   - Drowned: $50
 
-- The UI Transitions are black now 
+- The UI Transitions are black now
 
 ## Fixed
+
+- The Level Select Total Money text is now in English Style
+- A Negative Minimum RNG Output now results in the Character State Change Chances including the negatives
+  - The Guardian now has more state change chances because of this fix
 
 - The save is now flushed on leaving
 - Leaving Gameplay sends you to the level select
