@@ -145,21 +145,25 @@ class LevelSelectMenuState extends EnboState
 	{
 		curSelect += selection;
 
-		if (entries[curSelect] == null || entries[curSelect] == '')
-		{
-			if (selection < 0)
-				curSelect--;
-			if (selection > 0)
-				curSelect++;
-		}
-
 		if (curSelect < 0)
 			curSelect = entries.length - 1;
 
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 
+		if (entries[curSelect] == null || entries[curSelect] == '')
+		{
+			if (selection < 0)
+				changeSelect(-1);
+			if (selection > 0)
+				changeSelect(1);
+
+			return;
+		}
+
 		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
+
+		paydayBitch.text = 'Base Pay: $' + '${GameConfigSetter.getBasePay(entries[curSelect])}';
 	}
 
 	function selectThingy()
