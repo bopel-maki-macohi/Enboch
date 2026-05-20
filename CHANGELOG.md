@@ -1,4 +1,4 @@
-# Unreleased
+# 0.3.0 - 5/17/2026
 
 ## Added
 
