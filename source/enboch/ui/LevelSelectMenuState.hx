@@ -25,6 +25,7 @@ class LevelSelectMenuState extends EnboState
 	var curSelect:Int = 0;
 
 	var swagShitMoneyMoney:FlxText;
+	var paydayBitch:FlxText;
 
 	override function create()
 	{
@@ -46,13 +47,11 @@ class LevelSelectMenuState extends EnboState
 			if (entry == '' || entry == null)
 				continue;
 
-			var newText = new FlxText(0, 0, 0, '$entry ($' + '${GameConfigSetter.getBasePay(entry.toLowerCase())}' + ')', 32);
+			var newText = new FlxText(0, 0, 0, '$entry', 32);
 			newText.ID = i;
 
-			newText.screenCenter(X);
-			var oldX = newText.x;
 			newText.x = -newText.width * 2;
-			FlxTween.tween(newText, {x: oldX}, 1, {
+			FlxTween.tween(newText, {x: 0}, 1, {
 				ease: FlxEase.sineInOut,
 				startDelay: i * .1,
 			});
@@ -63,14 +62,23 @@ class LevelSelectMenuState extends EnboState
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
 
-		swagShitMoneyMoney = new FlxText(0, 0, 0, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 16);
+		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
 		add(swagShitMoneyMoney);
 
-		swagShitMoneyMoney.screenCenter(X);
 		swagShitMoneyMoney.alpha = 0;
 
 		FlxTween.tween(swagShitMoneyMoney, {alpha: 1}, (1 + entries.length * .1), {
+			ease: FlxEase.sineInOut,
+		});
+
+		paydayBitch = new FlxText(0, 0, FlxG.width, 'Pay day bitch', 32);
+		paydayBitch.scrollFactor.set();
+		add(paydayBitch);
+
+		paydayBitch.alpha = 0;
+
+		FlxTween.tween(paydayBitch, {alpha: 1}, (1 + entries.length * .1), {
 			ease: FlxEase.sineInOut,
 		});
 
@@ -81,10 +89,12 @@ class LevelSelectMenuState extends EnboState
 	{
 		super.update(elapsed);
 
+		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
+
 		for (text in textGrp.members)
 		{
 			if (canSelect)
-				text.screenCenter(X);
+				text.x = 0;
 			text.y = text.ID * 128;
 			text.color = FlxColor.WHITE;
 
@@ -110,6 +120,10 @@ class LevelSelectMenuState extends EnboState
 					ease: FlxEase.sineInOut,
 				});
 			}
+
+			FlxTween.tween(paydayBitch, {alpha: 0}, (1 + entries.length * .1), {
+				ease: FlxEase.sineInOut,
+			});
 
 			FlxTween.tween(swagShitMoneyMoney, {alpha: 0}, (1 + entries.length * .1), {
 				ease: FlxEase.sineInOut,
