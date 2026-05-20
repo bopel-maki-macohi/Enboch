@@ -61,7 +61,6 @@ class PlayState extends EnboState
 
 	public var stateChangeChances:Array<Array<Int>> = [];
 
-	public var gameCam:FlxCamera;
 	public var screenGlitchShader:ScreenGlitchShader;
 
 	public var config_using_cAM_ro:Bool = true;
@@ -122,10 +121,6 @@ class PlayState extends EnboState
 		super.create();
 
 		screenGlitchShader = new ScreenGlitchShader(0);
-
-		gameCam = new FlxCamera();
-		FlxG.cameras.add(gameCam);
-		gameCam.filters = [new ShaderFilter(screenGlitchShader)];
 
 		Paycheck.earned = 0;
 
