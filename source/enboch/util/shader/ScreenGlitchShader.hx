@@ -4,9 +4,11 @@ import flixel.addons.display.FlxRuntimeShader;
 
 class ScreenGlitchShader extends FlxRuntimeShader
 {
-	override public function new()
+	override public function new(threshold:Float)
 	{
 		super('screenGlitch.frag'.makePath(shader).readFile());
+
+		this.threshold = threshold;
 	}
 
 	public var threshold(get, set):Float;
