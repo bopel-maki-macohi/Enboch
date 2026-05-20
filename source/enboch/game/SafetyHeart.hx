@@ -15,6 +15,6 @@ class SafetyHeart extends FlxSprite
         updateHitbox();
 
 		glitchShader = new ScreenGlitchShader(0);
-		this.shader = glitchShader;
+		// this.shader = glitchShader;
 	}
 }
