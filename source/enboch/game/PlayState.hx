@@ -61,7 +61,7 @@ class PlayState extends EnboState
 
 	public var stateChangeChances:Array<Array<Int>> = [];
 
-	public var screenGlitchShader:ScreenGlitchShader;
+	public var safetyHeart:SafetyHeart;
 
 	public var config_using_cAM_ro:Bool = true;
 
@@ -120,8 +120,6 @@ class PlayState extends EnboState
 	{
 		super.create();
 
-		screenGlitchShader = new ScreenGlitchShader(0);
-
 		Paycheck.earned = 0;
 
 		addMultiple([
@@ -129,6 +127,7 @@ class PlayState extends EnboState
 			itemSpr = new GamePhaseSprite(character, item),
 
 			((DEBUG_TEXT) ? new GameDebugText(this) : null),
+			safetyHeart = new SafetyHeart(),
 		]);
 
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
@@ -238,7 +237,7 @@ class PlayState extends EnboState
 
 		payPercentage = ((config_states - charSpr.state) / config_states) - ((itemSpam / ITEM_SPAM_MAX) / 2);
 
-		screenGlitchShader.threshold = 1 - ((config_states - charSpr.state) / config_states);
+		safetyHeart.glitchShader.threshold = 1 - ((config_states - charSpr.state) / config_states);
 
 		if (BOTPLAY)
 			payPercentage = 0.0;
