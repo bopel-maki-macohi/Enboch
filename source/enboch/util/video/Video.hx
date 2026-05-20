@@ -23,7 +23,6 @@ class Video extends FlxSprite implements IVideo<FlxSprite>
 		this.settings = a;
 
 		visible = false;
-
 	}
 
 	public function startVideo() {}
