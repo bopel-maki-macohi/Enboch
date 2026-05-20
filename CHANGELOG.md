@@ -2,20 +2,21 @@
 
 ## Added
 
-- Base Payment display to Level Select
-  - Each level text shows the base payment
+- **NEW** (kinda) MAIN MENU!
+  - Main Menu to Level Select transitions are faster now
+  - Added "Clear Save" selection
 
 - [DESKTOP] TROPHIES MENU!
-  - Desktop only cause of video playing issues, but either way the save shit is weird so it'd kinda be pointless
+  - Desktop only cause of video playing issues, but either way the save shit is weird so it'd kinda be pointless I'm pretty sure
 
 - OPTIONS MENU!
   - Added Toggle for the Character Pulse
   - Added Toggle for the New Main Menu's video BG
   - Added Toggle for the Screenshot Flash
 
-- **NEW** (kinda) MAIN MENU!
-  - Main Menu to Level Select transitions are faster now
-  - Added "Clear Save" selection
+- Reload keybind (F5) that resets the current state
+- Base Payment display to Level Select
+  - Each level text shows the base payment
 
 ## Changed
 
@@ -27,7 +28,7 @@
   - Skeleton: $75
   - Drowned: $50
 
-- The UI Transitions are black now 
+- The UI Transitions are black now
 
 ## Fixed
 

@@ -4,6 +4,7 @@ import enboch.ui.debug.*;
 import enboch.util.*;
 import enboch.util.api.GamejoltAPI;
 import enboch.util.api.trophies.Trophies;
+import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.addons.transition.FlxTransitionableState;
@@ -108,5 +109,13 @@ class InitState extends FlxGame
 
 		FlxTransitionableState.defaultTransIn = EnboState.DEFAULT_TRANSITION;
 		FlxTransitionableState.defaultTransOut = EnboState.DEFAULT_TRANSITION;
+	}
+
+	override function update()
+	{
+		super.update();
+
+		if (Controls.reload.justPressed)
+			FlxG.resetState();
 	}
 }
