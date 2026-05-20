@@ -2,6 +2,10 @@
 
 uniform float glitchThreshold;
 
+float rand(vec2 co){
+    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
+}
+
 void main()
 {
 	vec2 st = openfl_TextureCoordv.xy;  // Note, already normalized
@@ -14,8 +18,3 @@ void main()
         gl_FragColor = vec4(0.0);
 	}
 }
-
-float rand(vec2 co){
-    return fract(sin(dot(co, vec2(12.9898, 78.233))) * 43758.5453);
-}
-
