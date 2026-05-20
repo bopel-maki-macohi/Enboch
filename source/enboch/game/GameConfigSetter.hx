@@ -33,7 +33,7 @@ class GameConfigSetter
 
 	public static function getBasePay(character:String):Int
 	{
-		switch (character)
+		switch (character.toLowerCase())
 		{
 			case 'drowned': return 50;
 			case 'skeleton': return 75;
