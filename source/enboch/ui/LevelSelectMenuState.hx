@@ -65,6 +65,8 @@ class LevelSelectMenuState extends EnboState
 
 		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
+		
+		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
 
 		var swagBG = new FlxSprite(swagShitMoneyMoney.x,
 			swagShitMoneyMoney.y).makeGraphic(Math.round(swagShitMoneyMoney.width), Math.round(swagShitMoneyMoney.height), FlxColor.BLACK);
@@ -85,6 +87,7 @@ class LevelSelectMenuState extends EnboState
 		var payBG = new FlxSprite(paydayBitch.x,
 			paydayBitch.y).makeGraphic(Math.round(paydayBitch.width), Math.round(paydayBitch.height), FlxColor.BLACK);
 		add(payBG);
+
 		payBG.scrollFactor.set();
 		add(paydayBitch);
 
