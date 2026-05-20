@@ -5,7 +5,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Enboch" file="Enboch" main="Main" version="0.3.0" company="Maki" />
+	<app title="Enboch" file="Enboch" main="enboch.Main" version="0.3.0" company="Maki" />
 
 	<app preloader="flixel.system.FlxPreloader" />
 	<set name="SWF_VERSION" value="11.8" />
@@ -60,12 +60,14 @@
 
 	<haxedef name="HXCPP_CHECK_POINTER" />
 	<haxedef name="HXCPP_STACK_LINE" />
-    <haxedef name="HXCPP_STACK_TRACE" />
+	<haxedef name="HXCPP_STACK_TRACE" />
 
 	<haxedef name="lime_disable_assets_version" />
 
 	<haxedef name="HXVLC_VERBOSE" value="1" />
-	
+
 	<haxeflag name="--macro" value="include('hxvlc')" if="hxvlc" />
+
+	<postbuild haxe="source/building/PostBuild.hx" />
 
 </project>

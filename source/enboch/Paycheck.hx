@@ -1,3 +1,5 @@
+package enboch;
+
 import enboch.data.PaycheckData;
 import enboch.util.DebugString;
 import enboch.util.api.GamejoltAPI;

@@ -14,7 +14,9 @@ class Build
 		var aP:String = (date.getHours() >= 12) ? 'pm' : 'am';
 
 		time = '${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()} @'
-			+ ' ${date.getHours() % 12}:${date.getMinutes()}:'
+			+ ' ${date.getHours() % 12}:'
+			+ '${date.getMinutes()}'.lpad('0', 2)
+			+ ':'
 			+ '${date.getSeconds()}'.lpad('0', 2)
 			+ ' $aP';
 		Context.info('Build Time: ${time}', Context.currentPos());

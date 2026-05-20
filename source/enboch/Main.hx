@@ -1,3 +1,5 @@
+package enboch;
+
 import enboch.util.macro.Build;
 import enboch.util.macro.GitShit;
 import lime.app.Application;
@@ -7,7 +9,7 @@ class Main extends Sprite
 {
 	public static var gitBranch:String = GitShit.getGitBranch();
 	public static var gitCommit:String = GitShit.getGitCommit();
-
+	
 	public static var buildTime:String = Build.getBuildTime();
 
 	public function new()
