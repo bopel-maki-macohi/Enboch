@@ -35,6 +35,11 @@ class GameConfigSetter
 				game.config_trophy_fullpay = Trophies.FULLPAY_HUSK;
 
 			case 'phantom':
+				game.config_rng_minNumber = -4; // 1s min
+				game.config_rng_maxNumber = -2; // 3s max
+
+				game.config_cAM_ro_max_min = 1; // 2s random min
+				game.config_cAM_ro_max_max = 3; // 6s random max
 		}
 	}
 
