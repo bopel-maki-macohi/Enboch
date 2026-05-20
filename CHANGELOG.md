@@ -1,3 +1,12 @@
+# Unreleased
+
+## Added
+
+- Sum new bells and whisles to the Level Select Menu
+  - Added Character Death Image to the side
+  - Moved Base Pay text to the top of the screen instead of being merged with the level texts
+  - Changed "PAYCHECK" text to "EARNED"
+
 # 0.3.0 - 5/20/2026
 
 ## Added
