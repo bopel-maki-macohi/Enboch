@@ -1,5 +1,6 @@
 package enboch.util.video;
 
+import enboch.data.VideoSettings;
 import flixel.util.FlxSignal;
 
 typedef VideoSignal = FlxTypedSignal<IVideo<Any>->Void>;
@@ -18,4 +19,15 @@ class VideoManager
 
 	public static var onVideoFinished:FlxSignal = new FlxSignal();
 	public static var onVideoLooped:FlxSignal = new FlxSignal();
+
+	public static function initSettings(settings:VideoSettings)
+	{
+		settings.actuallyLoad ??= true;
+		settings.instaStart ??= true;
+		settings.killOnEnd ??= true;
+		settings.shouldLoop ??= false;
+		settings.persist ??= false;
+
+		settings.playbackRate ??= 1.0;
+	}
 }

@@ -23,13 +23,13 @@ class VideoCacheState extends EnboState
 
 		var toCache:Array<String> = [];
 
-		for (file in ''.makePath(video).withoutExtension().readDirectory())
+		for (file in ''.makePath(video).withoutExtension().readDirectoryRecursive())
 		{
 			if (file.extension() == 'mp4')
 			{
 				totalFiles++;
-				toCache.push(file.withoutDirectory().withoutExtension());
-				trace(file);
+				toCache.push(file.withoutExtension().replace(''.makePath(video).withoutExtension(), ''));
+				// trace(file);
 			}
 		}
 
@@ -44,6 +44,7 @@ class VideoCacheState extends EnboState
 			});
 			vid.alpha = 1 / totalFiles;
 			add(vid);
+			vid.screenCenter();
 		}
 
 		cachin.alignment = CENTER;

@@ -19,12 +19,11 @@ class Video extends FlxSprite implements IVideo<FlxSprite>
 
 		trace('NOT HXVLC OR WEB');
 
+		VideoManager.initSettings(a);
 		this.settings = a;
 
-		if (a.onPlay != null)
-			a.onPlay();
-
 		visible = false;
+
 	}
 
 	public function startVideo() {}

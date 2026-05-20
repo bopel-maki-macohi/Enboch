@@ -22,6 +22,7 @@ class MainMenuState extends EnboState
 
 	var entries:Array<String> = [
 		'Levels',
+		#if hxvlc 'Trophies', #end
 		'Options',
 		'',
 		'Clear Save',
@@ -67,10 +68,6 @@ class MainMenuState extends EnboState
 			add(video);
 
 		video.scrollFactor.set();
-
-		#if web
-		FlxG.camera.bgColor.alpha = 0;
-		#end
 
 		video.alpha = 0;
 
@@ -200,7 +197,7 @@ class MainMenuState extends EnboState
 		FlxG.sound.play('ui/ui_select'.makePath(audio));
 		switch (selection.toLowerCase())
 		{
-			case 'levels', 'play', 'options':
+			case 'levels', 'play', 'options', 'trophies':
 				canSelect = false;
 				for (thing in textGrp)
 				{
@@ -219,15 +216,14 @@ class MainMenuState extends EnboState
 					onComplete: t ->
 
 					{
+						transOut = null;
 						switch (selection.toLowerCase())
 						{
-							case 'options':
-								transOut = null;
-								FlxG.switchState(() -> new OptionsMenuState());
+							case 'trophies': FlxG.switchState(() -> new TrophiesMenuState());
 
-							default:
-								transOut = null;
-								FlxG.switchState(() -> new LevelSelectMenuState());
+							case 'options': FlxG.switchState(() -> new OptionsMenuState());
+
+							default: FlxG.switchState(() -> new LevelSelectMenuState());
 						}
 					}
 				});

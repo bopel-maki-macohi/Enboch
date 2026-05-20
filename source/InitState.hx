@@ -35,6 +35,9 @@ class InitState extends FlxGame
 		if (PATH_FUNCTION_TESTING)
 			return PathFunctionTesting;
 
+		if (GRAYSCALE_TESTING)
+			return GrayscaleTesting;
+
 		if (Paycheck.game.firstTime || GJ_LOGIN)
 			return GamejoltLoginState;
 

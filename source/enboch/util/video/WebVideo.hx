@@ -17,17 +17,11 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 	var netStream:NetStream;
 
-	override function set_alpha(alpha:Float):Float
-	{
-		if (video != null)
-			video.alpha = alpha;
-
-		return this.alpha;
-	}
-
 	public function new(settings:VideoSettings)
 	{
 		super();
+
+		VideoManager.initSettings(settings);
 
 		this.settings = settings;
 
@@ -43,9 +37,6 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		video = new Video();
 		video.x = video.y = 0;
-		video.alpha = 0;
-
-		FlxG.game.addChild(video);
 
 		var netConnection:NetConnection = new NetConnection();
 		netConnection.connect(null);
@@ -54,7 +45,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 		netStream.client = {onMetaData: onMeta};
 		netConnection.addEventListener(NetStatusEvent.NET_STATUS, onNetStatus);
 
-		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+		if (settings.instaStart != false)
+			startVideo();
 
 		if (settings.shouldLoop)
 		{
@@ -65,43 +57,63 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 			}
 			#end
 		}
+
+		#if (js && html5)
+		@:privateAccess {
+			if (netStream?.__video != null)
+				netStream.__video.playbackRate = settings.playbackRate;
+		}
+		#end
+	}
+
+	override function destroy()
+	{
+		super.destroy();
+
+		if (!settings.persist)
+			if (netStream != null)
+				netStream.dispose();
 	}
 
 	public function startVideo()
 	{
-		VideoManager.onVideoStart.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
+		VideoManager.onVideoStart.dispatch();
+		netStream.play(settings.filePath.makePath(AssetLibraryPathType.video));
 	}
 
 	public function restartVideo()
 	{
-		VideoManager.onVideoRestart.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.seek(0);
+		VideoManager.onVideoRestart.dispatch();
+		netStream.seek(0);
 	}
 
 	public function pauseVideo()
 	{
-		VideoManager.onVideoPaused.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.pause();
+		VideoManager.onVideoPaused.dispatch();
+		netStream.pause();
 	}
 
 	public function resumeVideo()
 	{
-		VideoManager.onVideoResume.dispatch();
+		if (netStream == null)
+			return;
 
-		if (netStream != null)
-			netStream.resume();
+		VideoManager.onVideoResume.dispatch();
+		netStream.resume();
 	}
 
 	public function finishVideo()
 	{
-		if (settings.shouldLoop)
+		if (netStream == null)
 			return;
 
 		if (!settings.killOnEnd)
@@ -109,10 +121,8 @@ class WebVideo extends FlxSprite implements IVideo<Video>
 
 		VideoManager.onVideoFinished.dispatch();
 
-		netStream.dispose();
-
-		if (video != null)
-			FlxG.stage.removeChild(video);
+		if (!settings.persist)
+			netStream.dispose();
 	}
 
 	var videoAvailable:Bool = false;
