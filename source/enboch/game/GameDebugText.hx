@@ -29,7 +29,7 @@ class GameDebugText extends FlxText
 
 			text += 'RNG LIST: ${game?.rngList?.join('-')}\n\n';
 
-			text += 'STATE: ${game?.charSpr?.state}\n';
+			text += 'STATE: ${game?.charSpr?.state + 1}\n';
 			text += 'STATES: ${game?.config_states}\n';
 			text += 'DEATH STATE: ${game?.config_states - 1}\n\n';
 
