@@ -130,6 +130,8 @@ class PlayState extends EnboState
 			safetyHeart = new SafetyHeart(),
 		]);
 
+		safetyHeart.screenCenter();
+
 		charSpr.shader = charSprShader = new ThresholdShader((!Paycheck.game.settings.characterPulse) ? 1 : 0);
 
 		charSpr.onStateChange.add(function()

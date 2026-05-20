@@ -14,7 +14,7 @@ class SafetyHeart extends FlxSprite
 		scale.set(6, 6);
         updateHitbox();
 
-		glitchShader = new ScreenGlitchShader(1);
+		glitchShader = new ScreenGlitchShader(0);
 		this.shader = glitchShader;
 	}
 }
