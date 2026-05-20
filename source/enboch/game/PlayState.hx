@@ -13,6 +13,7 @@ import flixel.FlxG;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
+import openfl.filters.ShaderFilter;
 
 @:build(enboch.util.macro.RNGListField.generateList([
 	'stateChangeChance',
@@ -124,8 +125,7 @@ class PlayState extends EnboState
 
 		gameCam = new FlxCamera();
 		FlxG.cameras.add(gameCam);
-		// gameCam.filters = [new ScreenGlitchShader()];
-		gameCam.canvas.shader = screenGlitchShader;
+		gameCam.filters = [new ShaderFilter(screenGlitchShader)];
 
 		Paycheck.earned = 0;
 
