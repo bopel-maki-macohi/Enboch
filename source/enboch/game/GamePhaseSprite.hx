@@ -56,6 +56,9 @@ class GamePhaseSprite extends FlxSprite
 					loadGraphic(ITEM_ASSET_LIST.get(character)[s]);
 		}
 
+		if (graphic == null)
+			this.visible = false;
+
 		this.state = s;
 
 		onStateChange.dispatch();
