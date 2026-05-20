@@ -35,6 +35,9 @@
 
 ## Fixed
 
+- A Negative Minimum RNG Output now results in the Character State Change Chances including the negatives
+  - The Guardian now has more state change chances because of this fix
+
 - The save is now flushed on leaving
 - Leaving Gameplay sends you to the level select
 
