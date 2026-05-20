@@ -6,7 +6,9 @@ import enboch.util.EnboState;
 import enboch.util.controls.Controls;
 import flixel.FlxG;
 import flixel.FlxObject;
+import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
+import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
@@ -20,11 +22,37 @@ class LevelSelectMenuState extends EnboState
 
 	var entries:Array<String> = 'ui/levelselect/entries'.makePath(text).readFile().splitTextBy();
 
+	var images:Array<FlxSprite> = [];
+
 	var camFollow:FlxObject;
 
 	var curSelect:Int = 0;
 
 	var swagShitMoneyMoney:FlxText;
+	var paydayBitch:FlxText;
+
+	override public function new()
+	{
+		super();
+
+		for (entry in entries)
+		{
+			var spr = new FlxSprite();
+			spr.loadGraphic('characters/${entry.toLowerCase()}/death'.makePath(image));
+			images.push(spr);
+			add(spr);
+
+			spr.scrollFactor.set();
+
+			spr.scale.set(.5, .5);
+			spr.updateHitbox();
+			spr.screenCenter();
+
+			spr.x = FlxG.width - spr.width;
+
+			spr.alpha = 0;
+		}
+	}
 
 	override function create()
 	{
@@ -46,13 +74,11 @@ class LevelSelectMenuState extends EnboState
 			if (entry == '' || entry == null)
 				continue;
 
-			var newText = new FlxText(0, 0, 0, '$entry ($' + '${GameConfigSetter.getBasePay(entry.toLowerCase())}' + ')', 32);
+			var newText = new FlxText(0, 0, 0, '$entry', 32);
 			newText.ID = i;
 
-			newText.screenCenter(X);
-			var oldX = newText.x;
 			newText.x = -newText.width * 2;
-			FlxTween.tween(newText, {x: oldX}, 1, {
+			FlxTween.tween(newText, {x: 0}, 1, {
 				ease: FlxEase.sineInOut,
 				startDelay: i * .1,
 			});
@@ -63,14 +89,36 @@ class LevelSelectMenuState extends EnboState
 		add(camFollow = new FlxObject(640));
 		FlxG.camera.follow(camFollow, LOCKON, 0.1);
 
-		swagShitMoneyMoney = new FlxText(0, 0, 0, 'PAYCHECK: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 16);
+		swagShitMoneyMoney = new FlxText(0, 0, FlxG.width, 'Earned: $' + '${FlxStringUtil.formatMoney(Paycheck.totalPay, false, true)}', 32);
 		swagShitMoneyMoney.scrollFactor.set();
+
+		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
+
+		var swagBG = new FlxSprite(swagShitMoneyMoney.x,
+			swagShitMoneyMoney.y).makeGraphic(Math.round(swagShitMoneyMoney.width), Math.round(swagShitMoneyMoney.height), FlxColor.BLACK);
+		add(swagBG);
+		swagBG.scrollFactor.set();
+
 		add(swagShitMoneyMoney);
 
-		swagShitMoneyMoney.screenCenter(X);
 		swagShitMoneyMoney.alpha = 0;
 
 		FlxTween.tween(swagShitMoneyMoney, {alpha: 1}, (1 + entries.length * .1), {
+			ease: FlxEase.sineInOut,
+		});
+
+		paydayBitch = new FlxText(0, 0, FlxG.width, 'Pay day bitch', 32);
+		paydayBitch.scrollFactor.set();
+
+		var payBG = new FlxSprite(paydayBitch.x, paydayBitch.y).makeGraphic(Math.round(paydayBitch.width), Math.round(paydayBitch.height), FlxColor.BLACK);
+		add(payBG);
+
+		payBG.scrollFactor.set();
+		add(paydayBitch);
+
+		paydayBitch.alpha = 0;
+
+		FlxTween.tween(paydayBitch, {alpha: 1}, (1 + entries.length * .1), {
 			ease: FlxEase.sineInOut,
 		});
 
@@ -81,10 +129,20 @@ class LevelSelectMenuState extends EnboState
 	{
 		super.update(elapsed);
 
+		swagShitMoneyMoney.y = FlxG.height - swagShitMoneyMoney.height;
+
+		for (i => sprite in images)
+		{
+			if (curSelect == i)
+				sprite.alpha = FlxMath.lerp(sprite.alpha, 1, .1);
+			else
+				sprite.alpha = FlxMath.lerp(sprite.alpha, 0, .1);
+		}
+
 		for (text in textGrp.members)
 		{
 			if (canSelect)
-				text.screenCenter(X);
+				text.x = 0;
 			text.y = text.ID * 128;
 			text.color = FlxColor.WHITE;
 
@@ -102,6 +160,8 @@ class LevelSelectMenuState extends EnboState
 
 		if (Controls.leave.justPressed && canSelect)
 		{
+			curSelect = -1;
+
 			canSelect = false;
 			for (thing in textGrp)
 			{
@@ -110,6 +170,10 @@ class LevelSelectMenuState extends EnboState
 					ease: FlxEase.sineInOut,
 				});
 			}
+
+			FlxTween.tween(paydayBitch, {alpha: 0}, (1 + entries.length * .1), {
+				ease: FlxEase.sineInOut,
+			});
 
 			FlxTween.tween(swagShitMoneyMoney, {alpha: 0}, (1 + entries.length * .1), {
 				ease: FlxEase.sineInOut,
@@ -131,21 +195,25 @@ class LevelSelectMenuState extends EnboState
 	{
 		curSelect += selection;
 
-		if (entries[curSelect] == null || entries[curSelect] == '')
-		{
-			if (selection < 0)
-				curSelect--;
-			if (selection > 0)
-				curSelect++;
-		}
-
 		if (curSelect < 0)
 			curSelect = entries.length - 1;
 
 		if (curSelect > entries.length - 1)
 			curSelect = 0;
 
+		if (entries[curSelect] == null || entries[curSelect] == '')
+		{
+			if (selection < 0)
+				changeSelect(-1);
+			if (selection > 0)
+				changeSelect(1);
+
+			return;
+		}
+
 		FlxG.sound.play('ui/ui_scroll'.makePath(audio));
+
+		paydayBitch.text = 'Base Pay: $' + '${GameConfigSetter.getBasePay(entries[curSelect])}';
 	}
 
 	function selectThingy()
