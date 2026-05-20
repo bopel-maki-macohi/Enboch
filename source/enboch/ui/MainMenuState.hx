@@ -62,18 +62,12 @@ class MainMenuState extends EnboState
 			shouldLoop: true,
 
 			actuallyLoad: Paycheck.game.settings.menuBGVideo,
-
-			playbackRate: 0.5,
 		});
 
 		if (video.video != null)
 			add(video);
 
 		video.scrollFactor.set();
-
-		#if web
-		FlxG.camera.bgColor.alpha = 0;
-		#end
 
 		video.alpha = 0;
 
